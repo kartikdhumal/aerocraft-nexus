@@ -184,9 +184,9 @@ function YourOrders() {
   return (
     <div className='bg-sky-100 min-h-screen'>
       <HomeNavbar />
-      <h4 className="text-2xl py-3 font-bold mb-2 text-center">Your Orders </h4>
+      <h4 className="text-2xl py-3 pt-24 font-bold mb-2 text-center">Your Orders </h4>
       <div className="flex justify-center">
-        <div className="w-full max-w-screen-lg flex border-2 border-black justify-between">
+        <div className="max-w-screen-lg w-[90%] flex border-2 border-black justify-between">
           <div
             className={`cursor-pointer text-center w-1/2 py-3 ${tab === 'orders' ? 'bg-blue-400' : 'bg-sky-100'
               }`}

@@ -283,7 +283,7 @@ function ModelCard() {
     return (
         <div className='bg-sky-100'>
             <HomeNavbar />
-            <div className="mx-auto p-4 py-14 pt-20">
+            <div className="mx-auto p-4 py-14 lg:pt-32 sm:pt-24">
                 {modelData && (
                     <div className=" rounded-lg overflow-hidden lg:flex-row sm:flex-col flex">
                         <div className='lg:w-[50%] sm:w-[100%] px-5 '>
@@ -353,7 +353,7 @@ function ModelCard() {
                             <div className="tracking-wide px-4  py-4">
                                 <h2 className="text-gray-800 text-lg text-center py-3 font-bold mt-1">
                                     {reviews ? <>
-                                        {reviews.length == 1 ? `${reviews.length} review` : 'reviews'}</> : <></>}
+                                        {reviews.length == 1 ? `${reviews.length} Review` : 'Reviews'}</> : <></>}
                                 </h2>
                                 <div className="mx-8 px-8 pb-3">
                                     {[...Array(5)].map((_, index) => {
