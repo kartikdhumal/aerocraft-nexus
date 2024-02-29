@@ -234,23 +234,20 @@ function HomeNavbar() {
             <div className='w-full space-y-4 py-5'>
               <div className="flex-shrink-0 w-full h-auto flex-col object-fill flex justify-center items-center">
                 {/* <img src={userlogo} alt="" className="object-cover cursor-auto object-center w-10 h-10 rounded" /> */}
-                <h2 className="text-xl px-2 pb-5 font-bold cursor-auto text-black" >
+                <h2 className="text-xl font-bold cursor-auto bg-gray-100 text-black rounded-xl px-4 py-1" >
                     {
-                      sessionStorage.userid ? 'Hey.. ' + sessionStorage.name : 'User'
+                      sessionStorage.userid ? 'Hey.. ' + sessionStorage.name + ' 👏🏻' : 'User'
                     }
                   </h2>
               </div>
               <span className="flex items-center justify-start space-x-2 space-y-1">
-              <ListAltIcon className="text-black" /> 
-              <NavLink to={'/yourorders'} className="font-bold cursor-pointer flex justify-start items-center text-black"> Your Orders  </NavLink>
-              </span>
-              <span className="flex items-center justify-start space-x-2 space-y-1">
-                <AccountBoxIcon className="text-black" />
-                <NavLink to={'/usereditprofile'} className="text-black cursor-pointer font-bold">Edit Profile</NavLink>
+              <NavLink to={'/yourorders'} className="lg:w-auto sm:w-full cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 rounded-lg text-md px-4 py-2 font-bold text-center ml-2"> Your Orders  </NavLink>
               </span>
               <span className="flex items-center justify-start cursor-pointer space-x-2 space-y-1">
-                <LogoutIcon className="text-black" />
-                <span className="text-black font-bold" onClick={handleLogout}>Log Out</span>
+                <NavLink to={'/usereditprofile'} className="lg:w-auto sm:w-full cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-blue-800 rounded-lg text-md px-4 py-2 font-bold text-center ml-2">Edit Profile</NavLink>
+              </span>
+              <span className="flex items-center justify-start cursor-pointer space-x-2 space-y-1">
+                <span className="lg:w-auto sm:w-full cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 rounded-lg text-md px-4 py-2 font-bold text-center ml-2" onClick={handleLogout}>Log Out</span>
               </span>
             </div>
 

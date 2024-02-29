@@ -17,6 +17,7 @@ function Reports() {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [selectedStars, setSelectedStars] = useState(0);
+  const [reportSelected, setReportSelected] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
@@ -34,6 +35,8 @@ function Reports() {
 
   const handleReportTypeSelect = (type) => {
     setReportType(type);
+    setReportType(type);
+    setReportSelected(true);
   };
 
   const handleGenerateSalesReport = async () => {
@@ -492,7 +495,8 @@ function Reports() {
             </div>
           </div>
           <div className='table mx-6 lg:w-[80%] sm:w-[90%]'>
-            {reportType === 'user' && (
+          {reportSelected ? (
+            <> {reportType === 'user' && (
               <div >
                 <div className='flex justify-center items-center px-5 py-10'>
                   <button className="w-full mt-5 cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 rounded-lg text-md px-4 py-2 font-bold text-center" onClick={handleGenerateUserReport}>Generate Report</button>
@@ -567,7 +571,13 @@ function Reports() {
                 <button className="w-full mt-5 cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 rounded-lg text-md px-4 py-2 font-bold text-center" onClick={handleReviewReport}>Generate All Reviews report</button>
               </div>
             )}
-
+           </>
+           ) : (
+            <div className="flex justify-center flex-col items-center h-auto py-28">
+              <p className="text-xl font-semibold text-gray-600">Select report type from dropdown.</p>
+              <p className="text-xl font-semibold text-gray-600">Reports will be shown here.</p>
+            </div>
+          )}
           </div>
         </div>
       </div>
