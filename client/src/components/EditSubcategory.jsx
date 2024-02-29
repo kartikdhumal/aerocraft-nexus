@@ -20,7 +20,7 @@ function EditSubcategory() {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get('http://localhost:2000/api/categories');
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/categories');
       setCategories(response.data.categories);
     } catch (error) {
       console.error('Error fetching categories:', error);
@@ -29,7 +29,7 @@ function EditSubcategory() {
 
   const fetchSubcategory = async () => {
     try {
-      const response = await axios.get(`http://localhost:2000/api/getsubcategory/${id}`);
+      const response = await axios.get(`https://aerocraftnexusserver.vercel.app/api/getsubcategory/${id}`);
       const subcategory = response.data.subcategory;
       setCategoryId(subcategory.categoryId);
       setName(subcategory.name);
@@ -49,7 +49,7 @@ function EditSubcategory() {
         throw new Error('Please select a category');
       }
   
-      const response = await axios.put(`http://localhost:2000/api/updatesubcategory/${id}`, { name, categoryId });
+      const response = await axios.put(`https://aerocraftnexusserver.vercel.app/api/updatesubcategory/${id}`, { name, categoryId });
       alert(response.data.message);
       navigate('/addsubcat');
       setLoading(false);

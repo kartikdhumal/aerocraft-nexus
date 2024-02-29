@@ -9,7 +9,7 @@ function Count() {
     const fetchCartItemCount = async () => {
       try {
         if (userId) {
-          const response = await axios.get(`http://localhost:2000/api/cartitemcount/${userId}`);
+          const response = await axios.get(`https://aerocraftnexusserver.vercel.app/api/cartitemcount/${userId}`);
           const { count } = response.data;
           setCartItemCount(count);
           console.log('count count : ' + count);

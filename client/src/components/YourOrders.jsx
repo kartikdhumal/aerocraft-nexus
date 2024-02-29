@@ -30,7 +30,7 @@ function YourOrders() {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get(`http://localhost:2000/api/orders/${sessionStorage.userid}`);
+      const response = await axios.get(`https://aerocraftnexusserver.vercel.app/api/orders/${sessionStorage.userid}`);
       setOrders(response.data.orders.filter(order => order.status !== 'returned'));
       setOrderDetails(response.data.orderDetails);
       setLoading(false);
@@ -41,7 +41,7 @@ function YourOrders() {
 
   const fetchOrderReturn = async () => {
     try {
-      const response = await axios.get(`http://localhost:2000/api/getreturnorders`);
+      const response = await axios.get(`https://aerocraftnexusserver.vercel.app/api/getreturnorders`);
       setOrderReturnData(response.data.orderReturn);
       setOrderReturnDetails(response.data.orderReturnDetails);
     } catch (error) {
@@ -51,7 +51,7 @@ function YourOrders() {
 
   const fetchModels = async () => {
     try {
-      const response = await axios.get('http://localhost:2000/api/models');
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/models');
       setModelData(response.data.models);
     } catch (error) {
       console.error('There was a problem with fetching models:', error);
@@ -75,7 +75,7 @@ function YourOrders() {
     let yPos = 70;
 
     try {
-      const userResponse = await axios.get(`http://localhost:2000/api/getuserbyid/${order.userId}`);
+      const userResponse = await axios.get(`https://aerocraftnexusserver.vercel.app/api/getuserbyid/${order.userId}`);
       const user = userResponse.data.user;
       doc.text(`Bill to: ${user.name}`, 15, 60);
 
@@ -114,7 +114,7 @@ function YourOrders() {
     }
 
     try {
-      const response = await axios.delete(`http://localhost:2000/api/deleteorder/${orderId}`);
+      const response = await axios.delete(`https://aerocraftnexusserver.vercel.app/api/deleteorder/${orderId}`);
       if (response.status === 200) {
         alert('Order cancelled successfully!');
         fetchOrders();
@@ -148,7 +148,7 @@ function YourOrders() {
     }
 
     try {
-      const response = await axios.post('http://localhost:2000/api/returnorder', {
+      const response = await axios.post('https://aerocraftnexusserver.vercel.app/api/returnorder', {
         userId: sessionStorage.userid,
         orderId: selectedItems[0].orderId,
         totalAmount: selectedItems.reduce((total, item) => total + (item.price * item.quantity), 0),

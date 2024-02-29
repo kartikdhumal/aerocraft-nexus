@@ -41,7 +41,7 @@ function ModelCard() {
 
     const fetchModelData = async () => {
         try {
-            const response = await axios.get(`http://localhost:2000/api/getmodel/${id}`);
+            const response = await axios.get(`https://aerocraftnexusserver.vercel.app/api/getmodel/${id}`);
             setModelData(response.data.model);
         } catch (error) {
             console.error('Error fetching model data:', error);
@@ -50,7 +50,7 @@ function ModelCard() {
 
     const fetchUsers = async () => {
         try {
-            const response = await axios.get('http://localhost:2000/api/users');
+            const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/users');
             setUserData(response.data.users);
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
@@ -59,7 +59,7 @@ function ModelCard() {
 
     const fetchCategories = async () => {
         try {
-            const response = await axios.get('http://localhost:2000/api/categories');
+            const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/categories');
             setCategories(response.data.categories);
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
@@ -68,7 +68,7 @@ function ModelCard() {
 
     const findSubcategories = async () => {
         try {
-            const response = await axios.get('http://localhost:2000/api/subcategories');
+            const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/subcategories');
             setSubcategoryData(response.data.subcategories);
         } catch (error) {
             console.error('Error fetching subcategories:', error);
@@ -77,7 +77,7 @@ function ModelCard() {
 
     const fetchCompanies = async () => {
         try {
-            const response = await axios.get('http://localhost:2000/api/companies');
+            const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/companies');
             setCompanies(response.data.companies);
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
@@ -86,7 +86,7 @@ function ModelCard() {
 
     const fetchOrders = async () => {
         try {
-            const response = await axios.get('http://localhost:2000/api/getorders');
+            const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/getorders');
             setOrders(response.data.orders);
             setOrderDetails(response.data.orderDetails);
         } catch (error) {
@@ -96,7 +96,7 @@ function ModelCard() {
 
     const fetchReviews = async () => {
         try {
-            const response = await axios.get(`http://localhost:2000/api/reviews/${id}`);
+            const response = await axios.get(`https://aerocraftnexusserver.vercel.app/api/reviews/${id}`);
             setReviews(response.data.reviews);
         } catch (error) {
             console.error('Error fetching reviews:', error);
@@ -148,7 +148,7 @@ function ModelCard() {
         }
 
         try {
-            const response = await axios.post('http://localhost:2000/api/addreview', {
+            const response = await axios.post('https://aerocraftnexusserver.vercel.app/api/addreview', {
                 userId: sessionStorage.userid,
                 modelId: id,
                 rate: rating,
@@ -175,7 +175,7 @@ function ModelCard() {
 
     const handleDeleteReview = async (id) => {
         try {
-            const response = await axios.delete(`http://localhost:2000/api/deletereviews/${id}`);
+            const response = await axios.delete(`https://aerocraftnexusserver.vercel.app/api/deletereviews/${id}`);
             alert('Review deleted successfully');
             fetchReviews();
             setReviews(reviews.filter(review => review._id !== id));
@@ -218,7 +218,7 @@ function ModelCard() {
         else {
             try {
                 const myuserId = sessionStorage.userid;
-                const response = await axios.post('http://localhost:2000/api/addtocart', {
+                const response = await axios.post('https://aerocraftnexusserver.vercel.app/api/addtocart', {
                     modelId: id,
                     quantity: quantity,
                     userId: myuserId

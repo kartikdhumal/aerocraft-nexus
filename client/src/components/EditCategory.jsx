@@ -16,7 +16,7 @@ function EditCategory() {
   useEffect(() => {
     const fetchCategoryData = async () => {
       try {
-        const response = await axios.get(`http://localhost:2000/api/getcategory/${catid}`);
+        const response = await axios.get(`https://aerocraftnexusserver.vercel.app/api/getcategory/${catid}`);
         setName(response.data.category.name);
       } catch (error) {
         console.error('Error fetching category data:', error);
@@ -40,7 +40,7 @@ function EditCategory() {
             throw new Error('Name must contain at least two characters');
         }
 
-        const response = await axios.put(`http://localhost:2000/api/updatecategory/${catid}`, { name });
+        const response = await axios.put(`https://aerocraftnexusserver.vercel.app/api/updatecategory/${catid}`, { name });
         
         if (response.data.error && response.data.error.includes('already exists')) {
             throw new Error('Category already exists');

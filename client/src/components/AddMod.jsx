@@ -50,7 +50,7 @@ function AddMod() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:2000/api/models');
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/models');
       setModelData(response.data.models);
     } catch (error) {
       console.error('There was a problem with fetching models :', error);
@@ -59,7 +59,7 @@ function AddMod() {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get('http://localhost:2000/api/categories');
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/categories');
       setCategories(response.data.categories);
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
@@ -68,7 +68,7 @@ function AddMod() {
 
   const findSubcategories = async () => {
     try {
-      const response = await axios.get('http://localhost:2000/api/subcategories');
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/subcategories');
       setSubcategoryData(response.data.subcategories);
     } catch (error) {
       console.error('Error fetching subcategories:', error);
@@ -82,7 +82,7 @@ function AddMod() {
     }
 
     try {
-      const response = await axios.get(`http://localhost:2000/api/findcatbysub/${categoryId}`);
+      const response = await axios.get(`https://aerocraftnexusserver.vercel.app/api/findcatbysub/${categoryId}`);
       setSubcategories(response.data);
     } catch (error) {
       console.error('There was a problem with fetching subcategories:', error);
@@ -93,7 +93,7 @@ function AddMod() {
 
   const fetchCompanies = async () => {
     try {
-      const response = await axios.get('http://localhost:2000/api/companies');
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/companies');
       setCompanies(response.data.companies);
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
@@ -102,7 +102,7 @@ function AddMod() {
 
   const handleDeleteModel = async (modelId) => {
     try {
-      await axios.delete(`http://localhost:2000/api/deletemodel/${modelId}`);
+      await axios.delete(`https://aerocraftnexusserver.vercel.app/api/deletemodel/${modelId}`);
       alert('Model Deleted');
       setModelData(prevModelData => prevModelData.filter(model => model._id !== modelId));
       fetchData();
@@ -210,7 +210,7 @@ function AddMod() {
       };
 
       console.log('Modified FormData:', modifiedFormData);
-      const response = await axios.post('http://localhost:2000/api/addmodel', modifiedFormData);
+      const response = await axios.post('https://aerocraftnexusserver.vercel.app/api/addmodel', modifiedFormData);
       alert('Model Added Successfully');
       fetchData();
       setFormData({

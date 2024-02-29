@@ -25,7 +25,7 @@ function Reports() {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:2000/api/users');
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/users');
       setUsers(response.data.users);
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
@@ -49,9 +49,9 @@ function Reports() {
 
     try {
       const [userResponse, orderResponse, modelsResponse] = await Promise.all([
-        axios.get(`http://localhost:2000/api/users`),
-        axios.get(`http://localhost:2000/api/getorders`),
-        axios.get(`http://localhost:2000/api/models`)
+        axios.get(`https://aerocraftnexusserver.vercel.app/api/users`),
+        axios.get(`https://aerocraftnexusserver.vercel.app/api/getorders`),
+        axios.get(`https://aerocraftnexusserver.vercel.app/api/models`)
       ]);
 
       const users = userResponse.data.users;
@@ -129,7 +129,7 @@ function Reports() {
     let yPos = 70;
 
     try {
-      const userResponse = await axios.get(`http://localhost:2000/api/users`);
+      const userResponse = await axios.get(`https://aerocraftnexusserver.vercel.app/api/users`);
       const users = userResponse.data.users.filter(user => user.role !== 'admin');
 
       const tableHeaders = ['No.', 'Name', 'Email', 'Role'];
@@ -169,9 +169,9 @@ function Reports() {
 
     try {
       const [userResponse, orderResponse, modelsResponse] = await Promise.all([
-        axios.get(`http://localhost:2000/api/users`),
-        axios.get(`http://localhost:2000/api/getorders`),
-        axios.get(`http://localhost:2000/api/models`)
+        axios.get(`https://aerocraftnexusserver.vercel.app/api/users`),
+        axios.get(`https://aerocraftnexusserver.vercel.app/api/getorders`),
+        axios.get(`https://aerocraftnexusserver.vercel.app/api/models`)
       ]);
       const users = userResponse.data.users;
       const orders = orderResponse.data.orders.filter(order => order.status === "cancelled");
@@ -237,9 +237,9 @@ function Reports() {
   
     try {
       const [userResponse, modelsResponse, reviewsResponse] = await Promise.all([
-        axios.get(`http://localhost:2000/api/users`),
-        axios.get(`http://localhost:2000/api/models`),
-        axios.get(`http://localhost:2000/api/reviews`)
+        axios.get(`https://aerocraftnexusserver.vercel.app/api/users`),
+        axios.get(`https://aerocraftnexusserver.vercel.app/api/models`),
+        axios.get(`https://aerocraftnexusserver.vercel.app/api/reviews`)
       ]);
       const users = userResponse.data.users;
       const models = modelsResponse.data.models;
@@ -294,9 +294,9 @@ function Reports() {
   
     try {
       const [userResponse, modelsResponse, reviewsResponse] = await Promise.all([
-        axios.get(`http://localhost:2000/api/users`),
-        axios.get(`http://localhost:2000/api/models`),
-        axios.get(`http://localhost:2000/api/reviews`)
+        axios.get(`https://aerocraftnexusserver.vercel.app/api/users`),
+        axios.get(`https://aerocraftnexusserver.vercel.app/api/models`),
+        axios.get(`https://aerocraftnexusserver.vercel.app/api/reviews`)
       ]);
       const users = userResponse.data.users;
       const models = modelsResponse.data.models;
@@ -348,10 +348,10 @@ function Reports() {
   
     try {
       const [userResponse, orderReturnResponse, ordersResponse, modelsResponse] = await Promise.all([
-        axios.get(`http://localhost:2000/api/users`),
-        axios.get(`http://localhost:2000/api/getreturnorders`),
-        axios.get(`http://localhost:2000/api/orders`),
-        axios.get(`http://localhost:2000/api/models`)
+        axios.get(`https://aerocraftnexusserver.vercel.app/api/users`),
+        axios.get(`https://aerocraftnexusserver.vercel.app/api/getreturnorders`),
+        axios.get(`https://aerocraftnexusserver.vercel.app/api/orders`),
+        axios.get(`https://aerocraftnexusserver.vercel.app/api/models`)
       ]);
   
       const users = userResponse.data.users;

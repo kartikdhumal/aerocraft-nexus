@@ -31,7 +31,7 @@ function AddCom() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:2000/api/companies');
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/companies');
       setCompanyData(response.data.companies);
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
@@ -40,7 +40,7 @@ function AddCom() {
 
   const handleDeleteCompany = async (companyId) => {
     try {
-      await axios.delete(`http://localhost:2000/api/deletecompany/${companyId}`);
+      await axios.delete(`https://aerocraftnexusserver.vercel.app/api/deletecompany/${companyId}`);
       alert('Company Deleted');
       fetchData();
     } catch (error) {
@@ -88,7 +88,7 @@ function AddCom() {
         throw new Error('Name must contain at least two characters');
       }
   
-      const response = await axios.post('http://localhost:2000/api/addcompany', { name });
+      const response = await axios.post('https://aerocraftnexusserver.vercel.app/api/addcompany', { name });
       if (response.data.message === 'Company already exists!') {
         throw new Error('Company already exists');
       }

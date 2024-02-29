@@ -22,9 +22,9 @@ function ModelByCategory() {
         const fetchData = async () => {
             try {
                 const [subcategoryResponse, modelResponse, reviewResponse] = await Promise.all([
-                    axios.get(`http://localhost:2000/api/subcategories`),
-                    axios.get('http://localhost:2000/api/models'),
-                    axios.get('http://localhost:2000/api/reviews')
+                    axios.get(`https://aerocraftnexusserver.vercel.app/api/subcategories`),
+                    axios.get('https://aerocraftnexusserver.vercel.app/api/models'),
+                    axios.get('https://aerocraftnexusserver.vercel.app/api/reviews')
                 ]);
 
                 const subcategories = subcategoryResponse.data.subcategories;

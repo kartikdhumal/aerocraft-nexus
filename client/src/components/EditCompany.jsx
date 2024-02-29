@@ -14,7 +14,7 @@ function UpdateCompany() {
   useEffect(() => {
     const fetchCompanyData = async () => {
       try {
-        const response = await axios.get(`http://localhost:2000/api/getcompany/${companyId}`);
+        const response = await axios.get(`https://aerocraftnexusserver.vercel.app/api/getcompany/${companyId}`);
         setName(response.data.category.name);
       } catch (error) {
         console.error('Error fetching company data:', error);
@@ -38,7 +38,7 @@ function UpdateCompany() {
         throw new Error('Name must contain at least two characters');
       }
   
-      const response = await axios.put(`http://localhost:2000/api/updatecompany/${companyId}`, { name });
+      const response = await axios.put(`https://aerocraftnexusserver.vercel.app/api/updatecompany/${companyId}`, { name });
       if (response.data.error && response.data.error.includes('already exists')) {
         throw new Error('Company name already exists');
       }

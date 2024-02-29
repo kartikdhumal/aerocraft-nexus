@@ -19,7 +19,7 @@ function Cart() {
   const fetchCartItems = async () => {
     try {
       const userId = sessionStorage.getItem('userid');
-      const response = await axios.get(`http://localhost:2000/api/getcart/${userId}`);
+      const response = await axios.get(`https://aerocraftnexusserver.vercel.app/api/getcart/${userId}`);
       setCartItems(response.data.cartItems);
       fetchModelDetails(response.data.cartItems);
     } catch (error) {
@@ -31,7 +31,7 @@ function Cart() {
     try {
       const models = {};
       for (const item of cartItems) {
-        const response = await axios.get(`http://localhost:2000/api/getmodel/${item.modelId}`);
+        const response = await axios.get(`https://aerocraftnexusserver.vercel.app/api/getmodel/${item.modelId}`);
         models[item.modelId] = response.data.model;
       }
       setModelDetails(models);
@@ -42,7 +42,7 @@ function Cart() {
 
   const updateCartItemQuantity = async (cartId, newQuantity) => {
     try {
-      await axios.put(`http://localhost:2000/api/updateCartItemQuantity`, {
+      await axios.put(`https://aerocraftnexusserver.vercel.app/api/updateCartItemQuantity`, {
         cartId: cartId,
         quantity: newQuantity
       });
@@ -84,7 +84,7 @@ function Cart() {
 
   const handleDeleteCartItem = async (cartId) => {
     try {
-      await axios.delete(`http://localhost:2000/api/deletecart/${cartId}`);
+      await axios.delete(`https://aerocraftnexusserver.vercel.app/api/deletecart/${cartId}`);
       fetchCartItems();
     } catch (error) {
       console.error('Error deleting cart item:', error);

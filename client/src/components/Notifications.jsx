@@ -12,7 +12,7 @@ function Notifications() {
 
     const fetchCount = async () => {
         try {
-            const response = await axios.get('http://localhost:2000/api/models');
+            const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/models');
             const filteredModels = response.data.models.filter(model => model.quantity == 0);
             setModelData(filteredModels);
             setIsLoading(false);

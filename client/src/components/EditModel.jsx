@@ -36,7 +36,7 @@ function EditModel() {
 
   const fetchModelData = async () => {
     try {
-      const response = await axios.get(`http://localhost:2000/api/getmodel/${id}`);
+      const response = await axios.get(`https://aerocraftnexusserver.vercel.app/api/getmodel/${id}`);
       const modelData = response.data.model;
 
       setFormData({
@@ -55,7 +55,7 @@ function EditModel() {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get('http://localhost:2000/api/categories');
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/categories');
       setCategories(response.data.categories);
     } catch (error) {
       console.error('Error fetching categories:', error);
@@ -64,7 +64,7 @@ function EditModel() {
 
   const fetchCompanies = async () => {
     try {
-      const response = await axios.get('http://localhost:2000/api/companies');
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/companies');
       setCompanies(response.data.companies);
     } catch (error) {
       console.error('Error fetching companies:', error);
@@ -78,7 +78,7 @@ function EditModel() {
     }
 
     try {
-      const response = await axios.get(`http://localhost:2000/api/findcatbysub/${categoryId}`);
+      const response = await axios.get(`https://aerocraftnexusserver.vercel.app/api/findcatbysub/${categoryId}`);
       setSubcategories(response.data);
     } catch (error) {
       console.error('There was a problem with fetching subcategories:', error);
@@ -210,7 +210,7 @@ function EditModel() {
 
   const findSubcategories = async () => {
     try {
-      const response = await axios.get('http://localhost:2000/api/subcategories');
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/subcategories');
       setSubcategoryData(response.data.subcategories);
     } catch (error) {
       console.error('Error fetching subcategories:', error);
@@ -237,7 +237,7 @@ function EditModel() {
   
       console.log('Modified FormData:', modifiedFormData);
 
-      const response = await axios.put(`http://localhost:2000/api/updatemodel/${id}`, modifiedFormData);
+      const response = await axios.put(`https://aerocraftnexusserver.vercel.app/api/updatemodel/${id}`, modifiedFormData);
       alert('Model Updated');
       navigate('/addmod');
       setFormData({

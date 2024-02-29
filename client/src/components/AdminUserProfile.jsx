@@ -25,7 +25,7 @@ function AdminUserProfile() {
     const [role, setRole] = useState('admin');
     const fetchUserData = async () => {
         try {
-            const response = await axios.get(`http://localhost:2000/api/getuser/${emailofuser}`);
+            const response = await axios.get(`https://aerocraftnexusserver.vercel.app/api/getuser/${emailofuser}`);
             const userData = response.data.user;
             setName(userData.name);
             setEmail(userData.email);
@@ -70,7 +70,7 @@ function AdminUserProfile() {
 
             setLoading(true);
 
-            await axios.put(`http://localhost:2000/api/updateprofile/${sessionStorage.userid}`, {
+            await axios.put(`https://aerocraftnexusserver.vercel.app/api/updateprofile/${sessionStorage.userid}`, {
                 name,
                 email,
                 password,

@@ -30,7 +30,7 @@ function CheckOut() {
   const fetchCartItems = async () => {
     try {
       const userId = sessionStorage.getItem('userid');
-      const response = await axios.get(`http://localhost:2000/api/getcart/${userId}`);
+      const response = await axios.get(`https://aerocraftnexusserver.vercel.app/api/getcart/${userId}`);
       setCartItems(response.data.cartItems);
       fetchModelDetails(response.data.cartItems);
     } catch (error) {
@@ -42,7 +42,7 @@ function CheckOut() {
     try {
       const models = {};
       for (const item of cartItems) {
-        const response = await axios.get(`http://localhost:2000/api/getmodel/${item.modelId}`);
+        const response = await axios.get(`https://aerocraftnexusserver.vercel.app/api/getmodel/${item.modelId}`);
         models[item.modelId] = response.data.model;
       }
       setModelDetails(models);
@@ -149,7 +149,7 @@ function CheckOut() {
           try {
             const userId = sessionStorage.getItem('userid');
             const totalAmount = parseInt(calculateFinalTotal());
-            const result = await axios.post('http://localhost:2000/api/addorder', {
+            const result = await axios.post('https://aerocraftnexusserver.vercel.app/api/addorder', {
               userId,
               totalAmount,
               response,
@@ -188,7 +188,7 @@ function CheckOut() {
       try {
         const userId = sessionStorage.getItem('userid');
         const totalAmount = parseInt(calculateFinalTotal());
-        const response = await axios.post('http://localhost:2000/api/addorder', {
+        const response = await axios.post('https://aerocraftnexusserver.vercel.app/api/addorder', {
           userId,
           totalAmount,
           delAddress: fullAddress,

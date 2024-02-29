@@ -24,7 +24,7 @@ function Home() {
 
   const fetchCategory = async () => {
     try {
-      const response = await axios.get('http://localhost:2000/api/categories');
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/categories');
       setCategoryData(response.data.categories);
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
@@ -33,7 +33,7 @@ function Home() {
 
   const fetchSubcategories = async () => {
     try {
-      const response = await axios.get('http://localhost:2000/api/subcategories');
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/subcategories');
       setSubcategoryData(response.data.subcategories);
     } catch (error) {
       console.error('Error fetching subcategories:', error);
@@ -42,7 +42,7 @@ function Home() {
 
   const fetchModels = async () => {
     try {
-      const response = await axios.get('http://localhost:2000/api/models');
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/models');
       setModelData(response.data.models);
     } catch (error) {
       console.error('There was a problem with fetching models :', error);
@@ -51,7 +51,7 @@ function Home() {
 
   const fetchCompanies = async () => {
     try {
-      const response = await axios.get('http://localhost:2000/api/companies');
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/companies');
       setCompanyData(response.data.companies);
 
     } catch (error) {

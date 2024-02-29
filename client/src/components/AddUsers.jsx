@@ -33,7 +33,7 @@ function AddUsers() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:2000/api/users');
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/users');
       setUserData(response.data.users);
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
@@ -42,7 +42,7 @@ function AddUsers() {
 
   const handleDeleteUser = async (deleteid) => {
     try {
-      await axios.delete(`http://localhost:2000/api/deleteuser/${deleteid}`);
+      await axios.delete(`https://aerocraftnexusserver.vercel.app/api/deleteuser/${deleteid}`);
       alert('User Deleted');
       fetchData();
     } catch (error) {
@@ -82,7 +82,7 @@ function AddUsers() {
     e.preventDefault();
     try {
       setLoading(true);
-      await axios.post('http://localhost:2000/api/AddUsers', {
+      await axios.post('https://aerocraftnexusserver.vercel.app/api/AddUsers', {
         name,
         email,
         password,

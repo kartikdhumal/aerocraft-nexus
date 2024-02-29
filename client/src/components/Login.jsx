@@ -37,7 +37,7 @@ function Login() {
 
       setLoggingIn(true);
 
-      const response = await axios.post('http://localhost:2000/api/login', {
+      const response = await axios.post('https://aerocraftnexusserver.vercel.app/api/login', {
         email,
         password,
       });

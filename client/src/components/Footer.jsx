@@ -14,7 +14,7 @@ function Footer() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:2000/api/categories');
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/categories');
       setCategoryData(response.data.categories);
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);

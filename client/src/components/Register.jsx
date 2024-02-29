@@ -47,7 +47,7 @@ function Register() {
 
       setLoading(true);
 
-      await axios.post('http://localhost:2000/api/register', {
+      await axios.post('https://aerocraftnexusserver.vercel.app/api/register', {
         name,
         email,
         password,

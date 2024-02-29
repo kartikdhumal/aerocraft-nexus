@@ -31,7 +31,7 @@ function AddCat() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:2000/api/categories');
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/categories');
       setCategoryData(response.data.categories);
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
@@ -40,7 +40,7 @@ function AddCat() {
 
   const handleDeleteCategory = async (categoryId) => {
     try {
-      await axios.delete(`http://localhost:2000/api/deletecategory/${categoryId}`);
+      await axios.delete(`https://aerocraftnexusserver.vercel.app/api/deletecategory/${categoryId}`);
       alert('Category Deleted');
       fetchData();
     } catch (error) {
@@ -96,7 +96,7 @@ function AddCat() {
         throw new Error('Name must contain at least two characters');
       }
 
-      const response = await axios.post('http://localhost:2000/api/addcategory', { name });
+      const response = await axios.post('https://aerocraftnexusserver.vercel.app/api/addcategory', { name });
       if (response.data.message === 'Category already exists!') {
         throw new Error('Category already exists');
       }

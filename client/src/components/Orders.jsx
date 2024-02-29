@@ -34,7 +34,7 @@ function Orders() {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get(`http://localhost:2000/api/getorders`);
+      const response = await axios.get(`https://aerocraftnexusserver.vercel.app/api/getorders`);
       setOrders(response.data.orders);
       setOrderDetails(response.data.orderDetails);
     } catch (error) {
@@ -44,7 +44,7 @@ function Orders() {
 
   const fetchReturnOrderDetail = async () => {
     try {
-      const response = await axios.get(`http://localhost:2000/api/getreturnorders`);
+      const response = await axios.get(`https://aerocraftnexusserver.vercel.app/api/getreturnorders`);
       setorderReturnDetailSchema(response.data.orderReturnDetails);
       setorderReturn(response.data.orderReturn);
     } catch (error) {
@@ -54,7 +54,7 @@ function Orders() {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:2000/api/users');
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/users');
       setUsers(response.data.users);
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
@@ -97,7 +97,7 @@ function Orders() {
 
   const fetchModels = async () => {
     try {
-      const response = await axios.get('http://localhost:2000/api/models');
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/models');
       setModelData(response.data.models);
     } catch (error) {
       console.error('There was a problem with fetching models :', error);
@@ -217,7 +217,7 @@ function Orders() {
   const handleStatusChange = async (event, orderId) => {
     const newStatus = event.target.value;
     try {
-      const response = await axios.put(`http://localhost:2000/api/updatestatus/${orderId}`, { status: newStatus });
+      const response = await axios.put(`https://aerocraftnexusserver.vercel.app/api/updatestatus/${orderId}`, { status: newStatus });
       alert('Status updated successfully');
       fetchOrders();
     } catch (error) {

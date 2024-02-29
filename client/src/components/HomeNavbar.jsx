@@ -37,7 +37,7 @@ function HomeNavbar() {
   },[])
   const fetchModels = async () => {
     try {
-      const response = await axios.get('http://localhost:2000/api/models');
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/models');
       setModelData(response.data.models);
     } catch (error) {
       console.error('There was a problem with fetching models :', error);
@@ -46,7 +46,7 @@ function HomeNavbar() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:2000/api/categories');
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/categories');
       setCategoryData(response.data.categories);
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
@@ -59,7 +59,7 @@ function HomeNavbar() {
       const userId = sessionStorage.userid;
   
       if (userId) {
-        const response = await axios.get(`http://localhost:2000/api/carts`);
+        const response = await axios.get(`https://aerocraftnexusserver.vercel.app/api/carts`);
         if (response.data.cart) {
           const userCartItems = response.data.cart.filter(item => item.userId === userId);
           itemCount = userCartItems.length;
@@ -79,7 +79,7 @@ function HomeNavbar() {
   
   const fetchSubcategories = async () => {
     try {
-      const response = await axios.get('http://localhost:2000/api/subcategories');
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/subcategories');
       setSubcategoryData(response.data.subcategories);
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);

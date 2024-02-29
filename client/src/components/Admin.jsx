@@ -48,7 +48,7 @@ function Admin() {
 
   const fetchOrders = async () => {
     try {
-      const ordersResponse = await axios.get('http://localhost:2000/api/getorders');
+      const ordersResponse = await axios.get('https://aerocraftnexusserver.vercel.app/api/getorders');
       setOrders(ordersResponse.data.orders);
       setOrderDetails(ordersResponse.data.orderDetails);
     } catch (error) {
@@ -58,7 +58,7 @@ function Admin() {
 
   const fetchModels = async () => {
     try {
-      const response = await axios.get('http://localhost:2000/api/models');
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/models');
       setModelData(response.data.models);
     } catch (error) {
       console.error('There was a problem with fetching models:', error);
@@ -67,7 +67,7 @@ function Admin() {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:2000/api/users');
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/users');
       setUsersData(response.data.users.filter(user => user.role !== "admin"));
     } catch (error) {
       console.error('There was a problem with fetching users:', error);
@@ -76,7 +76,7 @@ function Admin() {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get('http://localhost:2000/api/categories');
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/categories');
       setCategories(response.data.categories);
     } catch (error) {
       console.error('Error fetching categories:', error);
@@ -85,7 +85,7 @@ function Admin() {
 
   const fetchSubcategories = async () => {
     try {
-      const response = await axios.get('http://localhost:2000/api/subcategories');
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/subcategories');
       setSubcategoryData(response.data.subcategories);
     } catch (error) {
       console.error('Error fetching subcategories:', error);
@@ -94,7 +94,7 @@ function Admin() {
 
   const fetchReviews = async () => {
     try {
-      const response = await axios.get('http://localhost:2000/api/reviews');
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/reviews');
       setReviews(response.data.reviews);
     } catch (error) {
       console.error('There was a problem with fetching reviews:', error);

@@ -26,7 +26,7 @@ function ChangePassword() {
     } else {
       setIsLoading(true);
       try {
-        const response = await axios.put('http://localhost:2000/api/updatepassword', {
+        const response = await axios.put('https://aerocraftnexusserver.vercel.app/api/updatepassword', {
           email,
           newPassword: password
         });
