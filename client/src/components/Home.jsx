@@ -151,68 +151,70 @@ function Home() {
         </div>
       </div>
 
-      <div className='p-5'>
-  <div className='text-2xl p-12 w-full text-center'>Models By Category</div>
-  <div className="flex flex-row flex-wrap justify-center items-center">
-    {filteredCategories
-      .filter(category =>
-        subcategoryData.some(subcategory => subcategory.categoryId === category.id) &&
-        modelData.some(model =>
-          subcategoryData.some(subcategory => subcategory._id.toString() === model.subcategoryId.toString())
-        )
-      )
-      .map((category) => (
-        <div key={category.id} className='w-full sm:w-40 lg:w-60 p-2'>
-          <Link to={`/modelbycategory/${category.id}`} className="block">
-            <div className="w-full bg-white rounded-xl overflow-hidden shadow-lg">
-              <img src={fetchRandomImage(category.name)} className='w-full h-40 object-fill' alt="Random Model" />
-              <div className="p-3">
-                <p className="text-md font-semibold text-center">{category.name}</p>
+      <div className='lg:p-5 sm:p-5 vsm:p-0'>
+        <div className='text-2xl p-12 w-full text-center'>Models By Category</div>
+        <div className="flex flex-row flex-wrap justify-center items-center">
+          {filteredCategories
+            .filter(category =>
+              subcategoryData.some(subcategory => subcategory.categoryId === category.id) &&
+              modelData.some(model =>
+                subcategoryData.some(subcategory => subcategory._id.toString() === model.subcategoryId.toString())
+              )
+            )
+            .map((category) => (
+              <div key={category.id} className='w-full sm:w-40 lg:w-60 p-2'>
+                <Link to={`/modelbycategory/${category.id}`} className="block">
+                  <div className="w-full bg-white rounded-xl overflow-hidden shadow-lg">
+                    <img src={fetchRandomImage(category.name)} className='w-full h-40 object-fill' alt="Random Model" />
+                    <div className="p-3">
+                      <p className="text-md font-semibold text-center">{category.name}</p>
+                    </div>
+                  </div>
+                </Link>
               </div>
-            </div>
-          </Link>
+            ))}
         </div>
-      ))}
-  </div>
-</div>
+      </div>
 
 
-<div className='p-5'>
-  <div className='text-2xl p-12 w-full text-center'>Models By Company</div>
-  <div className="flex flex-wrap p-5 justify-center items-center">
-    {shuffledCompanyData
-      .filter(company => modelData.some(model => model.companyId === company.id))
-      .slice(0, 10)
-      .map(company => (
-        <div key={company.id} className='w-full sm:w-1/2 lg:w-[18%] px-2 my-2'>
-          <Link to={`/modelbycompany/${company.id}`} className="block">
-            <div className="w-full bg-white rounded-xl overflow-hidden shadow-lg">
-              <img src={fetchByCompany(company.name)} className='w-full h-40 object-fill' alt="Random Model" />
-              <div className="p-3">
-                <p className="text-md font-semibold text-center">{company.name}</p>
+      <div className='lg:p-5 sm:p-5 vsm:p-0'>
+        <div className='text-2xl p-12 w-full text-center'>Models By Company</div>
+        <div className="flex flex-wrap p-5 justify-center items-center">
+          {shuffledCompanyData
+            .filter(company => modelData.some(model => model.companyId === company.id))
+            .slice(0, 10)
+            .map(company => (
+              <div key={company.id} className='w-full sm:w-1/2 lg:w-[18%] px-2 my-2'>
+                <Link to={`/modelbycompany/${company.id}`} className="block">
+                  <div className="w-full bg-white rounded-xl overflow-hidden shadow-lg">
+                    <img src={fetchByCompany(company.name)} className='w-full h-40 object-fill' alt="Random Model" />
+                    <div className="p-3">
+                      <p className="text-md font-semibold text-center">
+                        {company.name}
+                      </p>
+                    </div>
+                  </div>
+                </Link>
               </div>
-            </div>
-          </Link>
+            ))}
         </div>
-      ))}
-  </div>
-  <div className="flex justify-center items-center">
-    <NavLink to="/allmodels" className="text-black underline font-bold text-lg pb-5">View All</NavLink>
-  </div>
-</div>
+        <div className="flex justify-center items-center">
+          <NavLink to="/allmodels" className="text-black underline font-bold text-lg pb-5">View All</NavLink>
+        </div>
+      </div>
 
 
 
-      <div className='p-5 '>
+      <div className='lg:p-5 sm:p-5 vsm:p-0'>
         <div className='text-2xl p-12 w-full text-center'> Featured Models </div>
-        <div className="flex flex-row flex-wrap gap-5 p-5 justify-center items-center">
+        <div className="flex flex-wrap p-5 justify-center items-center">
           {shuffledModelData.slice(0, 10).map((model) => (
-            <div key={model._id} className='w-full vsm:w-32 sm:w-40 lg:w-60'>
-              <NavLink to={`/modelcard/${model._id}`} className="block ">
+            <div key={model._id} className='w-full sm:w-1/2 lg:w-[18%] px-2 my-2'>
+              <NavLink to={`/modelcard/${model._id}`} className="block">
                 <img src={model.images[0]} className='w-full h-40 rounded-t-xl object-fill' alt="Product" />
                 <div className="p-4 bg-white rounded-b-xl">
                   <p className="text-md font-semibold">
-                    {model.name.length > 24 ? `${model.name.substring(0, 25)}...` : model.name}
+                    {model.name.length > 20 ? `${model.name.substring(0, 20)}...` : model.name}
                   </p>
                   <p className="text-gray-600 mt-2 text-md flex items-center"><CurrencyRupeeIcon />{model.price}</p>
                 </div>
@@ -220,11 +222,11 @@ function Home() {
             </div>
           ))}
         </div>
-
         <div className="flex justify-center items-center">
           <NavLink to="/allmodels" className="text-black underline font-bold text-lg pb-5">View All</NavLink>
         </div>
       </div>
+
 
       <Footer />
     </div>
