@@ -8,6 +8,7 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import TableContainer from '@mui/material/TableContainer';
 import TableFooter from '@mui/material/TableFooter';
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import TablePagination from '@mui/material/TablePagination';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AdminNavbar from './AdminNavbar';
@@ -147,7 +148,7 @@ function Orders() {
                       key={index}
                       src={image}
                       alt={`Image ${index}`}
-                      className="w-16 h-16 my-4 object-cover border border-gray-300"
+                      className="w-6 h-6 my-4 object-cover border border-gray-300"
                     />
                   )) : 'No files'}
                 </div>
@@ -174,7 +175,7 @@ function Orders() {
                     key={index}
                     src={image}
                     alt={`Image ${index}`}
-                    className="w-16 h-16 my-4 object-cover border border-gray-300"
+                    className="w-6 h-6 my-4 object-cover border border-gray-300"
                   />
                 )) : 'No files'}
               </div>
