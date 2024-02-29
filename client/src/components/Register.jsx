@@ -78,7 +78,7 @@ function Register() {
   
   return (
     <div className='w-full h-screen bg-sky-100 flex justify-center items-center'>
-      <form className='p-8 rounded-lg shadow-2xl w-96' onSubmit={handleRegister}>
+      <form className='p-8 rounded-lg shadow-2xl lg:w-96 sm:w-96 vsm:w-[90%]' onSubmit={handleRegister}>
         <div className='mb-4'>
           <label htmlFor='name' className='block text-gray-700 font-semibold mb-2'>Name</label>
           <input type='text' id='name' value={name} required onChange={handleNameChange} className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none ${nameError ? 'border-red-500' : 'focus:border-blue-500'}`} />

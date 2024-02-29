@@ -70,7 +70,7 @@ function Login() {
 
   return (
     <div className='w-full h-screen bg-sky-100 flex justify-center items-center'>
-      <form className='p-8 rounded-lg shadow-2xl w-96' onSubmit={handleLogin}>
+      <form className='p-8 rounded-lg shadow-2xl lg:w-96 sm:w-96 vsm:w-[90%]' onSubmit={handleLogin}>
         <div className='mb-4'>
           <label htmlFor='email' className='block text-gray-700 font-semibold mb-2'>Email</label>
           <input type='email' id='email' required value={email} onChange={handleEmailChange} className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500' />
