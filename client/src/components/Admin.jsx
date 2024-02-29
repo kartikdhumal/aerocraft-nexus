@@ -148,15 +148,17 @@ function Admin() {
 
 
   return (
-    <div className='w-full bg-sky-100 lg:h-screen sm:h-100'>
+    <div className='w-full bg-sky-100 min-h-screen'>
       <AdminNavbar />
-      <div className="flex flex-wrap justify-center gap-8 p-12">
-        <div className="flex flex-col items-center justify-center bg-white shadow-2xl rounded-2xl lg:p-12 sm:p-0  w-44 sm:w-full h-60 md:w-96">
+      <div className="flex flex-wrap justify-center p-5 mt-5 sm:p-0">
+
+        <div className="flex flex-col items-center justify-center bg-gray-100 shadow-2xl rounded-2xl lg:p-12 sm:p-0 lg:w-[25%] sm:w-[80%] h-60 md:w-96 mx-4 sm:my-2">
           <ListAltIcon />
           <p className="text-[22px] font-bold">Total Orders</p>
           <p className="text-lg text-blue-700 font-bold">{orders.length}</p>
         </div>
-        <div className="flex flex-col items-center justify-center bg-white shadow-2xl rounded-2xl lg:p-12 sm:p-0  w-44 sm:w-full h-60 md:w-96">
+
+        <div className="flex flex-col items-center justify-center bg-gray-100 shadow-2xl rounded-2xl lg:p-12 sm:p-0 lg:w-[25%] sm:w-[80%] h-60 md:w-96 mx-4 sm:my-2">
           <SavingsIcon />
           <p className="text-[22px] font-bold">Total Revenue</p>
           {totalRevenue !== 0 && (
@@ -167,46 +169,43 @@ function Admin() {
           )}
         </div>
 
-        <div className="flex flex-col items-center justify-center bg-white shadow-2xl rounded-2xl lg:p-12 sm:p-0 w-44 sm:w-full h-60 md:w-96">
+        <div className="flex flex-col items-center justify-center bg-gray-100 shadow-2xl rounded-2xl lg:p-12 sm:p-0 lg:w-[25%] sm:w-[80%] h-60 md:w-96 mx-4 sm:my-2">
           <ListAltIcon />
-          <p className="text-[22px] font-bold">  Average Order Value </p>
+          <p className="text-[22px] font-bold">Average Order Value</p>
           <p className="text-lg text-blue-700 font-bold">
             <CurrencyRupeeIcon />
             {averageOrderValue}
           </p>
         </div>
-        <div className="flex flex-col items-center justify-center bg-white shadow-2xl rounded-2xl lg:p-12 sm:p-0 w-44 sm:w-full h-60 md:w-96">
+
+        <div className="flex flex-col items-center justify-center bg-gray-100 shadow-2xl rounded-2xl lg:p-12 sm:p-0 lg:w-[25%] sm:w-[80%] h-60 md:w-96 mx-4 sm:my-2">
           <AccountCircleIcon />
           <p className="text-[22px] font-bold">Total Users</p>
           <p className="text-lg text-blue-700 font-bold">{users.length}</p>
         </div>
 
-        <div className="flex lg:space-x-8 lg:space-y-0 sm:space-y-5 lg:flex-row sm:flex-col">
-
-          <div className="flex flex-col items-center justify-center bg-white shadow-2xl rounded-2xl lg:p-12 sm:p-0  w-44 sm:w-full h-60 md:w-96">
-            <ShoppingCartIcon />
-            <p className="text-[22px] w-full flex justify-center items-center font-bold ">Best Selling Model</p>
-            <div className="flex flex-row  justify-center items-center space-x-5">
-              <img src={bestSellingModel.images ? bestSellingModel.images[0] : ''} alt={bestSellingModel.name} className="w-12 h-12 mt-4 mb-2 lg:ml-0 sm:ml-5 rounded-full" />
-              <p className="text-lg text-blue-700 font-bold">{bestSellingModel.name}</p>
-            </div>
-            <p className="text-md text-gray-600">{getCategorySubcategory(bestSellingModel.subcategoryId)}</p>
+        <div className="flex flex-col items-center justify-center bg-gray-100 shadow-2xl rounded-2xl lg:p-12 sm:p-0 lg:w-[25%] sm:w-[80%] h-60 md:w-96 mx-4 sm:my-2">
+          <ShoppingCartIcon />
+          <p className="text-[22px] w-full flex justify-center items-center font-bold">Best Selling Model</p>
+          <div className="flex flex-row justify-center items-center lg:space-x-5 sm:space-x-2">
+            <img src={bestSellingModel.images ? bestSellingModel.images[0] : ''} alt={bestSellingModel.name} className="w-12 h-12 mt-4 mb-2 lg:ml-0 sm:ml-5 rounded-full" />
+            <p className="text-md text-blue-700 font-bold">{bestSellingModel.name}</p>
           </div>
-
-          <div className="flex flex-col items-center justify-center bg-white shadow-2xl rounded-2xl lg:p-12 sm:p-0  w-44 sm:w-full h-60 md:w-96">
-            <ShoppingCartIcon />
-            <p className="text-[22px] w-full flex justify-center items-center font-bold ">Most Reviewed Model</p>
-            <div className="flex flex-row  justify-center items-center space-x-5">
-              <img src={mostReviewedProduct.images ? mostReviewedProduct.images[0] : ''} alt={mostReviewedProduct.name} className="w-12 h-12 mt-4 mb-2 lg:ml-0 sm:ml-5 rounded-full" />
-              <p className="text-lg text-blue-700 font-bold">{mostReviewedProduct.name}</p>
-            </div>
-            <p className="text-md text-gray-600">{getCategorySubcategory(mostReviewedProduct.subcategoryId)}</p>
-          </div>
-
+          <p className="text-md text-gray-600">{getCategorySubcategory(bestSellingModel.subcategoryId)}</p>
         </div>
 
+        <div className="flex flex-col items-center justify-center bg-gray-100 shadow-2xl rounded-2xl lg:p-12 sm:p-0 lg:w-[25%] sm:w-[80%] h-60 md:w-96 mx-4 sm:my-2">
+          <ShoppingCartIcon />
+          <p className="text-[22px] w-full flex justify-center items-center font-bold">Most Reviewed Model</p>
+          <div className="flex flex-row justify-center items-center lg:space-x-5 sm:space-x-2">
+            <img src={mostReviewedProduct.images ? mostReviewedProduct.images[0] : ''} alt={mostReviewedProduct.name} className="w-12 h-12 mt-4 mb-2 lg:ml-0 sm:ml-5 rounded-full" />
+            <p className="text-md text-blue-700 font-bold">{mostReviewedProduct.name}</p>
+          </div>
+          <p className="text-md text-gray-600">{getCategorySubcategory(mostReviewedProduct.subcategoryId)}</p>
+        </div>
       </div>
     </div>
+
   );
 }
 
