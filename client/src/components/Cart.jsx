@@ -158,15 +158,15 @@ function Cart() {
   return (
     <div className="bg-sky-100 min-h-screen">
       <HomeNavbar />
-      <div className="flex justify-center items-center flex-col mx-auto py-8">
-        <h1 className="text-2xl text-center mb-8 font-bold">Your Cart</h1>
+      <div className="flex justify-center items-center flex-col mx-auto py-8 pt-20">
+        <h1 className="text-xl font-bold cursor-auto bg-gray-100 text-black rounded-xl px-4 py-1 mb-5">Your Cart</h1>
 
         {
           !sessionStorage.userid ? <>
             {
               sessionCart.length === 0 ? (
-                <div className="flex flex-row justify-center items-center h-64 shadow-xl">
-                  <div className="bg-gray-100 w-96 h-64 rounded-2xl flex justify-center items-center">
+                <div className="flex flex-row justify-center items-center h-64">
+                  <div className="w-96 h-64 rounded-2xl flex justify-center items-center">
                     <p className="text-2xl text-black rounded-2xl font-bold">Your cart is empty</p>
                   </div>
                 </div>
@@ -217,8 +217,8 @@ function Cart() {
           </> : <>
             {
               cartItems.length === 0 ? (
-                <div className="flex flex-row justify-center items-center h-64 shadow-xl">
-                  <div className="bg-gray-100 w-96 h-64 rounded-2xl flex justify-center items-center">
+                <div className="flex flex-row justify-center items-center h-64">
+                  <div className="lg:w-96 sm:w-full h-64 rounded-2xl flex justify-center items-center">
                     <p className="text-2xl text-black rounded-2xl font-bold">Your cart is empty</p>
                   </div>
                 </div>
@@ -277,7 +277,7 @@ function Cart() {
                 <NavLink to={'/checkout'} onClick={handleCheckout}>
                   <button className="bg-blue-700 text-white px-4 py-2 rounded-md mt-4">Checkout</button>
                 </NavLink>
-              </div>
+              </div>  
             )}
           </> : <>
             {sessionCart.length > 0 && (

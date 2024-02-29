@@ -108,7 +108,7 @@ function UserEditProfile() {
   return (
     <div>
       <HomeNavbar />
-      <div className='w-full h-screen flex justify-center items-start p-10 bg-sky-100'>
+      <div className='w-full h-screen flex justify-center items-start p-10 pt-20 bg-sky-100'>
         <form className='rounded-lg w-96' onSubmit={handleUpdateProfile}>
           <div className='mb-4'>
             <label htmlFor='name' className='block text-gray-700 font-semibold mb-2'>Name</label>

@@ -38,12 +38,12 @@ function ModelByModel() {
 
     const fetchData = async () => {
         try {
-          const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/companies');
-          setCompanyData(response.data.companies);
+            const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/companies');
+            setCompanyData(response.data.companies);
         } catch (error) {
-          console.error('There was a problem with the fetch operation:', error);
+            console.error('There was a problem with the fetch operation:', error);
         }
-      };
+    };
 
     const fetchSubcategories = async () => {
         try {
@@ -94,7 +94,7 @@ function ModelByModel() {
         }
     };
 
-    const handleCompanySelect  = (companyId) => {
+    const handleCompanySelect = (companyId) => {
         if (selectedCompany.includes(companyId)) {
             setselectedCompany(selectedCompany.filter(item => item !== companyId));
         } else {
@@ -157,10 +157,10 @@ function ModelByModel() {
     return (
         <div className='bg-sky-100 min-h-screen'>
             <HomeNavbar />
-            <div className="p-5 relative">
+            <div className="p-5 py-20 relative">
                 <div className="lg:hidden">
                     <MenuIcon
-                        className="h-6 w-6 fill-current text-[#1c92d2] font-bold my-2 z-50"
+                        className="h-6 w-6 fill-current text-[#1c92d2] font-bold my-2 z-15"
                         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
                     />
                 </div>
@@ -255,12 +255,12 @@ function ModelByModel() {
                             ))}
                         </div>
                     </div>
-                    <div className="flex flex-wrap gap-5 w-auto lg:h-[100%] sm:h-full z-0">
+                    <div className="flex flex-wrap sm:w-auto lg:w-full lg:h-[100%] sm:h-full z-0">
                         {sortedModels.map((model) => (
-                            <div key={model._id} className='sm:w-48 vsm:w-36 lg:w-60'>
+                            <div key={model._id} className='w-full sm:w-1/2 lg:w-[20%] px-2 my-2'>
                                 <NavLink to={`/modelcard/${model._id}`} className="block border-2 border-gray-200">
                                     <img src={model.images[0]} className='lg:w-full h-40 object-fill rounded-t-xl sm:w-full' alt="Product" />
-                                    <div className="p-4 bg-white rounded-b-xl">
+                                    <div className="p-4 bg-gray-100 rounded-b-xl">
                                         <p className="text-md font-semibold sm:text-sm">
                                             {model.name.length > 20 ? `${model.name.substring(0, 25)}...` : model.name}
                                         </p>

@@ -283,7 +283,7 @@ function ModelCard() {
     return (
         <div className='bg-sky-100'>
             <HomeNavbar />
-            <div className="mx-auto p-4 py-14">
+            <div className="mx-auto p-4 py-14 pt-20">
                 {modelData && (
                     <div className=" rounded-lg overflow-hidden lg:flex-row sm:flex-col flex">
                         <div className='lg:w-[50%] sm:w-[100%] px-5 '>

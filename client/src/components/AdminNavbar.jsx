@@ -59,7 +59,7 @@ function AdminNavbar() {
     return (
         <div className="bg-sky-100 h-16 flex items-center print:hidden justify-between py-10 px-4 lg:px-8 relative">
             <div className="lg:flex sm:hidden  items-center lg:w-auto lg:items-start sm:items-center sm:justify-center sm:w-full">
-                <img src={logo} alt="Logo" className="h-16 lg:h-20 rounded-2xl mr-4" /> 
+                <img src={logo} alt="Logo" className="h-16 lg:h-20 rounded-2xl mr-4" />
             </div>
             <div className="flex lg:hidden items-center lg:w-auto lg:items-start sm:items-center sm:justify-center vsm:justify-end sm:w-[70%] vsm:w-[50%]">
                 <img src={logo} alt="Logo" className="h-20 lg:h-20 rounded-2xl vsm:h-16" />
@@ -71,7 +71,7 @@ function AdminNavbar() {
                     {notificationCount > 0 && (
                         <span className='rounded-lg text-sm bg-red-600 px-[5px] font-bold text-white ml-[-34px]'>{notificationCount}</span>
                     )}
-                   <NavLink to={'/adminuserprofile'}><AccountBoxIcon className="text-black"/></NavLink>
+                    <NavLink to={'/adminuserprofile'}><AccountBoxIcon className="text-black" /></NavLink>
                 </div>
             </div>
 
@@ -98,14 +98,14 @@ function AdminNavbar() {
             {isMenuOpen && (
                 <div className="lg:hidden absolute rounded-xl top-16 left-0 bg-sky-100 shadow-lg py-2 px-4 w-52 z-20">
                     <ul className='flex flex-col space-y-2 justify-center items-start'>
-                        <NavLink to={'/admin'}  className="lg:w-auto sm:w-full cursor-pointer flex justify-center items-center bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-blue-800 rounded-lg text-md px-4 py-2 font-bold text-center text-sky-100 ml-2">Home</NavLink>
-                        <NavLink to={'/adduser'}  className="lg:w-auto sm:w-full cursor-pointer flex justify-center items-center bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-blue-800 rounded-lg text-md px-4 py-2 font-bold text-center text-sky-100 ml-2">User</NavLink>
-                        <NavLink to={'/addcat'}  className="lg:w-auto sm:w-full cursor-pointer flex justify-center items-center bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-blue-800 rounded-lg text-md px-4 py-2 font-bold text-center text-sky-100 ml-2">Category</NavLink>
-                        <NavLink to={'/addsubcat'}  className="lg:w-auto sm:w-full cursor-pointer flex justify-center items-center bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-blue-800 rounded-lg text-md px-4 py-2 font-bold text-center text-sky-100 ml-2">Subcategory</NavLink>
-                        <NavLink to={'/addcom'}  className="lg:w-auto sm:w-full cursor-pointer flex justify-center items-center bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-blue-800 rounded-lg text-md px-4 py-2 font-bold text-center text-sky-100 ml-2">Company</NavLink>
-                        <NavLink to={'/addmod'}  className="lg:w-auto sm:w-full cursor-pointer flex justify-center items-center bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-blue-800 rounded-lg text-md px-4 py-2 font-bold text-center text-sky-100 ml-2">Model</NavLink>
-                        <NavLink to={'/orders'}  className="lg:w-auto sm:w-full cursor-pointer flex justify-center items-center bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-blue-800 rounded-lg text-md px-4 py-2 font-bold text-center text-sky-100 ml-2">Orders</NavLink>
-                        <NavLink to={'/reports'}  className="lg:w-auto sm:w-full cursor-pointer flex justify-center items-center bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-blue-800 rounded-lg text-md px-4 py-2 font-bold text-center text-sky-100 ml-2">Reports</NavLink>
+                        <NavLink to={'/admin'} className="lg:w-auto sm:w-full cursor-pointer flex justify-center items-center bg-gradient-to-r from-sky-500 via-sky-600 to-sky-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-sky-800 rounded-lg text-md px-4 py-2 font-bold text-center text-sky-100 ml-2">Home</NavLink>
+                        <NavLink to={'/adduser'} className="lg:w-auto sm:w-full cursor-pointer flex justify-center items-center bg-gradient-to-r from-sky-500 via-sky-600 to-sky-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-sky-800 rounded-lg text-md px-4 py-2 font-bold text-center text-sky-100 ml-2">User</NavLink>
+                        <NavLink to={'/addcat'} className="lg:w-auto sm:w-full cursor-pointer flex justify-center items-center bg-gradient-to-r from-sky-500 via-sky-600 to-sky-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-sky-800 rounded-lg text-md px-4 py-2 font-bold text-center text-sky-100 ml-2">Category</NavLink>
+                        <NavLink to={'/addsubcat'} className="lg:w-auto sm:w-full cursor-pointer flex justify-center items-center bg-gradient-to-r from-sky-500 via-sky-600 to-sky-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-sky-800 rounded-lg text-md px-4 py-2 font-bold text-center text-sky-100 ml-2">Subcategory</NavLink>
+                        <NavLink to={'/addcom'} className="lg:w-auto sm:w-full cursor-pointer flex justify-center items-center bg-gradient-to-r from-sky-500 via-sky-600 to-sky-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-sky-800 rounded-lg text-md px-4 py-2 font-bold text-center text-sky-100 ml-2">Company</NavLink>
+                        <NavLink to={'/addmod'} className="lg:w-auto sm:w-full cursor-pointer flex justify-center items-center bg-gradient-to-r from-sky-500 via-sky-600 to-sky-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-sky-800 rounded-lg text-md px-4 py-2 font-bold text-center text-sky-100 ml-2">Model</NavLink>
+                        <NavLink to={'/orders'} className="lg:w-auto sm:w-full cursor-pointer flex justify-center items-center bg-gradient-to-r from-sky-500 via-sky-600 to-sky-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-sky-800 rounded-lg text-md px-4 py-2 font-bold text-center text-sky-100 ml-2">Orders</NavLink>
+                        <NavLink to={'/reports'} className="lg:w-auto sm:w-full cursor-pointer flex justify-center items-center bg-gradient-to-r from-sky-500 via-sky-600 to-sky-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-sky-800 rounded-lg text-md px-4 py-2 font-bold text-center text-sky-100 ml-2">Reports</NavLink>
                         <li className="lg:w-auto sm:w-full cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 rounded-lg text-md px-4 py-2 font-bold text-center ml-2" onClick={handleLogout}>Logout</li>
                     </ul>
                 </div>

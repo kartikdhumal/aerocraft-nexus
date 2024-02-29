@@ -214,7 +214,7 @@ function CheckOut() {
   return (
     <div className='bg-sky-100 lg:h-screen sm:h-full'>
       <HomeNavbar />
-      <div className=' flex lg:flex-row sm:flex-col '>
+      <div className='flex lg:flex-row sm:flex-col pt-20'>
         <div className=' w-full p-5'>
           {cartItems.map((item) => (
             <div className='flex flex-col ' key={item._id}>

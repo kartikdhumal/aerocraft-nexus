@@ -132,7 +132,7 @@ function HomeNavbar() {
 
 
   return (
-    <div className="bg-sky-100 text-white px-6 relative">
+    <div className="bg-sky-100 text-white px-6 w-full sm:fixed top-0 z-50">
       <div className="flex justify-around items-center">
         <div className="flex items-center space-x-4  lg:w-auto">
           <div className='lg:hidden '> <MenuIcon className="h-6 w-6 fill-current text-black lg:hidden" onClick={() => setIsSidebarOpen(!isSidebarOpen)} /></div>
@@ -173,28 +173,24 @@ function HomeNavbar() {
               onMouseEnter={() => setIsProfileHovered(true)}
               onMouseLeave={() => setIsProfileHovered(false)}
             >
-              <img src={userlogo} alt="User" className="h-10 w-100 rounded-[50%]" />
+              <img src={userlogo} alt="User" className="h-10 w-100 rounded-xl" />
               {isProfileHovered && (
-                <div className="absolute border border-black right-0 px-1 w-52 bg-sky-100  rounded-xl shadow-lg z-50">
+                <div className="absolute border border-black right-0 px-1 w-56 bg-sky-100  py-2 rounded-xl shadow-lg z-50">
                   <div className="flex-shrink-0 w-100 h-24 object-fill w-full flex justify-center items-center">
-                    <img src={userlogo} alt="" className="object-cover cursor-auto object-center w-20 h-20 rounded" />
+                    <img src={userlogo} alt="" className="object-cover cursor-auto object-center w-16 h-16 rounded" />
                   </div>
                   <div className="flex flex-col">
-                    <div>
-                      <h2 className="text-xl px-2 py-1 font-bold cursor-auto text-black" >
+                      <h2 className="text-lg flex justify-center items-center font-bold cursor-auto bg-gray-100 text-black rounded-xl px-4 py-1 mb-2" >
                         {
-                          sessionStorage.userid ? sessionStorage.name : 'User'
+                          sessionStorage.userid ? sessionStorage.name + ' 👏🏻' : 'User'
                         }
                       </h2>
-                    </div>
-                    <div className="space-y-1 px-2 py-2">
-                      <span className="flex items-center justify-start space-x-2 space-y-1">
-                        <AccountBoxIcon className='text-black'/>
-                        <NavLink to={'/usereditprofile'} className="text-black font-bold">Edit Profile</NavLink>
+                    <div className="px-1 space-y-1">
+                      <span className="flex items-center justify-start">
+                        <NavLink to={'/usereditprofile'} className="w-full cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-sky-500 via-sky-600 to-sky-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-sky-800 rounded-lg text-md px-4 py-2 font-bold text-center ml-2">Edit Profile</NavLink>
                       </span>
-                      <span className="flex items-center justify-start space-x-2 space-y-1">
-                        <LogoutIcon className='text-black'/>
-                        <span className="text-black font-bold" onClick={handleLogout}>Log Out</span>
+                      <span className="flex items-center justify-start">
+                        <span className="lg:w-full sm:w-full cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 rounded-lg text-md px-4 py-2 font-bold text-center ml-2" onClick={handleLogout}>Log Out</span>
                       </span>
                     </div>
                   </div>
@@ -241,10 +237,10 @@ function HomeNavbar() {
                   </h2>
               </div>
               <span className="flex items-center justify-start space-x-2 space-y-1">
-              <NavLink to={'/yourorders'} className="lg:w-auto sm:w-full cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 rounded-lg text-md px-4 py-2 font-bold text-center ml-2"> Your Orders  </NavLink>
+              <NavLink to={'/yourorders'} className="lg:w-auto sm:w-full cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-sky-500 via-sky-600 to-sky-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-sky-800 rounded-lg text-md px-4 py-2 font-bold text-center ml-2"> Your Orders  </NavLink>
               </span>
               <span className="flex items-center justify-start cursor-pointer space-x-2 space-y-1">
-                <NavLink to={'/usereditprofile'} className="lg:w-auto sm:w-full cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-blue-800 rounded-lg text-md px-4 py-2 font-bold text-center ml-2">Edit Profile</NavLink>
+                <NavLink to={'/usereditprofile'} className="lg:w-auto sm:w-full cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-sky-500 via-sky-600 to-sky-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-sky-800 rounded-lg text-md px-4 py-2 font-bold text-center ml-2">Edit Profile</NavLink>
               </span>
               <span className="flex items-center justify-start cursor-pointer space-x-2 space-y-1">
                 <span className="lg:w-auto sm:w-full cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 rounded-lg text-md px-4 py-2 font-bold text-center ml-2" onClick={handleLogout}>Log Out</span>
