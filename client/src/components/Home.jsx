@@ -153,7 +153,7 @@ function Home() {
 
       <div className='p-5'>
         <div className='text-2xl p-12  w-full text-center'>Models By Category</div>
-        <div className="flex flex-row flex-wrap gap-5 p-5 justify-center items-center">
+        <div className="flex flex-row flex-wrap lg:gap-5 sm:gap-5 vsm:gap-10 p-5 justify-center items-center">
           {filteredCategories
             .filter(category =>
               subcategoryData.some(subcategory => subcategory.categoryId === category.id) &&
