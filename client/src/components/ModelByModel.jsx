@@ -285,7 +285,7 @@ function ModelByModel() {
                             </div>
                         ))}
                     </> : <>
-                    <div className="lg:w-full sm:w-full lg:ml-0 sm:ml-24 px-2 my-2 flex text-center justify-center text-2xl font-semibold text-gray-600 items-center">Loading...</div>
+                    <div className="lg:w-full sm:w-full lg:ml-0  sm:ml-40 vsm:ml-24 h-96 px-2 my-2 flex text-center justify-center text-2xl font-semibold text-gray-600 items-center">Loading...</div>
                     </>
 
 }
