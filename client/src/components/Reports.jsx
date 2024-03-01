@@ -574,8 +574,8 @@ function Reports() {
            </>
            ) : (
             <div className="flex justify-center flex-col items-center h-auto py-28">
-              <p className="text-xl font-semibold text-gray-600">Select report type from dropdown.</p>
-              <p className="text-xl font-semibold text-gray-600">Reports will be shown here.</p>
+              <p className="lg:text-xl sm:text-lg font-semibold text-gray-600">Select report type from dropdown.</p>
+              <p className="lg:text-xl sm:text-lg font-semibold text-gray-600">Reports will be shown here.</p>
             </div>
           )}
           </div>
