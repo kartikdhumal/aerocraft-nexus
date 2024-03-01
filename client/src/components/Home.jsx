@@ -145,7 +145,7 @@ function Home() {
       <HomeNavbar />
       <div class="relative bg-sky-300 pt-16">
         <div class="w-100">
-          <img src={sky2} className='w-screen lg:h-[10%] bg-sky-200 sm:h-52' />
+          <img src={sky2} className='w-screen lg:h-[10%] bg-sky-200 sm:h-96' />
         </div>
       </div>
 
