@@ -17,6 +17,7 @@ function ModelByCompany() {
     const [sortOption, setSortOption] = useState(null);
     const [reviews, setReviews] = useState([]);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetchSubcategories();
@@ -34,31 +35,40 @@ function ModelByCompany() {
     ]);
 
     const fetchSubcategories = async () => {
+        setLoading(true);
         try {
             const response = await axios.get(`https://aerocraftnexusserver.vercel.app/api/subcategories`);
             setSubcategoryData(response.data.subcategories);
+            setLoading(false);
         } catch (error) {
             console.error('Error fetching subcategories:', error);
+            setLoading(false);
         }
     };
 
     const fetchModels = async () => {
+        setLoading(true);
         try {
             const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/models');
             const filteredCompanies = response.data.models.filter(models => models.companyId === companyId);
             setModelData(filteredCompanies);
+            setLoading(false);
         } catch (error) {
             console.error('There was a problem with fetching models :', error);
+            setLoading(false);
         }
     };
 
     const fetchReviews = async () => {
+        setLoading(true);
         try {
             const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/reviews');
             const filteredReviews = response.data.reviews;
             setReviews(filteredReviews);
+            setLoading(false);
         } catch (error) {
             console.error('There was a problem with fetching models :', error);
+            setLoading(false);
         }
     };
 
@@ -222,9 +232,11 @@ function ModelByCompany() {
                         </div>
                     </div>
                     <div className={`flex flex-wrap sm:w-auto lg:w-full lg:h-[100%] sm:h-full z-${isSidebarOpen ? '0' : '20'}`}>
+                      
+                    { !loading ? <>
                         {sortedModels.map((model) => (
-                            <div key={model._id} className='w-full sm:w-1/2 lg:w-[20%] px-2 my-2 product-card-container'>
-                                <NavLink to={`/modelcard/${model._id}`} className="block border-2 border-gray-200">
+                            <div key={model._id} className='w-full sm:w-[70%] vsm:sm:w-[60%] lg:w-[20%] px-2 my-2'>
+                              <NavLink to={`/modelcard/${model._id}`} className="block border-2 border-gray-200">
                                     <img src={model.images[0]} className='lg:w-full h-40 object-fill rounded-t-xl sm:w-full' alt="Product" />
                                     <div className="p-4 bg-gray-100 rounded-b-xl">
                                         <p className="text-md font-semibold sm:text-sm">
@@ -235,6 +247,13 @@ function ModelByCompany() {
                                 </NavLink>
                             </div>
                         ))}
+                    </> : <>
+                    <div className="lg:w-full sm:w-96 h-96 px-2 my-2 flex text-center justify-center text-2xl font-semibold text-gray-600 items-center">Loading...</div>
+                    </>
+
+}
+
+
                     </div>
 
                 </div>

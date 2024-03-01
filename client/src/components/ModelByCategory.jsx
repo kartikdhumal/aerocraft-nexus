@@ -16,10 +16,12 @@ function ModelByCategory() {
     const [reviews, setReviews] = useState([]);
     const [sortOption, setSortOption] = useState(null);
     const [selectedReviews, setSelectedReviews] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
+            setLoading(true);
             try {
                 const [subcategoryResponse, modelResponse, reviewResponse] = await Promise.all([
                     axios.get(`https://aerocraftnexusserver.vercel.app/api/subcategories`),
@@ -39,8 +41,10 @@ function ModelByCategory() {
                 setSubcategoryData(filteredSubcategories);
                 setModelData(filteredModels);
                 setReviews(reviews);
+                setLoading(false);
             } catch (error) {
                 console.error('Error fetching data:', error);
+                setLoading(false);
             }
         };
 
@@ -212,6 +216,7 @@ function ModelByCategory() {
                     </div>
 
                     <div className="flex flex-wrap sm:w-auto lg:w-full lg:h-[100%] sm:h-full z-0">
+                    { !loading ? <>
                         {sortedModels.map((model) => (
                             <div key={model._id} className='w-full sm:w-1/2 lg:w-[20%] px-2 my-2'>
                               <NavLink to={`/modelcard/${model._id}`} className="block border-2 border-gray-200">
@@ -225,6 +230,12 @@ function ModelByCategory() {
                                 </NavLink>
                             </div>
                         ))}
+                    </> : <>
+                    <div className="lg:w-full sm:w-96 h-96 px-2 my-2 flex text-center justify-center text-2xl font-semibold text-gray-600 items-center">Loading...</div>
+                    </>
+
+}
+
                     </div>
 
 

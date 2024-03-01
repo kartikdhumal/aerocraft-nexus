@@ -209,7 +209,7 @@ function YourOrders() {
             <section className="flex lg:w-full flex-col space-y-4  lg:px-0 sm:px-6 justify-center bg-gradient-to-br from rgba(205, 156, 242, 1) to-pink-500">
               {
                 !orders.length == 0 ? (
-                   loading ? (
+                  loading ? (
                     <div className="card rounded-lg px-10 py-10 flex justify-center bg-gray-200 text-gray-700 text-xl items-center font-bold border-2 border-black">
                       Loading...
                     </div>
@@ -219,7 +219,7 @@ function YourOrders() {
                         <div className="card rounded-lg border-2 black">
                           <div className="card-body p-4">
                             <div className="flex justify-between items-center mb-4">
-                              <p className="lg:text-lg sm:text-md font-bold text-gray-500 mb-0">{'Order Date : ' + getTimeAgo(order.date)}</p>
+                              <p className="lg:text-lg sm:text-md vsm:text-sm font-bold text-gray-500 mb-0">{'Order Date : ' + getTimeAgo(order.date)}</p>
                               <div className='cursor-pointer' onClick={() => generateInvoice(order)}>
                                 <ReceiptIcon className='text-blue-700 ' />
                                 <span className='px-2 text-gray-500 font-bold'>Invoice</span>
@@ -232,7 +232,7 @@ function YourOrders() {
                                     const model = modelData.find(model => model._id === orderDetail.modelId);
                                     if (model) {
                                       return (
-                                        <div key={orderDetail._id} className="flex p-3 bg-gray-100 border border-black rounded-xl items-center justify-evenly">
+                                        <div key={orderDetail._id} className="flex lg:flex-row sm:flex-row p-3 bg-gray-100 border border-black rounded-xl items-center justify-between">
                                           {showReturnOptions && (
                                             order.status == 'delivered' ? <>
                                               <input
@@ -242,17 +242,19 @@ function YourOrders() {
                                               />
                                             </> : <></>
                                           )}
-                                          <div className="w-1/6">
+                                          <div className="lg:w-1/6 sm:w-24">
                                             <img src={model.images[0]} className="w-full h-auto" alt={model.name} />
                                           </div>
-                                          <div className="w-1/6 text-center">
-                                            <p className="text-gray-500 mb-0 lg:text-lg sm:text-sm">{model.name}</p>
-                                          </div>
-                                          <div className="w-1/6 text-center">
-                                            <p className="text-gray-500 mb-0 lg:text-lg sm:text-sm">{'Qty : ' + orderDetail.quantity}</p>
-                                          </div>
-                                          <div className="w-1/6 text-center">
-                                            <p className="text-gray-500 mb-0 lg:text-lg sm:text-sm"><CurrencyRupeeIcon />{model.price * orderDetail.quantity}</p>
+                                          <div className='flex sm:flex-col  w-[90%] lg:flex-row justify-between items-center'>
+                                            <div className="lg:w-[50%] sm:w-full  text-center">
+                                              <p className="text-gray-500 mb-0 lg:text-lg sm:text-sm">{model.name}</p>
+                                            </div>
+                                            <div className="lg:w-1/6 sm:w-full text-center">
+                                              <p className="text-gray-500 mb-0 lg:text-lg sm:text-sm">{'Qty : ' + orderDetail.quantity}</p>
+                                            </div>
+                                            <div className="lg:w-1/6 sm:w-full text-center">
+                                              <p className="text-gray-500 mb-0 lg:text-lg sm:text-sm"><CurrencyRupeeIcon />{model.price * orderDetail.quantity}</p>
+                                            </div>
                                           </div>
                                         </div>
                                       );
@@ -317,8 +319,8 @@ function YourOrders() {
                   )
                 ) : (
                   <div className="card w-full h-28 rounded-lg px-10 py-10 flex justify-center bg-sky-100 text-black text-xl items-center font-bold border-2 border-black">
-                  No Orders Found
-                </div>
+                    No Orders Found
+                  </div>
                 )
               }
             </section>
@@ -345,18 +347,20 @@ function YourOrders() {
                                         const model = modelData.find(model => model._id === orderReturnDetail.modelId);
                                         if (model) {
                                           return (
-                                            <div key={orderReturnDetail._id} className="flex p-3 bg-gray-100 border border-black rounded-xl items-center justify-evenly">
-                                              <div className="w-1/6">
+                                            <div key={orderReturnDetail._id} className="flex lg:flex-row sm:flex-row p-3 bg-gray-100 border border-black rounded-xl items-center justify-evenly">
+                                              <div className="lg:w-1/6 sm:w-24">
                                                 <img src={model.images[0]} className="w-full h-auto" alt={model.name} />
                                               </div>
-                                              <div className="w-1/6 text-center">
-                                                <p className="text-gray-500 mb-0 lg:text-lg sm:text-sm">{model.name}</p>
-                                              </div>
-                                              <div className="w-1/6 text-center">
-                                                <p className="text-gray-500 mb-0 lg:text-lg sm:text-sm">{'Qty : ' + orderReturnDetail.quantity}</p>
-                                              </div>
-                                              <div className="w-1/6 text-center">
-                                                <p className="text-gray-500 mb-0 lg:text-lg sm:text-sm"><CurrencyRupeeIcon />{model.price * orderReturnDetail.quantity}</p>
+                                              <div className='flex sm:flex-col  w-[90%] lg:flex-row justify-between items-center'>
+                                                <div className="lg:w-[50%] sm:w-full  text-center">
+                                                  <p className="text-gray-500 mb-0 lg:text-lg sm:text-sm">{model.name}</p>
+                                                </div>
+                                                <div className="lg:w-1/6 sm:w-full text-center">
+                                                  <p className="text-gray-500 mb-0 lg:text-lg sm:text-sm">{'Qty : ' + orderReturnDetail.quantity}</p>
+                                                </div>
+                                                <div className="lg:w-1/6 sm:w-full text-center">
+                                                  <p className="text-gray-500 mb-0 lg:text-lg sm:text-sm"><CurrencyRupeeIcon />{model.price * orderReturnDetail.quantity}</p>
+                                                </div>
                                               </div>
                                             </div>
                                           );

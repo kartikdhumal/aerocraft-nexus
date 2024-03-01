@@ -55,7 +55,7 @@ function ChangePassword() {
   };
 
   return (
-    <div className='w-full h-screen bg-sky-100 flex justify-center items-center'>
+    <div className='w-full h-screen bg-sky-100 flex p-5 justify-center items-center'>
       <div className='p-8 rounded-lg shadow-lg w-96'>
         <h2 className='text-2xl font-bold mb-4 text-center'>Change Password</h2>
         <form onSubmit={handleSubmit}>

@@ -10,9 +10,10 @@ import ListAltIcon from '@mui/icons-material/ListAlt';
 import DnsIcon from '@mui/icons-material/Dns';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
-import Count from './Count'
+import { useCountContext } from '../context/CartContext';
 
 function HomeNavbar() {
+  const { count } = useCountContext()
   const [categories, setCategoryData] = useState([]);
   const [subcategories, setSubcategoryData] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -20,7 +21,6 @@ function HomeNavbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isProfileHovered, setIsProfileHovered] = useState(false);
   const [modelData, setModelData] = useState([]);
-  const [cartCount, setCartCount] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [showSearchResults, setShowSearchResults] = useState(false);
@@ -57,7 +57,7 @@ function HomeNavbar() {
     try {
       let itemCount = 0;
       const userId = sessionStorage.userid;
-  
+
       if (userId) {
         const response = await axios.get(`https://aerocraftnexusserver.vercel.app/api/carts`);
         if (response.data.cart) {
@@ -70,13 +70,11 @@ function HomeNavbar() {
         const sessionCart = JSON.parse(sessionStorage.getItem('sessionCart')) || [];
         itemCount = sessionCart.length;
       }
-  
-      setCartCount(itemCount);
     } catch (error) {
       console.error('Error fetching cart item count:', error);
     }
   };
-  
+
   const fetchSubcategories = async () => {
     try {
       const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/subcategories');
@@ -157,16 +155,15 @@ function HomeNavbar() {
 
 
           <NavLink to="/addtocart" className='flex flex-col'>
-            {/* {
-              cartCount > 0 && (
+            {
+              count > 0 && (
             <span className='rounded-lg flex justify-center items-center text-sm bg-red-600 px-[5px] font-bold text-white'>
-              {cartCount}
+              {count}
             </span>
-          )} */}
+           )}
             <ShoppingCartIcon className="h-8 w-8 cursor-pointer text-black" />
           </NavLink>
-
-
+          
           {userLoggedIn ? (
             <div
               className="relative lg:block sm:hidden cursor-pointer"
@@ -180,11 +177,11 @@ function HomeNavbar() {
                     <img src={userlogo} alt="" className="object-cover cursor-auto object-center w-16 h-16 rounded" />
                   </div>
                   <div className="flex flex-col">
-                      <h2 className="text-lg flex justify-center items-center font-bold cursor-auto bg-gray-100 text-black rounded-xl px-4 py-1 mb-2" >
-                        {
-                          sessionStorage.userid ? sessionStorage.name + ' 👏🏻' : 'User'
-                        }
-                      </h2>
+                    <h2 className="text-lg flex justify-center items-center font-bold cursor-auto bg-gray-100 text-black rounded-xl px-4 py-1 mb-2" >
+                      {
+                        sessionStorage.userid ? sessionStorage.name + ' 👏🏻' : 'User'
+                      }
+                    </h2>
                     <div className="px-1 space-y-1">
                       <span className="flex items-center justify-start">
                         <NavLink to={'/usereditprofile'} className="w-full cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-sky-500 via-sky-600 to-sky-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-sky-800 rounded-lg text-md px-4 py-2 font-bold text-center ml-2">Edit Profile</NavLink>
@@ -231,13 +228,13 @@ function HomeNavbar() {
               <div className="flex-shrink-0 w-full h-auto flex-col object-fill flex justify-center items-center">
                 {/* <img src={userlogo} alt="" className="object-cover cursor-auto object-center w-10 h-10 rounded" /> */}
                 <h2 className="text-xl font-bold cursor-auto bg-gray-100 text-black rounded-xl px-4 py-1" >
-                    {
-                      sessionStorage.userid ? 'Hey.. ' + sessionStorage.name + ' 👏🏻' : 'User'
-                    }
-                  </h2>
+                  {
+                    sessionStorage.userid ? 'Hey.. ' + sessionStorage.name + ' 👏🏻' : 'User'
+                  }
+                </h2>
               </div>
               <span className="flex items-center justify-start space-x-2 space-y-1">
-              <NavLink to={'/yourorders'} className="lg:w-auto sm:w-full cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-sky-500 via-sky-600 to-sky-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-sky-800 rounded-lg text-md px-4 py-2 font-bold text-center ml-2"> Your Orders  </NavLink>
+                <NavLink to={'/yourorders'} className="lg:w-auto sm:w-full cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-sky-500 via-sky-600 to-sky-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-sky-800 rounded-lg text-md px-4 py-2 font-bold text-center ml-2"> Your Orders  </NavLink>
               </span>
               <span className="flex items-center justify-start cursor-pointer space-x-2 space-y-1">
                 <NavLink to={'/usereditprofile'} className="lg:w-auto sm:w-full cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-sky-500 via-sky-600 to-sky-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-sky-800 rounded-lg text-md px-4 py-2 font-bold text-center ml-2">Edit Profile</NavLink>

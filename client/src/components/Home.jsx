@@ -5,7 +5,7 @@ import axios from 'axios';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import Footer from './Footer'
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import sky2 from '../images/h.jpg'
+import sky2 from '../images/sky2.jpg'
 
 function Home() {
   const [categoryData, setCategoryData] = useState([]);
@@ -145,7 +145,7 @@ function Home() {
       <HomeNavbar />
       <div class="relative bg-sky-300 pt-20">
         <div class="w-100">
-          <img src={sky2} className='w-screen lg:h-auto sm:h-96' />
+          <img src={sky2} className='w-screen lg:h-[10%] bg-sky-200 sm:h-52' />
         </div>
       </div>
 

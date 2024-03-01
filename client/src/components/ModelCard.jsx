@@ -6,10 +6,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useParams } from 'react-router-dom';
 import HomeNavbar from './HomeNavbar';
 import user from '../images/userlogo.png'
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
+import { useCountContext } from '../context/CartContext';
 
 function ModelCard() {
     const { id } = useParams();
+    const { add } = useCountContext();
     const [modelData, setModelData] = useState(null);
     const [categories, setCategories] = useState([]);
     const [companies, setCompanies] = useState([]);
@@ -19,7 +21,6 @@ function ModelCard() {
     const [rating, setRating] = useState(0);
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [cartCount, setCartCount] = useState(0);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [userData, setUserData] = useState([]);
     const [orders, setOrders] = useState([]);
@@ -123,7 +124,7 @@ function ModelCard() {
         setFeedback(event.target.value);
     };
 
-   
+
 
     const handleSubmitFeedback = async () => {
         if (!sessionStorage.userid) {
@@ -161,6 +162,9 @@ function ModelCard() {
         } catch (error) {
             console.error('Error adding review:', error);
             alert('You can give a maximum of one review');
+            setRating(0);
+            setFeedback('');
+            fetchReviews();
         }
     };
 
@@ -184,7 +188,7 @@ function ModelCard() {
             alert('Failed to delete review');
         }
     };
-    
+
     const handleCart = async () => {
         if (!sessionStorage.userid) {
             const cartItem = {
@@ -202,9 +206,8 @@ function ModelCard() {
             }
             sessionCart.push(cartItem);
             sessionStorage.setItem('sessionCart', JSON.stringify(sessionCart));
+            add()
             alert('Item added to cart');
-            console.log('sessionCart');
-            console.log(sessionCart);
         }
 
         else if (modelData.quantity < 1) {
@@ -225,7 +228,8 @@ function ModelCard() {
                 });
 
                 if (response.status === 201) {
-                    toast.success('Item added to cart successfully');
+                    add()
+                    alert('Item added to cart successfully');
                 } else if (response.status === 400 && response.data.message === 'Already Added to cart') {
                     alert('Model already exists in the cart');
                 } else {
@@ -283,7 +287,7 @@ function ModelCard() {
     return (
         <div className='bg-sky-100'>
             <HomeNavbar />
-            <div className="mx-auto p-4 py-14 lg:pt-32 sm:pt-24">
+            <div className="mx-auto px-2 overflow-hidden pt-32">
                 {modelData && (
                     <div className=" rounded-lg overflow-hidden lg:flex-row sm:flex-col flex">
                         <div className='lg:w-[50%] sm:w-[100%] px-5 '>
@@ -378,8 +382,8 @@ function ModelCard() {
                                 </div>
                             </div>
                         </div>
-                        <div className="lg:w-[35%] sm:w-full px-4 className  " >
-                            <div className="review mt-4 rounded-xl bg-gray shadow-md p-5 max-w-md mx-auto">
+                        <div className="lg:w-[35%] sm:w-full" >
+                            <div className="review mt-4 rounded-xl bg-gray shadow-md max-w-md mx-auto">
                                 <h3 className="text-xl font-semibold mb-4 text-center">Customer Reviews</h3>
                                 <div className="rating mb-4 text-center">
                                     {[...Array(5)].map((_, index) => (
@@ -406,18 +410,18 @@ function ModelCard() {
                             </div>
                         </div>
                     </div> </div>
-                <div className="reviews mt-4 rounded-xl shadow-lg p-6 w-full md:w-11/12 lg:w-9/12 xl:w-10/12 mx-auto">
+                <div className="reviews mt-4 rounded-xl p-6 w-full md:w-11/12 lg:w-9/12 xl:w-10/12 mx-auto">
                     <h3 className="text-xl font-semibold mb-4 text-center">Customer Reviews</h3>
                     <div className="review-list">
                         {loading && <p>Loading...</p>}
                         {!loading && reviews.length === 0 && <p className="text-center">No reviews</p>}
                         {!loading && reviews.length > 0 && reviews.map(review => (
-                            <div className="relative grid grid-cols-1 gap-4 p-4 mb-8 border rounded-lg bg-white shadow-lg">
-                                <div className="relative flex gap-4">
-                                    <img src={user} className="relative rounded-lg lg:-top-2 sm:-top-2 vsm:-top-2 bg-white border lg:h-14 lg:w-14 sm:h-14 sm:w-14 vsm:h-14 vsm:w-14" alt="" loading="lazy"></img>
+                            <div className="relative grid grid-cols-1 gap-4 p-4 mb-8 rounded-lg bg-white">
+                                <div className="relative flex">
+                                    <img src={user} className="relative rounded-lg lg:-top-2 sm:-top-2 vsm:-top-2 lg:h-14 lg:w-20 sm:h-14 sm:w-auto vsm:h-10 vsm:w-14 vsm:mt-2" alt="" loading="lazy"></img>
                                     <div className="flex flex-col w-full">
-                                        <div className="flex flex-row justify-between">
-                                            <p className="relative text-xl whitespace-nowrap truncate overflow-hidden">{getUserName(review.userId)}</p>
+                                        <div className="flex flex-row justify-start">
+                                            <p className="relative lg:text-xl sm:text-xl vsm:text-sm whitespace-nowrap truncate overflow-hidden">{getUserName(review.userId)}</p>
                                             <a className="text-gray-500 text-xl" href="#"><i className="fa-solid fa-trash"></i></a>
                                         </div>
                                         <p className="text-gray-400 text-sm">{getTimeAgo(review.date)}</p>

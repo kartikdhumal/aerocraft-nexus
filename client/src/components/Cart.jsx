@@ -5,8 +5,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { NavLink, useNavigate } from 'react-router-dom';
 import fetchCartItemCount from './HomeNavbar'
+import { useCountContext } from '../context/CartContext';
 
 function Cart() {
+  const { remove } = useCountContext();
   const [cartItems, setCartItems] = useState([]);
   const [modelDetails, setModelDetails] = useState({});
   const sessionCart = JSON.parse(sessionStorage.getItem('sessionCart')) || [];
@@ -63,14 +65,20 @@ function Cart() {
       }
     } catch (error) {
       console.error('Error decreasing quantity:', error);
-      alert('Error decreasing quantity');
+      alert('Something went wrong');
     }
   };
 
-  const handleIncrease = async (itemId, currentQuantity) => {
+  const handleIncrease = async (itemId, currentQuantity , modelId) => {
     try {
-      if (currentQuantity === 10) {
+      const model = modelDetails[modelId._id];
+      if(currentQuantity >= model.quantity){
+        alert(`Insufficient Quantity Available. We only have ${model.quantity} products in stock. Please adjust your quantity accordingly`);
+        return;
+      }
+      else if (currentQuantity === 10) {
         alert('You can buy upto maximum 10 items');
+        return;
       }
       else {
         await updateCartItemQuantity(itemId, currentQuantity + 1);
@@ -78,17 +86,18 @@ function Cart() {
       }
     } catch (error) {
       console.error('Error increasing quantity:', error);
-      alert('Error increasing quantity');
+      alert(`Something went wrong`);
     }
   };
 
   const handleDeleteCartItem = async (cartId) => {
     try {
       await axios.delete(`https://aerocraftnexusserver.vercel.app/api/deletecart/${cartId}`);
+      remove();
       fetchCartItems();
     } catch (error) {
       console.error('Error deleting cart item:', error);
-      alert('Error Deleting Model');
+      alert('Something went wrong');
     }
   };
 
@@ -242,9 +251,9 @@ function Cart() {
                             )}
                           </div>
                           <div className="lg:flex sm:hidden items-center mt-2 lg:w-3/5">
-                            <button onClick={() => handleDecrease(item._id, item.quantity)} className="lg:px-4 lg:py-2 sm:px-1 sm:py-1 bg-blue-600 text-white hover:bg-blue-700 rounded-lg lg:mr-2 sm:mr-0">-</button>
+                            <button onClick={() => handleDecrease(item._id, item.quantity , modelDetails[item.modelId])} className="lg:px-4 lg:py-2 sm:px-1 sm:py-1 bg-blue-600 text-white hover:bg-blue-700 rounded-lg lg:mr-2 sm:mr-0">-</button>
                             <span className="px-4 py-2 font-semibold text-xl text-blue-700">{item.quantity}</span>
-                            <button onClick={() => handleIncrease(item._id, item.quantity)} className="lg:px-4 lg:py-2 sm:px-1 sm:py-1 bg-blue-600 text-white hover:bg-blue-700 rounded-lg lg:ml-2 sm:mr-0">+</button>
+                            <button onClick={() => handleIncrease(item._id, item.quantity , modelDetails[item.modelId])} className="lg:px-4 lg:py-2 sm:px-1 sm:py-1 bg-blue-600 text-white hover:bg-blue-700 rounded-lg lg:ml-2 sm:mr-0">+</button>
                           </div>
                           <div className="flex items-center">
                             <p className="lg:text-lg lg:flex sm:hidden sm:text-sm text-green-700 font-bold"><CurrencyRupeeIcon />{calculateTotalPrice(item)}</p>
@@ -277,7 +286,7 @@ function Cart() {
                 <NavLink to={'/checkout'} onClick={handleCheckout}>
                   <button className="bg-blue-700 text-white px-4 py-2 rounded-md mt-4">Checkout</button>
                 </NavLink>
-              </div>  
+              </div>
             )}
           </> : <>
             {sessionCart.length > 0 && (

@@ -50,7 +50,7 @@ function SendEmail() {
   };
 
   return (
-    <div className='w-full h-screen bg-sky-100 flex justify-center items-center'>
+    <div className='w-full h-screen bg-sky-100 flex p-5 justify-center items-center'>
       <div className='p-8 rounded-lg shadow-lg w-96'>
         <p className='text-lg font-bold mb-4 text-center'>Type your email to get OTP</p>
         <div className='mb-4'>
