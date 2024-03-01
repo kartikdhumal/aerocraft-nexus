@@ -7,6 +7,7 @@ import jsPDF from 'jspdf';
 import nologo from '../images/nologo.png';
 import 'jspdf-autotable';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function YourOrders() {
   const [orders, setOrders] = useState([]);
@@ -102,7 +103,7 @@ function YourOrders() {
       doc.save(`Invoice_${order._id}.pdf`);
     } catch (error) {
       console.error('Error generating invoice:', error);
-      alert('Error in generating invoice.');
+      toast.error('Error in generating invoice.');
     }
   };
 
@@ -116,15 +117,15 @@ function YourOrders() {
     try {
       const response = await axios.delete(`https://aerocraftnexusserver.vercel.app/api/deleteorder/${orderId}`);
       if (response.status === 200) {
-        alert('Order cancelled successfully!');
+        toast.success('Order cancelled successfully!');
         fetchOrders();
         fetchModels();
       } else {
-        alert('Failed to cancel the order. Please try again later.');
+        toast.error('Failed to cancel the order. Please try again later.');
       }
     } catch (error) {
       console.error('Error cancelling order:', error);
-      alert('An error occurred while cancelling the order. Please try again later.');
+      toast.error('An error occurred while cancelling the order. Please try again later.');
     }
   };
 
@@ -135,7 +136,7 @@ function YourOrders() {
 
   const handleReturnItems = () => {
     if (selectedItems.length === 0) {
-      alert('Please select items to return.');
+      toast.warning('Please select items to return.');
       return;
     }
     setReturnPromptVisible(true);
@@ -143,7 +144,7 @@ function YourOrders() {
 
   const handleReturnConfirmation = async () => {
     if (!returnReason) {
-      alert('Please provide a reason for returning items.');
+      toast.warning('Please provide a reason for returning items.');
       return;
     }
 
@@ -155,7 +156,7 @@ function YourOrders() {
         modelsInfo: selectedItems.map(item => ({ modelId: item.modelId, quantity: item.quantity })),
         reason: returnReason
       });
-      alert(response.data.message);
+      toast.success(response.data.message);
       navigate('/yourorders');
       setReturnReason('');
       setSelectedItems([]);
@@ -167,7 +168,7 @@ function YourOrders() {
 
     } catch (error) {
       console.error('Error returning items:', error);
-      alert('Failed to return items. Please try again later.');
+      toast.error('Failed to return items. Please try again later.');
     }
   };
 

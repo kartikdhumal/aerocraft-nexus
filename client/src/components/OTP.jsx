@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function OTP() {
   const navigate = useNavigate();
@@ -57,7 +58,7 @@ function OTP() {
     try {
       setLoading(true);
       if (enteredOTP == otp) {
-        alert('Verification successful');
+        toast.success('Verification successful');
         navigate('/changepassword', { state: { email } });
         input1Ref.current.value = '';
         input2Ref.current.value = '';
@@ -65,7 +66,7 @@ function OTP() {
         input4Ref.current.value = '';
         input1Ref.current.focus();
       } else {
-        alert('Incorrect OTP. Please try again.');
+        toast.error('Incorrect OTP. Please try again.');
         input1Ref.current.value = '';
         input2Ref.current.value = '';
         input3Ref.current.value = '';
@@ -75,7 +76,7 @@ function OTP() {
       }
     } catch (error) {
       console.error('Error verifying OTP:', error);
-      alert('Failed to verify OTP. Please try again later.');
+      toast.error('Failed to verify OTP. Please try again later.');
     } finally {
       setLoading(false);
     }

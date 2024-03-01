@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from 'axios';
+import { toast } from "react-toastify";
 
 function ChangePassword() {
   const [password, setPassword] = useState('');
@@ -32,7 +33,7 @@ function ChangePassword() {
         });
 
         if (response.status === 200) {
-          alert('Password changed successfully');
+          toast.success('Password changed successfully');
           navigate('/login');
           setPassword('');
         } else {

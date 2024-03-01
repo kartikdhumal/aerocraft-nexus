@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import AdminNavbar from './AdminNavbar';
+import { toast } from 'react-toastify';
 
 function UpdateCompany() {
   const [name, setName] = useState('');
@@ -43,13 +44,13 @@ function UpdateCompany() {
         throw new Error('Company name already exists');
       }
   
-      alert(response.data.message);
+      toast.success(response.data.message);
       navigate('/addcom');
     } catch (error) {
       if (error.message === 'Company name already exists') {
-        alert(error.message);
+        toast.error(error.message);
       } else {
-        alert(error.response.data.error);
+        toast.error(error.response.data.error);
       }
       setNameError(error.response.data.error);
     } finally {

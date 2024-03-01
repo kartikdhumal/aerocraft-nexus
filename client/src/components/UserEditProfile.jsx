@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import HomeNavbar from './HomeNavbar';
 import axios from 'axios';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function UserEditProfile() {
   const [name, setName] = useState('');
@@ -78,7 +79,7 @@ function UserEditProfile() {
         role
       });
 
-      alert('Profile updated successfully');
+      toast.success('Profile updated successfully');
       setName('');
       setEmail('');
       setPassword('');
@@ -86,10 +87,10 @@ function UserEditProfile() {
       navigate('/login');
     } catch (error) {
       if (error.response) {
-        alert(error.response.data.message);
+        toast.error(error.response.data.message);
         setPassword('');
       } else {
-        alert('Network error occurred. Please try again later.');
+        toast.error('Network error occurred. Please try again later.');
         setPassword('');
       }
 

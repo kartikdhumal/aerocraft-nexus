@@ -12,6 +12,7 @@ import TablePagination from '@mui/material/TablePagination';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AdminNavbar from './AdminNavbar';
 import { styled } from '@mui/material/styles';
+import { toast } from 'react-toastify';
 
 function AddUsers() {
   const [name, setName] = useState('');
@@ -43,7 +44,7 @@ function AddUsers() {
   const handleDeleteUser = async (deleteid) => {
     try {
       await axios.delete(`https://aerocraftnexusserver.vercel.app/api/deleteuser/${deleteid}`);
-      alert('User Deleted');
+      toast.success('User Deleted');
       fetchData();
     } catch (error) {
       console.error('Error deleting user:', error);
@@ -88,7 +89,7 @@ function AddUsers() {
         password,
         role
       });
-      alert('User Added');
+      toast.success('User Added');
       setName('');
       setEmail('');
       setPassword('');
@@ -96,9 +97,9 @@ function AddUsers() {
       fetchData();
     } catch (error) {
       if (error.response) {
-        alert(error.response.data.message);
+        toast.error(error.response.data.message);
       } else {
-        alert('Network error occurred. Please try again later.');
+        toast.error('Network error occurred. Please try again later.');
       }
       if (error.message.includes('Name')) {
         setNameError(error.message);

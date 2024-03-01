@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import HomeNavbar from './HomeNavbar';
 import user from '../images/userlogo.png'
 import { useCountContext } from '../context/CartContext';
+import {toast} from 'react-toastify'
 
 function ModelCard() {
     const { id } = useParams();
@@ -114,7 +115,7 @@ function ModelCard() {
     const handleIncrease = () => {
         setQuantity(quantity + 1);
         if (quantity > 9) {
-            alert("You can buy up to a maximum of 10 items");
+            toast.warning("You can buy up to a maximum of 10 items");
             setQuantity(10);
         }
     };
@@ -127,11 +128,11 @@ function ModelCard() {
 
     const handleSubmitFeedback = async () => {
         if (!sessionStorage.userid) {
-            alert('You need to login to give feedback!!');
+            toast.warning('You need to login to give feedback!!');
             return;
         }
         if (!rating || !feedback) {
-            alert('Please provide both rating and feedback.');
+            toast.warning('Please provide both rating and feedback.');
             return;
         }
 
@@ -141,7 +142,7 @@ function ModelCard() {
         });
 
         if (!hasBoughtModel) {
-            alert("You have not bought this product. You can't add a review.");
+            toast.error("You have not bought this product. You can't add a review.");
             setRating(0);
             setFeedback('');
             return;
@@ -154,13 +155,13 @@ function ModelCard() {
                 rate: rating,
                 feedback: feedback
             });
-            alert(response.data.message);
+            toast.success(response.data.message);
             setRating(0);
             setFeedback('');
             fetchReviews();
         } catch (error) {
             console.error('Error adding review:', error);
-            alert('You can give a maximum of one review');
+            toast.error('You can give a maximum of one review');
             setRating(0);
             setFeedback('');
             fetchReviews();
@@ -179,12 +180,12 @@ function ModelCard() {
     const handleDeleteReview = async (id) => {
         try {
             const response = await axios.delete(`https://aerocraftnexusserver.vercel.app/api/deletereviews/${id}`);
-            alert('Review deleted successfully');
+            toast.success('Review deleted successfully');
             fetchReviews();
             setReviews(reviews.filter(review => review._id !== id));
         } catch (error) {
             console.error('Error deleting review:', error);
-            alert('Failed to delete review');
+            toast.error('Failed to delete review');
         }
     };
 
@@ -200,21 +201,21 @@ function ModelCard() {
             let sessionCart = JSON.parse(sessionStorage.getItem('sessionCart')) || [];
             const existingItemIndex = sessionCart.findIndex(item => item.modelId === id);
             if (existingItemIndex !== -1) {
-                alert('Model already exists in the cart');
+                toast.error('Model already exists in the cart');
                 return;
             }
             sessionCart.push(cartItem);
             sessionStorage.setItem('sessionCart', JSON.stringify(sessionCart));
             add()
-            alert('Item added to cart');
+            toast.success('Item added to cart');
         }
 
         else if (modelData.quantity < 1) {
-            alert('Out of stock');
+            toast.warning('Out of stock');
             return;
         }
         else if (quantity > modelData.quantity) {
-            alert(`Insufficient Quantity Available. We only have ${modelData.quantity} products in stock. Please adjust your quantity accordingly`);
+            toast.warning(`Insufficient Quantity Available. We only have ${modelData.quantity} products in stock. Please adjust your quantity accordingly`);
             return;
         }
         else {
@@ -228,15 +229,15 @@ function ModelCard() {
 
                 if (response.status === 201) {
                     add()
-                    alert('Item added to cart successfully');
+                    toast.success('Item added to cart successfully');
                 } else if (response.status === 400 && response.data.message === 'Already Added to cart') {
-                    alert('Model already exists in the cart');
+                    toast.warning('Model already exists in the cart');
                 } else {
-                    alert('Failed to add item to cart');
+                    toast.error('Failed to add item to cart');
                 }
             } catch (error) {
                 console.error('Error adding item to cart:', error);
-                alert('Model already exists in the cart');
+                toast.warning('Model already exists in the cart');
             }
         }
     };

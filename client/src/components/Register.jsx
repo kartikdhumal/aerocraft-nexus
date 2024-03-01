@@ -53,16 +53,16 @@ function Register() {
         password,
         role
       });
-      alert('Registered Successfully');
+      toast.success('Registered Successfully');
       setName('');
       setEmail('');
       setPassword('');
       navigate('/');
     } catch (error) {
       if (error.response) {
-        alert(error.response.data.message);
+        toast.error(error.response.data.message);
       } else {
-        alert('Network error occurred. Please try again later.');
+        toast.error('Network error occurred. Please try again later.');
       }
       if (error.message.includes('Name')) {
         setNameError(error.message);

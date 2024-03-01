@@ -18,6 +18,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
+import { toast } from 'react-toastify';
 
 function AddSubCat() {
   const [name, setName] = useState('');
@@ -66,7 +67,7 @@ function AddSubCat() {
   const handleDeleteSubcategory = async (subcategoryId) => {
     try {
       await axios.delete(`https://aerocraftnexusserver.vercel.app/api/deletesubcategory/${subcategoryId}`);
-      alert('Subcategory Deleted');
+      toast.success('Subcategory Deleted');
       fetchSubcategories();
     } catch (error) {
       console.error('Error deleting subcategory:', error);
@@ -85,12 +86,12 @@ function AddSubCat() {
       }
 
       const response = await axios.post('https://aerocraftnexusserver.vercel.app/api/addsubcategory', { name, categoryId });
-      alert(response.data.message);
+      toast.success(response.data.message);
       setName('');
       setCategoryId('');
       fetchSubcategories();
     } catch (error) {
-      alert(error.message);
+      toast.error(error.message);
       setNameError(error.message);
     } finally {
       setLoading(false);

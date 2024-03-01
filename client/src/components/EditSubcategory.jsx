@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import AdminNavbar from './AdminNavbar';
+import { toast } from 'react-toastify';
 
 function EditSubcategory() {
   const location = useLocation();
@@ -50,15 +51,15 @@ function EditSubcategory() {
       }
   
       const response = await axios.put(`https://aerocraftnexusserver.vercel.app/api/updatesubcategory/${id}`, { name, categoryId });
-      alert(response.data.message);
+      toast.success(response.data.message);
       navigate('/addsubcat');
       setLoading(false);
     } catch (error) {
       if (error.response && error.response.status === 400 && error.response.data.error === 'Subcategory already exists') {
-        alert('Subcategory already exists');
+        toast.error('Subcategory already exists');
         setNameError(error.response.data.error);
       } else {
-        alert(error.message);
+        toast.error(error.message);
         setNameError(error.message);
       }
       setLoading(false);

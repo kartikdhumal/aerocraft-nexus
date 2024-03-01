@@ -3,6 +3,7 @@ import HomeNavbar from './HomeNavbar';
 import axios from 'axios';
 import { NavLink, useNavigate } from 'react-router-dom';
 import AdminNavbar from './AdminNavbar';
+import { toast } from 'react-toastify';
 
 function AdminUserProfile() {
     const [name, setName] = useState('');
@@ -77,7 +78,7 @@ function AdminUserProfile() {
                 role
             });
 
-            alert('Profile updated successfully');
+            toast.success('Profile updated successfully');
             setName('');
             setEmail('');
             setPassword('');
@@ -85,10 +86,10 @@ function AdminUserProfile() {
             navigate('/login');
         } catch (error) {
             if (error.response) {
-                alert(error.response.data.message);
+                toast.error(error.response.data.message);
                 setPassword('');
             } else {
-                alert('Network error occurred. Please try again later.');
+                toast.error('Network error occurred. Please try again later.');
                 setPassword('');
             }
 

@@ -9,6 +9,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import MenuIcon from '@mui/icons-material/Menu';
+import { toast } from 'react-toastify';
 
 function Reports() {
   const { id: companyId } = useParams();
@@ -41,7 +42,7 @@ function Reports() {
 
   const handleGenerateSalesReport = async () => {
     if (!startDate || !endDate) {
-      alert('Please select start and end dates.');
+      toast.warning('Please select start and end dates.');
       return;
     }
     const doc = new jsPDF();
@@ -119,7 +120,7 @@ function Reports() {
 
     } catch (error) {
       console.error('Error generating SalesReport:', error);
-      alert('Error in generating SalesReport.');
+      toast.error('Error in generating SalesReport.');
     }
   };
 
@@ -158,7 +159,7 @@ function Reports() {
       doc.save(`UserReport.pdf`);
     } catch (error) {
       console.error('Error generating UserReport:', error);
-      alert('Error in generating UserReport.');
+      toast.error('Error in generating UserReport.');
     }
   };
 
@@ -221,14 +222,14 @@ function Reports() {
       doc.save(`CancelReport.pdf`);
     } catch (error) {
       console.error('Error generating CancelReport:', error);
-      alert('Error in generating CancelReport.');
+      toast.error('Error in generating CancelReport.');
     }
   };
 
 
   const handleParticularReviewReport = async () => {
     if (selectedStars === 0) {
-      alert('Please select the number of stars.'); 
+      toast.warning('Please select the number of stars.'); 
       return;
     }
   
@@ -283,7 +284,7 @@ function Reports() {
       doc.save(`${selectedStars} stars Reviews .pdf`);
     } catch (error) {
       console.error('Error generating Review Report:', error);
-      alert('Error in generating Review Report.');
+      toast.error('Error in generating Review Report.');
     }
   };
   
@@ -337,7 +338,7 @@ function Reports() {
       doc.save(`ReviewsReport.pdf`);
     } catch (error) {
       console.error('Error generating Review Report:', error);
-      alert('Error in generating Review Report.');
+      toast.error('Error in generating Review Report.');
     }
   };
   
@@ -425,7 +426,7 @@ function Reports() {
       doc.save(`ReturnReport.pdf`);
     } catch (error) {
       console.error('Error generating ReturnReport:', error);
-      alert('Error in generating ReturnReport.');
+      toast.error('Error in generating ReturnReport.');
     }
   };
   

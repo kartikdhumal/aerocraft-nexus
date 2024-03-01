@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import emailjs from 'emailjs-com';
+import { toast } from 'react-toastify';
 
 function SendEmail() {
   const [email, setEmail] = useState('');
@@ -29,13 +30,13 @@ function SendEmail() {
       emailjs.send('service_ekhgoiq', 'template_bei6puv', templateParams,'4bTjCO33g6vqxyOyK')
         .then((response) => {
           console.log('Email sent:', response);
-          alert('An OTP has been sent to your email address ' + email);
+          toast.success('An OTP has been sent to your email address ' + email);
           navigate('/otp', { state: { otp, email } });
           setEmail('');
         })
         .catch((error) => {
           console.error('Email send error:', error);
-          alert('Failed to send OTP. Please try again later.');
+          toast.error('Failed to send OTP. Please try again later.');
           setEmail('');
         })
         .finally(() => {

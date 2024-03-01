@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 
 function CheckOut() {
@@ -80,7 +81,7 @@ function CheckOut() {
       !/^[a-zA-Z]+$/.test(addressForm.state) ||
       !/^[a-zA-Z]+$/.test(addressForm.city)
     ) {
-      alert('Please fill out all fields correctly.');
+      toast.warning('Please fill out all fields correctly.');
       return;
     }
     else {
@@ -163,12 +164,12 @@ function CheckOut() {
               }))
             });
             
-            alert(result.data.message);
+            toast.success(result.data.message);
             console.log(cartItems);
             navigate('/yourorders');
           } catch (error) {
             console.error('Error placing order:', error);
-            alert('Failed to place the order. Please try again later.');
+            toast.error('Failed to place the order. Please try again later.');
           }
         },
         reminder_enable: true,
@@ -201,12 +202,12 @@ function CheckOut() {
           }))
         });
         
-        alert(response.data.message);
+        toast.success(response.data.message);
         console.log(cartItems);
         navigate('/yourorders');
       } catch (error) {
         console.error('Error placing order:', error);
-        alert('Failed to place the order. Please try again later.');
+        toast.error('Failed to place the order. Please try again later.');
       }
     }
   };

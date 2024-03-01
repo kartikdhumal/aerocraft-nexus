@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
   res.send('Hello World');
 });
 
-const uri = 'mongodb+srv://kartikdhumal:guddupandit2023@cluster0.0enebyg.mongodb.net/aircraft?retryWrites=true&w=majority';
+const uri = `mongodb+srv://kartikdhumal:guddupandit2023@cluster0.0enebyg.mongodb.net/aircraft?retryWrites=true&w=majority`;
 
 const client = new MongoClient(uri, {
   useNewUrlParser: true,

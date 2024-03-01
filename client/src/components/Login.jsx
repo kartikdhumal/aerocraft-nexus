@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../input.css';
+import { toast } from 'react-toastify';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -52,17 +53,17 @@ function Login() {
         sessionStorage.setItem('userid', userid);
         sessionStorage.setItem('role', role);        
         if (role=="admin") {
-          alert('Logged in as admin Successfully');
+          toast.success('Logged in as admin Successfully');
           navigate('/admin');
         } else {
-          alert('Logged in Successfully');
+          toast.success('Logged in Successfully');
           navigate('/');
         }
       } else if (data.message) {
-        alert(data.message);
+        toast.error(data.message);
       }
     } catch (error) {
-      alert('User not exists');
+      toast.error('User not exists');
     } finally {
       setLoggingIn(false);
     }

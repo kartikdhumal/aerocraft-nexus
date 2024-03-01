@@ -16,6 +16,7 @@ import { Cloudinary } from "@cloudinary/url-gen";
 import { styled } from '@mui/material/styles';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import { toast } from 'react-toastify';
 
 function AddMod() {
   const [formData, setFormData] = useState({
@@ -103,7 +104,7 @@ function AddMod() {
   const handleDeleteModel = async (modelId) => {
     try {
       await axios.delete(`https://aerocraftnexusserver.vercel.app/api/deletemodel/${modelId}`);
-      alert('Model Deleted');
+      toast.success('Model Deleted');
       setModelData(prevModelData => prevModelData.filter(model => model._id !== modelId));
       fetchData();
     } catch (error) {
@@ -168,22 +169,22 @@ function AddMod() {
     const { name, description, price, quantity, companyId, subcategoryId } = formData;
 
     if (!name || !description || !price || !quantity || !companyId || !subcategoryId) {
-      alert('All fields are required');
+      toast.warning('All fields are required');
       return false;
     }
 
     if (description.length < 1) {
-      alert('Description should have at least 1 letter');
+      toast.warning('Description should have at least 1 letter');
       return false;
     }
 
     if (price < 1) {
-      alert('Price should be greater than or equal to 1');
+      toast.warning('Price should be greater than or equal to 1');
       return false;
     }
 
     if (quantity < 1) {
-      alert('Quantity should be greater than or equal to 1');
+      toast.warning('Quantity should be greater than or equal to 1');
       return false;
     }
 
@@ -211,7 +212,7 @@ function AddMod() {
 
       console.log('Modified FormData:', modifiedFormData);
       const response = await axios.post('https://aerocraftnexusserver.vercel.app/api/addmodel', modifiedFormData);
-      alert('Model Added Successfully');
+      toast.success('Model Added Successfully');
       fetchData();
       setFormData({
         name: '',
@@ -225,7 +226,7 @@ function AddMod() {
       setImages([]);
     } catch (error) {
       console.error('Error adding model:', error);
-      alert('Failed to add model. Please try again later.');
+      toast.error('Failed to add model. Please try again later.');
     } finally {
       setLoading(false);
     }

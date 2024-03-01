@@ -14,6 +14,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AdminNavbar from './AdminNavbar';
 import { styled } from '@mui/material/styles';
 import EditNoteIcon from '@mui/icons-material/EditNote';
+import { toast } from 'react-toastify';
 
 function Orders() {
   const [orderData, setOrders] = useState([]);
@@ -219,11 +220,11 @@ function Orders() {
     const newStatus = event.target.value;
     try {
       const response = await axios.put(`https://aerocraftnexusserver.vercel.app/api/updatestatus/${orderId}`, { status: newStatus });
-      alert('Status updated successfully');
+      toast.success('Status updated successfully');
       fetchOrders();
     } catch (error) {
       console.error('Error updating status:', error);
-      alert('Failed to update status');
+      toast.error('Failed to update status');
     }
   };
 

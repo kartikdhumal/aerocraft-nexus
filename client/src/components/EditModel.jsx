@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import AdminNavbar from './AdminNavbar';
+import { toast } from 'react-toastify';
 
 function EditModel() {
   const [formData, setFormData] = useState({
@@ -186,22 +187,22 @@ function EditModel() {
     const { name, description, price, quantity, companyId, subcategoryId } = formData;
 
     if (!name || !description || !price || !quantity || !companyId || !subcategoryId) {
-      alert('All fields are required');
+      toast.warning('All fields are required');
       return false;
     }
 
     if (description.length < 1) {
-      alert('Description should have at least 1 letter');
+      toast.warning('Description should have at least 1 letter');
       return false;
     }
 
     if (price < 1) {
-      alert('Price should be greater than or equal to 1');
+      toast.warning('Price should be greater than or equal to 1');
       return false;
     }
 
     if (quantity < 1) {
-      alert('Quantity should be greater than or equal to 1');
+      toast.warning('Quantity should be greater than or equal to 1');
       return false;
     }
 
@@ -238,7 +239,7 @@ function EditModel() {
       console.log('Modified FormData:', modifiedFormData);
 
       const response = await axios.put(`https://aerocraftnexusserver.vercel.app/api/updatemodel/${id}`, modifiedFormData);
-      alert('Model Updated');
+      toast.success('Model Updated');
       navigate('/addmod');
       setFormData({
         name: '',
@@ -252,7 +253,7 @@ function EditModel() {
       });
     } catch (error) {
       console.error('Error updating model:', error);
-      alert('Failed to update model. Please try again later.');
+      toast.error('Failed to update model. Please try again later.');
     } finally {
       setLoading(false);
     }

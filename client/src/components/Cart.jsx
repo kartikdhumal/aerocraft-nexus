@@ -6,6 +6,7 @@ import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { NavLink, useNavigate } from 'react-router-dom';
 import fetchCartItemCount from './HomeNavbar'
 import { useCountContext } from '../context/CartContext';
+import { toast } from 'react-toastify';
 
 function Cart() {
   const { remove } = useCountContext();
@@ -51,7 +52,7 @@ function Cart() {
       fetchCartItems();
     } catch (error) {
       console.error('Error updating cart item quantity:', error);
-      alert('Error updating quantity');
+      toast.error('Error updating quantity');
     }
   };
 
@@ -65,7 +66,7 @@ function Cart() {
       }
     } catch (error) {
       console.error('Error decreasing quantity:', error);
-      alert('Something went wrong');
+      toast.error('Something went wrong');
     }
   };
 
@@ -73,11 +74,11 @@ function Cart() {
     try {
       const model = modelDetails[modelId._id];
       if(currentQuantity >= model.quantity){
-        alert(`Insufficient Quantity Available. We only have ${model.quantity} products in stock. Please adjust your quantity accordingly`);
+        toast.warning(`Insufficient Quantity Available. We only have ${model.quantity} products in stock. Please adjust your quantity accordingly`);
         return;
       }
       else if (currentQuantity === 10) {
-        alert('You can buy upto maximum 10 items');
+        toast.warning('You can buy upto maximum 10 items');
         return;
       }
       else {
@@ -86,7 +87,7 @@ function Cart() {
       }
     } catch (error) {
       console.error('Error increasing quantity:', error);
-      alert(`Something went wrong`);
+    toast.error(`Something went wrong`);
     }
   };
 
@@ -97,7 +98,7 @@ function Cart() {
       fetchCartItems();
     } catch (error) {
       console.error('Error deleting cart item:', error);
-      alert('Something went wrong');
+      toast.error('Something went wrong');
     }
   };
 
@@ -149,7 +150,7 @@ function Cart() {
   };
 
   const handleCheckoutSession = () => {
-    alert('You have to login to buy product');
+    toast.warning('You have to login to buy product');
   }
 
   const handleCheckout = () => {

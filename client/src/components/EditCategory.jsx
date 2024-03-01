@@ -45,10 +45,10 @@ function EditCategory() {
         if (response.data.error && response.data.error.includes('already exists')) {
             throw new Error('Category already exists');
         }
-        alert(response.data.message);
+        toast.success(response.data.message);
         navigate('/addcat');
     } catch (error) {
-        alert(error.response.data.error);
+        toast.error(error.response.data.error);
         if (error.message.includes('Category is required')) {
             setNameError(error.message);
         } else {

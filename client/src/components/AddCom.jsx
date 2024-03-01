@@ -14,6 +14,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AdminNavbar from './AdminNavbar';
 import { styled } from '@mui/material/styles';
 import EditNoteIcon from '@mui/icons-material/EditNote';
+import { toast } from 'react-toastify';
 
 function AddCom() {
   const [name, setName] = useState('');
@@ -41,7 +42,7 @@ function AddCom() {
   const handleDeleteCompany = async (companyId) => {
     try {
       await axios.delete(`https://aerocraftnexusserver.vercel.app/api/deletecompany/${companyId}`);
-      alert('Company Deleted');
+      toast.success('Company Deleted');
       fetchData();
     } catch (error) {
       console.error('Error deleting company:', error);
@@ -92,15 +93,15 @@ function AddCom() {
       if (response.data.message === 'Company already exists!') {
         throw new Error('Company already exists');
       }
-      alert(response.data.message);
+      toast.success(response.data.message);
       setName('');
       fetchData();
     } catch (error) {
       if (error.message === 'Company already exists') {
-        alert(error.message);
+        toast.error(error.message);
         setName('');
       } else {
-        alert('An error occurred while adding the company. Please try again later.');
+        toast.error('An error occurred while adding the company. Please try again later.');
       }
       setNameError(error.message);
     } finally {

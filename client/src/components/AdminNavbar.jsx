@@ -4,6 +4,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import logo from '../images/logo3.png';
 import axios from 'axios';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import { toast } from 'react-toastify';
 
 function AdminNavbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -52,7 +53,7 @@ function AdminNavbar() {
 
     const handleLogout = () => {
         sessionStorage.removeItem('name');
-        alert('Logged out');
+        toast.success('Logged out');
         navigate('/login');
     };
 

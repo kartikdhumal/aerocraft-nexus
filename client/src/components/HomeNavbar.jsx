@@ -11,6 +11,7 @@ import DnsIcon from '@mui/icons-material/Dns';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useCountContext } from '../context/CartContext';
+import { toast } from 'react-toastify';
 
 function HomeNavbar() {
   const { count } = useCountContext()
@@ -93,7 +94,7 @@ function HomeNavbar() {
     sessionStorage.removeItem('userid');
     sessionStorage.removeItem('token');
     setUserLoggedIn(false);
-    alert('Logged out');
+    toast.success('Logged out');
     navigate('/login');
   };
 

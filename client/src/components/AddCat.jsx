@@ -14,6 +14,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AdminNavbar from './AdminNavbar';
 import { styled } from '@mui/material/styles';
 import EditNoteIcon from '@mui/icons-material/EditNote';
+import { toast } from 'react-toastify';
 
 function AddCat() {
   const [name, setName] = useState('');
@@ -41,7 +42,7 @@ function AddCat() {
   const handleDeleteCategory = async (categoryId) => {
     try {
       await axios.delete(`https://aerocraftnexusserver.vercel.app/api/deletecategory/${categoryId}`);
-      alert('Category Deleted');
+      toast.success('Category Deleted');
       fetchData();
     } catch (error) {
       console.error('Error deleting category:', error);
@@ -100,15 +101,15 @@ function AddCat() {
       if (response.data.message === 'Category already exists!') {
         throw new Error('Category already exists');
       }
-      alert(response.data.message);
+      toast.success(response.data.message);
       setName('');
       fetchData();
     } catch (error) {
       if (error.message === 'Category already exists') {
-        alert(error.message);
+        toast.error(error.message);
         setName('');
       } else {
-        alert('An error occurred while adding the category. Please try again later.');
+        toast.error('An error occurred while adding the category. Please try again later.');
       }
       setNameError(error.message);
     } finally {
