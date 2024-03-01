@@ -6,7 +6,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useParams } from 'react-router-dom';
 import HomeNavbar from './HomeNavbar';
 import user from '../images/userlogo.png'
-import { toast } from 'react-toastify'
 import { useCountContext } from '../context/CartContext';
 
 function ModelCard() {
