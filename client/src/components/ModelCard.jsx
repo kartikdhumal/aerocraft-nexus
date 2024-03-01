@@ -418,7 +418,7 @@ function ModelCard() {
                         {!loading && reviews.length > 0 && reviews.map(review => (
                             <div className="relative grid grid-cols-1 gap-4 p-4 mb-8 rounded-lg bg-white">
                                 <div className="relative flex">
-                                    <img src={user} className="relative rounded-lg lg:-top-2 sm:-top-2 vsm:-top-2 lg:h-14 lg:w-20 sm:h-14 sm:w-auto vsm:h-10 vsm:w-14 vsm:mt-2" alt="" loading="lazy"></img>
+                                    <img src={user} className="relative rounded-lg lg:-top-2 sm:-top-2 vsm:-top-2 lg:h-16 lg:w-20 sm:h-14 sm:w-auto vsm:h-10 vsm:w-14 vsm:mt-2" alt="" loading="lazy"></img>
                                     <div className="flex flex-col w-full">
                                         <div className="flex flex-row justify-start">
                                             <p className="relative lg:text-xl sm:text-xl vsm:text-sm whitespace-nowrap truncate overflow-hidden">{getUserName(review.userId)}</p>
