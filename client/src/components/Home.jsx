@@ -5,7 +5,7 @@ import axios from 'axios';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import Footer from './Footer'
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import sky2 from '../images/blackplane.jpg'
+import sky2 from '../images/aeroplane.jpg'
 
 function Home() {
   const [categoryData, setCategoryData] = useState([]);
