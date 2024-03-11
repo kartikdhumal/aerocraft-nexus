@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import emailjs from 'emailjs-com';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 function SendEmail() {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false); 
+  const [userdata, setUserData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
@@ -14,34 +16,55 @@ function SendEmail() {
     setError('');
   };
 
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/users');
+      setUserData(response.data.users);
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }
+  };
+
   const handleSendOTP = () => {
     if (!validateEmail(email)) {
       setError('Please enter a valid email address.');
-    } else {
-      const otp = Math.floor(1000 + Math.random() * 9000);
-      setLoading(true); 
-
-      const templateParams = {
-        to_email: email,
-        subject: 'Your OTP for resetting password',
-        message : otp,
-      };
-
-      emailjs.send('service_ekhgoiq', 'template_bei6puv', templateParams,'4bTjCO33g6vqxyOyK')
-        .then((response) => {
-          console.log('Email sent:', response);
-          toast.success('An OTP has been sent to your email address ' + email);
-          navigate('/otp', { state: { otp, email } });
-          setEmail('');
-        })
-        .catch((error) => {
-          console.error('Email send error:', error);
-          toast.error('Failed to send OTP. Please try again later.');
-          setEmail('');
-        })
-        .finally(() => {
-          setLoading(false); 
-        });
+      return;
+    }
+    else {
+      const userExists = userdata.find(user => user.email === email);
+      if (!userExists) {
+        alert('No user found with this email');
+        setEmail('');
+      } else {
+        const otp = Math.floor(1000 + Math.random() * 9000);
+        setLoading(true); 
+  
+        const templateParams = {
+          to_email: email,
+          subject: 'Your OTP for resetting password',
+          message : otp,
+        };
+  
+        emailjs.send('service_ekhgoiq', 'template_bei6puv', templateParams,'4bTjCO33g6vqxyOyK')
+          .then((response) => {
+            console.log('Email sent:', response);
+            toast.success('An OTP has been sent to your email address ' + email);
+            navigate('/otp', { state: { otp, email } });
+            setEmail('');
+          })
+          .catch((error) => {
+            console.error('Email send error:', error);
+            toast.error('Failed to send OTP. Please try again later.');
+            setEmail('');
+          })
+          .finally(() => {
+            setLoading(false); 
+          });
+      }
     }
   };
 
