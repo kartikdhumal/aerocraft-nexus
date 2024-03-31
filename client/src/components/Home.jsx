@@ -6,12 +6,15 @@ import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import Footer from './Footer'
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import sky2 from '../images/blackplane.jpg'
+import whiteplane from '../images/whiteplane.png'
+import './home.css'
 
 function Home() {
   const [categoryData, setCategoryData] = useState([]);
   const [subcategoryData, setSubcategoryData] = useState([]);
   const [modelData, setModelData] = useState([]);
   const [companyData, setCompanyData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchCategory();
@@ -19,6 +22,13 @@ function Home() {
     fetchModels();
     fetchCompanies();
   }, []);
+
+  useEffect(() => {
+    if (categoryData.length > 0 && subcategoryData.length > 0 && modelData.length > 0 && companyData.length > 0) {
+      setLoading(false);
+    }
+  }, [categoryData, subcategoryData, modelData, companyData]);
+
 
   const fetchCategory = async () => {
     try {
@@ -143,89 +153,102 @@ function Home() {
   return (
     <div className='bg-sky-100'>
       <HomeNavbar />
-      <div class="relative bg-sky-300 pt-16">
-        <div class="w-auto">
-          <img src={sky2} className='w-screen bg-sky-200 lg:h-[700px] sm:h-96' />
+      <div class="relative w-full pt-12 ">
+        <div class="planediv w-full my-2 flex justify-center lg:flex-col sm:flex-col items-center text-blue-400  rounded-lg text-md px-4 py-2 font-bold text-center">
+          <img src={whiteplane} className='w-72 h-60 mt-5 lg:rotate-0 planeimg'></img>
+          <h1 className='lg:p-20 lg:text-[66px] sm:text-[40px] vsm:text-[30px] sm:p-8 font-bold'>Welcome to, AeroCraft Nexus </h1>
         </div>
       </div>
+      {loading ? (
+        <div className='h-48 flex justify-center items-center font-bold text-lg'>Loading...</div>
+      ) : (<div>
 
-      <div className='lg:p-5 sm:p-5 vsm:p-0'>
-        <div className='text-2xl p-12 w-full text-center'>Models By Category</div>
-        <div className="flex flex-wrap p-5 justify-center items-center">
-          {filteredCategories
-            .filter(category =>
-              subcategoryData.some(subcategory => subcategory.categoryId === category.id) &&
-              modelData.some(model =>
-                subcategoryData.some(subcategory => subcategory._id.toString() === model.subcategoryId.toString())
-              )
-            )
-            .map((category) => (
-              <div key={category.id} className='w-full sm:w-1/2 lg:w-[18%] px-2 my-2'>
-                <Link to={`/modelbycategory/${category.id}`} className="block">
-                  <div className="w-full bg-gray-100 rounded-xl overflow-hidden shadow-lg">
-                    <img src={fetchRandomImage(category.name)} className='w-full h-40 object-fill' alt="Random Model" />
-                    <div className="p-3">
-                      <p className="text-md font-semibold text-center">{category.name}</p>
-                    </div>
+        <div className='lg:p-5 sm:p-5 vsm:p-0'>
+          <div className='text-2xl p-12 w-full text-center'>Models By Category</div>
+          <div className="flex flex-wrap p-5 justify-center items-center">
+            { 
+              filteredCategories
+                .filter(category =>
+                  subcategoryData.some(subcategory => subcategory.categoryId === category.id) &&
+                  modelData.some(model =>
+                    subcategoryData.some(subcategory => subcategory._id.toString() === model.subcategoryId.toString())
+                  )
+                )
+                .map((category) => (
+                  <div key={category.id} className='w-full sm:w-1/2 lg:w-[18%] px-2 my-2'>
+                    <Link to={`/modelbycategory/${category.id}`} className="block">
+                      <div className="w-full bg-gray-100 rounded-xl overflow-hidden shadow-lg">
+                        <img src={fetchRandomImage(category.name)} className='w-full h-40 object-fill' alt="Random Model" />
+                        <div className="p-3">
+                          <p className="text-md font-semibold text-center">{category.name}</p>
+                        </div>
+                      </div>
+                    </Link>
                   </div>
-                </Link>
-              </div>
-            ))}
+                ))
+            }
+          </div>
+
         </div>
-      </div>
 
 
-      <div className='lg:p-5 sm:p-5 vsm:p-0'>
-        <div className='text-2xl p-12 w-full text-center'>Models By Company</div>
-        <div className="flex flex-wrap p-5 justify-center items-center">
-          {shuffledCompanyData
-            .filter(company => modelData.some(model => model.companyId === company.id))
-            .slice(0, 10)
-            .map(company => (
-              <div key={company.id} className='w-full sm:w-1/2 lg:w-[18%] px-2 my-2'>
-                <Link to={`/modelbycompany/${company.id}`} className="block">
-                  <div className="w-full bg-gray-100 rounded-xl overflow-hidden shadow-lg">
-                    <img src={fetchByCompany(company.name)} className='w-full h-40 object-fill' alt="Random Model" />
-                    <div className="p-3">
-                      <p className="text-md font-semibold text-center">
-                        {company.name}
+        <div className='lg:p-5 sm:p-5 vsm:p-0'>
+          <div className='text-2xl p-12 w-full text-center'>Models By Company</div>
+          <div className="flex flex-wrap p-5 justify-center items-center">
+            { 
+              shuffledCompanyData
+                .filter(company => modelData.some(model => model.companyId === company.id))
+                .slice(0, 10)
+                .map(company => (
+                  <div key={company.id} className='w-full sm:w-1/2 lg:w-[18%] px-2 my-2'>
+                    <Link to={`/modelbycompany/${company.id}`} className="block">
+                      <div className="w-full bg-gray-100 rounded-xl overflow-hidden shadow-lg">
+                        <img src={fetchByCompany(company.name)} className='w-full h-40 object-fill' alt="Random Model" />
+                        <div className="p-3">
+                          <p className="text-md font-semibold text-center">
+                            {company.name}
+                          </p>
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                ))
+            }
+          </div>
+
+          <div className="flex justify-center items-center">
+            <NavLink to="/allmodels" className="text-md font-bold cursor-pointer bg-gray-100 text-black rounded-xl px-4 py-1 mb-5">View All</NavLink>
+          </div>
+        </div>
+
+
+
+        <div className='lg:p-5 sm:p-5 vsm:p-0'>
+          <div className='text-2xl p-12 w-full text-center'> Featured Models </div>
+          <div className="flex flex-wrap p-5 justify-center items-center">
+            {
+              shuffledModelData.slice(0, 10).map((model) => (
+                <div key={model._id} className='w-full sm:w-1/2 lg:w-[18%] px-2 my-2'>
+                  <NavLink to={`/modelcard/${model._id}`} className="block">
+                    <img src={model.images[0]} className='w-full h-40 rounded-t-xl object-fill' alt="Product" />
+                    <div className="p-4 bg-gray-100 rounded-b-xl">
+                      <p className="text-md font-semibold">
+                        {model.name.length > 20 ? `${model.name.substring(0, 20)}...` : model.name}
                       </p>
+                      <p className="text-gray-600 mt-2 text-md flex items-center"><CurrencyRupeeIcon />{model.price}</p>
                     </div>
-                  </div>
-                </Link>
-              </div>
-            ))}
-        </div>
-        <div className="flex justify-center items-center">
-          <NavLink to="/allmodels" className="text-md font-bold cursor-pointer bg-gray-100 text-black rounded-xl px-4 py-1 mb-5">View All</NavLink>
-        </div>
-      </div>
-
-
-
-      <div className='lg:p-5 sm:p-5 vsm:p-0'>
-        <div className='text-2xl p-12 w-full text-center'> Featured Models </div>
-        <div className="flex flex-wrap p-5 justify-center items-center">
-          {shuffledModelData.slice(0, 10).map((model) => (
-            <div key={model._id} className='w-full sm:w-1/2 lg:w-[18%] px-2 my-2'>
-              <NavLink to={`/modelcard/${model._id}`} className="block">
-                <img src={model.images[0]} className='w-full h-40 rounded-t-xl object-fill' alt="Product" />
-                <div className="p-4 bg-gray-100 rounded-b-xl">
-                  <p className="text-md font-semibold">
-                    {model.name.length > 20 ? `${model.name.substring(0, 20)}...` : model.name}
-                  </p>
-                  <p className="text-gray-600 mt-2 text-md flex items-center"><CurrencyRupeeIcon />{model.price}</p>
+                  </NavLink>
                 </div>
-              </NavLink>
-            </div>
-          ))}
-        </div>
-        <div className="flex justify-center items-center">
-          <NavLink to="/allmodels" className="text-md font-bold cursor-pointer bg-gray-100 text-black rounded-xl px-4 py-1 mb-5">View All</NavLink>
-        </div>
-      </div>
+              ))
+            }
+          </div>
 
+          <div className="flex justify-center items-center">
+            <NavLink to="/allmodels" className="text-md font-bold cursor-pointer bg-gray-100 text-black rounded-xl px-4 py-1 mb-5">View All</NavLink>
+          </div>
+        </div>
 
+      </div>)}
       <Footer />
     </div>
   );
