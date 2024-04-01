@@ -1,5 +1,6 @@
   .planediv {
       animation: color 2s linear infinite;
+
   }
 
   .planeimg {
@@ -7,6 +8,10 @@
       left: 0;
       top: 75px;
       animation: fly 2s linear infinite;
+  }
+
+  .planetext {
+      animation: text 2s linear;
   }
 
   @keyframes fly {
@@ -33,14 +38,14 @@
 
   @keyframes color {
       0% {
-          background: linear-gradient(to bottom, rgb(112 189 248), rgb(224 242 254));
+          background: linear-gradient(to bottom, #4bb0f4, rgb(30, 136, 229), #4bb0f4, rgb(224 242 254))
       }
 
       50% {
-          background: linear-gradient(to bottom, rgb(135 175 250), rgb(224 242 254));
+          background: linear-gradient(to bottom, #4bb0f4, rgb(30, 136, 229), #4bb0f4, rgb(224 242 254))
       }
 
       100% {
-          background: linear-gradient(to bottom, rgb(112 189 248), rgb(224 242 254));
+          background: linear-gradient(to bottom, #4bb0f4, rgb(30, 136, 229), #4bb0f4, rgb(224 242 254))
       }
   }

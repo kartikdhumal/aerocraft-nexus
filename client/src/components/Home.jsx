@@ -154,9 +154,9 @@ function Home() {
     <div className='bg-sky-100'>
       <HomeNavbar />
       <div class="relative w-full pt-12 ">
-        <div class="planediv w-full my-2 flex justify-center lg:flex-col sm:flex-col items-center text-blue-400  rounded-lg text-md px-4 py-2 font-bold text-center">
+        <div class="planediv w-full my-2 flex justify-center lg:flex-col sm:flex-col items-center text-[#355a7c]  rounded-lg text-md px-4 py-2 font-bold text-center">
           <img src={whiteplane} className='w-72 h-60 mt-5 lg:rotate-0 planeimg'></img>
-          <h1 className='lg:p-20 lg:text-[66px] sm:text-[40px] vsm:text-[30px] sm:p-8 font-bold'>Welcome to, AeroCraft Nexus </h1>
+          <h1 className='lg:p-2 lg:text-[66px] sm:text-[40px] vsm:text-[30px] sm:p-2 font-bold planetext'>Welcome to, AeroCraft Nexus </h1>
         </div>
       </div>
       {loading ? (
@@ -166,7 +166,7 @@ function Home() {
         <div className='lg:p-5 sm:p-5 vsm:p-0'>
           <div className='text-2xl p-12 w-full text-center'>Models By Category</div>
           <div className="flex flex-wrap p-5 justify-center items-center">
-            { 
+            {
               filteredCategories
                 .filter(category =>
                   subcategoryData.some(subcategory => subcategory.categoryId === category.id) &&
@@ -195,7 +195,7 @@ function Home() {
         <div className='lg:p-5 sm:p-5 vsm:p-0'>
           <div className='text-2xl p-12 w-full text-center'>Models By Company</div>
           <div className="flex flex-wrap p-5 justify-center items-center">
-            { 
+            {
               shuffledCompanyData
                 .filter(company => modelData.some(model => model.companyId === company.id))
                 .slice(0, 10)
@@ -217,7 +217,7 @@ function Home() {
           </div>
 
           <div className="flex justify-center items-center">
-            <NavLink to="/allmodels" className="text-md font-bold cursor-pointer bg-gray-100 text-black rounded-xl px-4 py-1 mb-5">View All</NavLink>
+            <NavLink to="/allmodels" className="text-md font-bold cursor-pointer border border-sky-400 bg-gray-100 text-black rounded-xl px-4 py-1 mb-5">View All</NavLink>
           </div>
         </div>
 
@@ -244,7 +244,7 @@ function Home() {
           </div>
 
           <div className="flex justify-center items-center">
-            <NavLink to="/allmodels" className="text-md font-bold cursor-pointer bg-gray-100 text-black rounded-xl px-4 py-1 mb-5">View All</NavLink>
+            <NavLink to="/allmodels" className="text-md font-bold cursor-pointer border border-sky-400 bg-gray-100 rounded-xl px-4 py-1 mb-5">View All</NavLink>
           </div>
         </div>
 
