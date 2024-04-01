@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 import HomeNavbar from './HomeNavbar';
 import user from '../images/userlogo.png'
 import { useCountContext } from '../context/CartContext';
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
 
 function ModelCard() {
     const { id } = useParams();
@@ -39,6 +39,10 @@ function ModelCard() {
     useEffect(() => {
         fetchReviews();
     }, [id]);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const fetchModelData = async () => {
         try {
@@ -287,7 +291,7 @@ function ModelCard() {
     return (
         <div className='bg-sky-100'>
             <HomeNavbar />
-            <div className="mx-auto px-2 overflow-hidden pt-32">
+            <div className="mx-auto px-2 overflow-hidden pt-32 scroll-m-0 ">
                 {modelData && (
                     <div className=" rounded-lg overflow-hidden lg:flex-row sm:flex-col flex">
                         <div className='lg:w-[50%] sm:w-[100%] px-5 '>
@@ -409,7 +413,8 @@ function ModelCard() {
                                 </button>
                             </div>
                         </div>
-                    </div> </div>
+                    </div>
+                </div>
                 <div className="reviews mt-4 rounded-xl p-6 w-full md:w-11/12 lg:w-9/12 xl:w-10/12 mx-auto">
                     <h3 className="text-xl font-semibold mb-4 text-center">Customer Reviews</h3>
                     <div className="review-list">

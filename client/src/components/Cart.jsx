@@ -70,10 +70,10 @@ function Cart() {
     }
   };
 
-  const handleIncrease = async (itemId, currentQuantity , modelId) => {
+  const handleIncrease = async (itemId, currentQuantity, modelId) => {
     try {
       const model = modelDetails[modelId._id];
-      if(currentQuantity >= model.quantity){
+      if (currentQuantity >= model.quantity) {
         toast.warning(`Insufficient Quantity Available. We only have ${model.quantity} products in stock. Please adjust your quantity accordingly`);
         return;
       }
@@ -87,7 +87,7 @@ function Cart() {
       }
     } catch (error) {
       console.error('Error increasing quantity:', error);
-    toast.error(`Something went wrong`);
+      toast.error(`Something went wrong`);
     }
   };
 
@@ -141,6 +141,7 @@ function Cart() {
     const updatedCart = sessionCart.filter(item => item.modelId !== modelId);
     sessionStorage.setItem('sessionCart', JSON.stringify(updatedCart));
     setCartItems(sessionCart.filter(item => item.modelId != modelId));
+    remove();
   };
 
 
@@ -252,9 +253,9 @@ function Cart() {
                             )}
                           </div>
                           <div className="lg:flex sm:hidden items-center mt-2 lg:w-3/5">
-                            <button onClick={() => handleDecrease(item._id, item.quantity , modelDetails[item.modelId])} className="lg:px-4 lg:py-2 sm:px-1 sm:py-1 bg-blue-600 text-white hover:bg-blue-700 rounded-lg lg:mr-2 sm:mr-0">-</button>
+                            <button onClick={() => handleDecrease(item._id, item.quantity, modelDetails[item.modelId])} className="lg:px-4 lg:py-2 sm:px-1 sm:py-1 bg-blue-600 text-white hover:bg-blue-700 rounded-lg lg:mr-2 sm:mr-0">-</button>
                             <span className="px-4 py-2 font-semibold text-xl text-blue-700">{item.quantity}</span>
-                            <button onClick={() => handleIncrease(item._id, item.quantity , modelDetails[item.modelId])} className="lg:px-4 lg:py-2 sm:px-1 sm:py-1 bg-blue-600 text-white hover:bg-blue-700 rounded-lg lg:ml-2 sm:mr-0">+</button>
+                            <button onClick={() => handleIncrease(item._id, item.quantity, modelDetails[item.modelId])} className="lg:px-4 lg:py-2 sm:px-1 sm:py-1 bg-blue-600 text-white hover:bg-blue-700 rounded-lg lg:ml-2 sm:mr-0">+</button>
                           </div>
                           <div className="flex items-center">
                             <p className="lg:text-lg lg:flex sm:hidden sm:text-sm text-green-700 font-bold"><CurrencyRupeeIcon />{calculateTotalPrice(item)}</p>
