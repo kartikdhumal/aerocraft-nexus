@@ -72,7 +72,7 @@ function OTP() {
         input3Ref.current.value = '';
         input4Ref.current.value = '';
         input1Ref.current.focus();
-        
+
       }
     } catch (error) {
       console.error('Error verifying OTP:', error);
@@ -87,46 +87,46 @@ function OTP() {
       <div className='p-8 rounded-lg shadow-lg w-96'>
         <h2 className='text-2xl  font-bold mb-4 text-center'>Enter OTP</h2>
         <div className='flex flex-row justify-between items-center'>
-        <div className='flex  justify-between mb-4'>
-          <input
-            ref={input1Ref}
-            type='text'
-            maxLength='1'
-            onKeyDown={(e) => handleKeyDown(e, input1Ref)}
-            onChange={(e) => handleChange(e, input1Ref)}
-            className='w-16 px-3 py-2 border border-gray-300 rounded-md text-center focus:outline-none focus:border-blue-500'
-          />
-        </div>
-        <div className='flex justify-between mb-4'>
-          <input
-            ref={input2Ref}
-            type='text'
-            maxLength='1'
-            onKeyDown={(e) => handleKeyDown(e, input2Ref)}
-            onChange={(e) => handleChange(e, input2Ref)}
-            className='w-16 px-3 py-2 border border-gray-300 rounded-md text-center focus:outline-none focus:border-blue-500'
-          />
-        </div>
-        <div className='flex justify-between mb-4'>
-          <input
-            ref={input3Ref}
-            type='text'
-            maxLength='1'
-            onKeyDown={(e) => handleKeyDown(e, input3Ref)}
-            onChange={(e) => handleChange(e, input3Ref)}
-            className='w-16 px-3 py-2 border border-gray-300 rounded-md text-center focus:outline-none focus:border-blue-500'
-          />
-        </div>
-        <div className='flex justify-between mb-4'>
-          <input
-            ref={input4Ref}
-            type='text'
-            maxLength='1'
-            onKeyDown={(e) => handleKeyDown(e, input4Ref)}
-            onChange={(e) => handleChange(e, input4Ref)}
-            className='w-16 px-3 py-2 border border-gray-300 rounded-md text-center focus:outline-none focus:border-blue-500'
-          />
-        </div>
+          <div className='flex  justify-between mb-4'>
+            <input
+              ref={input1Ref}
+              type='text'
+              maxLength='1'
+              onKeyDown={(e) => handleKeyDown(e, input1Ref)}
+              onChange={(e) => handleChange(e, input1Ref)}
+              className='w-16 px-3 py-2 border border-gray-300 rounded-md text-center focus:outline-none focus:border-blue-500'
+            />
+          </div>
+          <div className='flex justify-between mb-4'>
+            <input
+              ref={input2Ref}
+              type='text'
+              maxLength='1'
+              onKeyDown={(e) => handleKeyDown(e, input2Ref)}
+              onChange={(e) => handleChange(e, input2Ref)}
+              className='w-16 px-3 py-2 border border-gray-300 rounded-md text-center focus:outline-none focus:border-blue-500'
+            />
+          </div>
+          <div className='flex justify-between mb-4'>
+            <input
+              ref={input3Ref}
+              type='text'
+              maxLength='1'
+              onKeyDown={(e) => handleKeyDown(e, input3Ref)}
+              onChange={(e) => handleChange(e, input3Ref)}
+              className='w-16 px-3 py-2 border border-gray-300 rounded-md text-center focus:outline-none focus:border-blue-500'
+            />
+          </div>
+          <div className='flex justify-between mb-4'>
+            <input
+              ref={input4Ref}
+              type='text'
+              maxLength='1'
+              onKeyDown={(e) => handleKeyDown(e, input4Ref)}
+              onChange={(e) => handleChange(e, input4Ref)}
+              className='w-16 px-3 py-2 border border-gray-300 rounded-md text-center focus:outline-none focus:border-blue-500'
+            />
+          </div>
         </div>
         <button onClick={handleOTPSubmit} className='w-full mt-5 cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 rounded-lg text-md px-4 py-2 font-bold text-center'>
           {loading ? 'Verifying OTP...' : 'Submit OTP'}

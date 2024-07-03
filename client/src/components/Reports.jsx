@@ -229,16 +229,16 @@ function Reports() {
 
   const handleParticularReviewReport = async () => {
     if (selectedStars === 0) {
-      toast.warning('Please select the number of stars.'); 
+      toast.warning('Please select the number of stars.');
       return;
     }
-  
+
     const doc = new jsPDF();
     doc.addImage(nologo, 'PNG', 15, 10, 20, 20);
     doc.text('Review Report', 90, 20);
     doc.setFontSize(12);
     let yPos = 70;
-  
+
     try {
       const [userResponse, modelsResponse, reviewsResponse] = await Promise.all([
         axios.get(`https://aerocraftnexusserver.vercel.app/api/users`),
@@ -249,7 +249,7 @@ function Reports() {
       const models = modelsResponse.data.models;
       const reviews = reviewsResponse.data.reviews;
       const filteredReviews = reviews.filter(review => review.rate === selectedStars);
-  
+
       const tableData = filteredReviews.map((review, index) => {
         const user = users.find(user => user.id === review.userId);
         const model = models.find(model => model._id === review.modelId);
@@ -261,7 +261,7 @@ function Reports() {
           review.feedback
         ];
       });
-  
+
       const tableHeaders = ['No.', 'Name', 'Model', 'Rate', 'Feedback'];
       doc.autoTable({
         startY: yPos,
@@ -277,7 +277,7 @@ function Reports() {
           }
         }
       });
-      const percentage = (filteredReviews.length/ reviews.length) * 100;
+      const percentage = (filteredReviews.length / reviews.length) * 100;
       yPos = doc.autoTable.previous.finalY + 10;
       doc.text(`Total Reviews: ${filteredReviews.length}`, 140, yPos + 10);
       doc.text(`Percentage of ${selectedStars} Star Reviews: ${percentage.toFixed(2)}%`, 110, yPos + 15);
@@ -287,7 +287,7 @@ function Reports() {
       toast.error('Error in generating Review Report.');
     }
   };
-  
+
 
   const handleReviewReport = async () => {
     const doc = new jsPDF();
@@ -295,7 +295,7 @@ function Reports() {
     doc.text('Review Report', 90, 20);
     doc.setFontSize(12);
     let yPos = 70;
-  
+
     try {
       const [userResponse, modelsResponse, reviewsResponse] = await Promise.all([
         axios.get(`https://aerocraftnexusserver.vercel.app/api/users`),
@@ -316,7 +316,7 @@ function Reports() {
           review.feedback
         ];
       });
-  
+
       const tableHeaders = ['No.', 'Name', 'Model', 'Rate', 'Feedback'];
       doc.autoTable({
         startY: yPos,
@@ -332,7 +332,7 @@ function Reports() {
           }
         }
       });
-  
+
       yPos = doc.autoTable.previous.finalY + 10;
       doc.text(`Total Reviews: ${reviews.length}`, 140, yPos + 10);
       doc.save(`ReviewsReport.pdf`);
@@ -341,7 +341,7 @@ function Reports() {
       toast.error('Error in generating Review Report.');
     }
   };
-  
+
 
   const handleReturnReport = async () => {
     const doc = new jsPDF();
@@ -349,7 +349,7 @@ function Reports() {
     doc.text('Return Order Report', 90, 20);
     doc.setFontSize(12);
     let yPos = 70;
-  
+
     try {
       const [userResponse, orderReturnResponse, ordersResponse, modelsResponse] = await Promise.all([
         axios.get(`https://aerocraftnexusserver.vercel.app/api/users`),
@@ -357,20 +357,20 @@ function Reports() {
         axios.get(`https://aerocraftnexusserver.vercel.app/api/orders`),
         axios.get(`https://aerocraftnexusserver.vercel.app/api/models`)
       ]);
-  
+
       const users = userResponse.data.users;
       const orders = ordersResponse.data.orders;
       const orderReturns = orderReturnResponse.data.orderReturn;
       const orderReturnDetails = orderReturnResponse.data.orderReturnDetails;
       const returnOrderMap = new Map();
-  
+
       orderReturnDetails.forEach(orderReturnDetail => {
         const orderReturn = orderReturns.find(order => order._id === orderReturnDetail.orderReturnId);
         const order = orders.find(order => order._id === orderReturn.orderId);
         const user = users.find(user => user.id === order.userId);
         const model = modelsResponse.data.models.find(model => model._id === orderReturnDetail.modelId);
         const returnOrderKey = orderReturn._id.toString();
-  
+
         if (returnOrderMap.has(returnOrderKey)) {
           returnOrderMap.get(returnOrderKey).products.push({
             name: model ? model.name : 'N/A',
@@ -390,7 +390,7 @@ function Reports() {
           });
         }
       });
-  
+
       const tableData = [];
       returnOrderMap.forEach((value, key) => {
         const products = value.products.map(product => `${product.name} - Qty: ${product.quantity}`).join('\n');
@@ -400,11 +400,11 @@ function Reports() {
           value.date,
           value.user,
           products,
-          reasons, 
+          reasons,
           value.total
         ]);
       });
-  
+
       const tableHeaders = ['No.', 'Date', 'Name', 'Model Details', 'Reasons', 'Total'];
       doc.autoTable({
         startY: yPos,
@@ -420,7 +420,7 @@ function Reports() {
           }
         }
       });
-  
+
       yPos = doc.autoTable.previous.finalY + 10;
       doc.text(`Total Orders: ${returnOrderMap.size}`, 140, yPos + 10);
       doc.save(`ReturnReport.pdf`);
@@ -429,18 +429,18 @@ function Reports() {
       toast.error('Error in generating ReturnReport.');
     }
   };
-  
+
   return (
     <div >
       <AdminNavbar />
       <div className="relative p-5 bg-sky-100 h-screen">
         <div className="flex lg:flex-row sm:flex-col gap-5 ">
-        <div className="lg:hidden">
-                    <MenuIcon
-                        className="h-6 w-6 fill-current text-black cursor-pointer font-bold mx-2  z-50"
-                        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                    />
-                </div>
+          <div className="lg:hidden">
+            <MenuIcon
+              className="h-6 w-6 fill-current text-black cursor-pointer font-bold mx-2  z-50"
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            />
+          </div>
           <div className={`lg:flex lg:flex-col mt-5 sidebar absolute lg:relative ${isSidebarOpen ? 'sm:block' : 'sm:hidden'} rounded-xl py-5 px-5 sm:px-5 sm:py-2 w-full lg:w-[20%] sm:w-auto z-10`}>
             <div className='p-5 bg-sky-100 border-2 border-black rounded-xl space-y-5'>
               <div>
@@ -496,89 +496,89 @@ function Reports() {
             </div>
           </div>
           <div className='table mx-6 lg:w-[80%] sm:w-[90%]'>
-          {reportSelected ? (
-            <> {reportType === 'user' && (
-              <div >
-                <div className='flex justify-center items-center px-5 py-10'>
-                  <button className="w-full mt-5 cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 rounded-lg text-md px-4 py-2 font-bold text-center" onClick={handleGenerateUserReport}>Generate Report</button>
+            {reportSelected ? (
+              <> {reportType === 'user' && (
+                <div >
+                  <div className='flex justify-center items-center px-5 py-10'>
+                    <button className="w-full mt-5 cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 rounded-lg text-md px-4 py-2 font-bold text-center" onClick={handleGenerateUserReport}>Generate Report</button>
+                  </div>
                 </div>
+              )}
+                {reportType === 'cancelOrder' && (
+                  <div>
+                    <div className='flex justify-center py-10 items-center px-5 '>
+                      <button className="w-full mt-5 cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 rounded-lg text-md px-4 py-2 font-bold text-center" onClick={handleCancelReport}>Generate Report</button>
+                    </div>
+                  </div>
+                )}
+                {reportType === 'returnOrder' && (
+                  <div>
+                    <div className='flex justify-center py-10 items-center px-5 '>
+                      <button className="w-full mt-5 cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 rounded-lg text-md px-4 py-2 font-bold text-center" onClick={handleReturnReport}>Generate Report</button>
+                    </div>
+                  </div>
+                )}
+                {reportType === 'sales' && (
+                  <div className='flex flex-col py-10 space-y-8 justify-start'>
+                    <DatePicker
+                      selected={startDate}
+                      onChange={date => setStartDate(date)}
+                      selectsStart
+                      startDate={startDate}
+                      endDate={endDate}
+                      minDate={new Date('01/01/2020')}
+                      maxDate={endDate ? endDate : new Date()}
+                      placeholderText="Select start date"
+                      className="p-2 w-full border border-gray-300 rounded"
+                    />
+                    <DatePicker
+                      selected={endDate}
+                      onChange={date => setEndDate(date)}
+                      selectsEnd
+                      startDate={startDate}
+                      endDate={endDate}
+                      minDate={startDate}
+                      maxDate={new Date()}
+                      placeholderText="Select end date"
+                      className="p-2 w-full border border-gray-300 rounded"
+                      disabled={!startDate}
+                    />
+                    <button className="w-full mt-5 cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 rounded-lg text-md px-4 py-2 font-bold text-center" onClick={handleGenerateSalesReport}>Generate Report</button>
+                  </div>
+                )}
+                {reportType === 'reviewOrder' && (
+                  <div className='flex flex-col py-10 justify-center p-7'>
+                    <div className="flex items-center">
+                      <input type="radio" id="oneStar" name="rating" className="w-4 h-4 mx-1" onClick={() => setSelectedStars(1)} />
+                      <label htmlFor="oneStar"><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /></label>
+                    </div>
+                    <div className="flex items-center">
+                      <input type="radio" id="twoStar" name="rating" className="w-4 h-4 mx-1" onClick={() => setSelectedStars(2)} />
+                      <label htmlFor="twoStar"><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /></label>
+                    </div>
+                    <div className="flex items-center">
+                      <input type="radio" id="threeStar" name="rating" className="w-4 h-4 mx-1" onClick={() => setSelectedStars(3)} />
+                      <label htmlFor="threeStar"><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /></label>
+                    </div>
+                    <div className="flex items-center">
+                      <input type="radio" id="fourStar" name="rating" className="w-4 h-4 mx-1" onClick={() => setSelectedStars(4)} />
+                      <label htmlFor="fourStar"><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /></label>
+                    </div>
+                    <div className="flex items-center">
+                      <input type="radio" id="fiveStar" name="rating" className="w-4 h-4 mx-1" onClick={() => setSelectedStars(5)} />
+                      <label htmlFor="fiveStar"><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /></label>
+                    </div>
+                    <button className="w-full mt-5 cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 rounded-lg text-md px-4 py-2 font-bold text-center" onClick={handleParticularReviewReport}>Generate Report</button>
+                    <button className="w-full mt-5 cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 rounded-lg text-md px-4 py-2 font-bold text-center" onClick={handleReviewReport}>Generate All Reviews report</button>
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="flex justify-center flex-col items-center h-auto py-28">
+                <p className="lg:text-xl sm:text-lg font-semibold text-gray-600">Select report type from dropdown.</p>
+                <p className="lg:text-xl sm:text-lg font-semibold text-gray-600">Reports will be shown here.</p>
               </div>
             )}
-            {reportType === 'cancelOrder' && (
-              <div>
-                <div className='flex justify-center py-10 items-center px-5 '>
-                  <button className="w-full mt-5 cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 rounded-lg text-md px-4 py-2 font-bold text-center" onClick={handleCancelReport}>Generate Report</button>
-                </div>
-              </div>
-            )}
-            {reportType === 'returnOrder' && (
-              <div>
-                <div className='flex justify-center py-10 items-center px-5 '>
-                  <button className="w-full mt-5 cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 rounded-lg text-md px-4 py-2 font-bold text-center" onClick={handleReturnReport}>Generate Report</button>
-                </div>
-              </div>
-            )}
-            {reportType === 'sales' && (
-              <div className='flex flex-col py-10 space-y-8 justify-start'>
-                <DatePicker
-                  selected={startDate}
-                  onChange={date => setStartDate(date)}
-                  selectsStart
-                  startDate={startDate}
-                  endDate={endDate}
-                  minDate={new Date('01/01/2020')}
-                  maxDate={endDate ? endDate : new Date()}
-                  placeholderText="Select start date"
-                  className="p-2 w-full border border-gray-300 rounded"
-                />
-                <DatePicker
-                  selected={endDate}
-                  onChange={date => setEndDate(date)}
-                  selectsEnd
-                  startDate={startDate}
-                  endDate={endDate}
-                  minDate={startDate}
-                  maxDate={new Date()}
-                  placeholderText="Select end date"
-                  className="p-2 w-full border border-gray-300 rounded"
-                  disabled={!startDate}
-                />
-                <button className="w-full mt-5 cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 rounded-lg text-md px-4 py-2 font-bold text-center" onClick={handleGenerateSalesReport}>Generate Report</button>
-              </div>
-            )}
-            {reportType === 'reviewOrder' && (
-              <div className='flex flex-col py-10 justify-center p-7'>
-                <div className="flex items-center">
-                  <input type="radio" id="oneStar" name="rating" className="w-4 h-4 mx-1" onClick={() => setSelectedStars(1)} />
-                  <label htmlFor="oneStar"><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /></label>
-                </div>
-                <div className="flex items-center">
-                  <input type="radio" id="twoStar" name="rating" className="w-4 h-4 mx-1" onClick={() => setSelectedStars(2)} />
-                  <label htmlFor="twoStar"><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /></label>
-                </div>
-                <div className="flex items-center">
-                  <input type="radio" id="threeStar" name="rating" className="w-4 h-4 mx-1" onClick={() => setSelectedStars(3)} />
-                  <label htmlFor="threeStar"><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /></label>
-                </div>
-                <div className="flex items-center">
-                  <input type="radio" id="fourStar" name="rating" className="w-4 h-4 mx-1" onClick={() => setSelectedStars(4)} />
-                  <label htmlFor="fourStar"><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /></label>
-                </div>
-                <div className="flex items-center">
-                  <input type="radio" id="fiveStar" name="rating" className="w-4 h-4 mx-1" onClick={() => setSelectedStars(5)} />
-                  <label htmlFor="fiveStar"><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /><StarIcon className='text-yellow-400' style={{ fontSize: '30px' }} /></label>
-                </div>
-                <button className="w-full mt-5 cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 rounded-lg text-md px-4 py-2 font-bold text-center" onClick={handleParticularReviewReport}>Generate Report</button>
-                <button className="w-full mt-5 cursor-pointer flex justify-center items-center text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 rounded-lg text-md px-4 py-2 font-bold text-center" onClick={handleReviewReport}>Generate All Reviews report</button>
-              </div>
-            )}
-           </>
-           ) : (
-            <div className="flex justify-center flex-col items-center h-auto py-28">
-              <p className="lg:text-xl sm:text-lg font-semibold text-gray-600">Select report type from dropdown.</p>
-              <p className="lg:text-xl sm:text-lg font-semibold text-gray-600">Reports will be shown here.</p>
-            </div>
-          )}
           </div>
         </div>
       </div>

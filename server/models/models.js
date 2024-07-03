@@ -264,4 +264,4 @@ const Cart = mongoose.model('Cart', cartSchema);
 const Review = mongoose.model('Review', reviewSchema);
 const OrderReturn = mongoose.model('OrderReturn', orderReturnSchema);
 const OrderReturnDetails = mongoose.model('OrderReturnDetails', orderReturnDetailSchema);
-module.exports = { User, Category, Subcategory, Company, Model, Orders, OrdersDetails, Cart, Review , OrderReturn , OrderReturnDetails };
+module.exports = { User, Category, Subcategory, Company, Model, Orders, OrdersDetails, Cart, Review, OrderReturn, OrderReturnDetails };
