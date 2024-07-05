@@ -96,7 +96,7 @@ function Home() {
       if (randomModel.images.length > 0) {
         return randomModel.images[0];
       } else {
-        console.log('No images found for the random model');
+        console.log('No images found for the model');
         return '';
       }
     } catch (error) {
@@ -178,7 +178,7 @@ function Home() {
                   <div key={category.id} className='w-full sm:w-1/2 lg:w-[18%] px-2 my-2'>
                     <Link to={`/modelbycategory/${category.id}`} className="block">
                       <div className="w-full bg-gray-100 rounded-xl overflow-hidden shadow-lg">
-                        <img src={fetchRandomImage(category.name)} className='w-full h-40 object-fill' alt="Random Model" />
+                        <img src={fetchRandomImage(category.name)} className='w-full h-40 object-fill'  />
                         <div className="p-3">
                           <p className="text-md font-semibold text-center">{category.name}</p>
                         </div>
@@ -203,7 +203,7 @@ function Home() {
                   <div key={company.id} className='w-full sm:w-1/2 lg:w-[18%] px-2 my-2'>
                     <Link to={`/modelbycompany/${company.id}`} className="block">
                       <div className="w-full bg-gray-100 rounded-xl overflow-hidden shadow-lg">
-                        <img src={fetchByCompany(company.name)} className='w-full h-40 object-fill' alt="Random Model" />
+                        <img src={fetchByCompany(company.name)} className='w-full h-40 object-fill'  />
                         <div className="p-3">
                           <p className="text-md font-semibold text-center">
                             {company.name}
