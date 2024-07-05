@@ -7,6 +7,7 @@ const User = require('./models/models');
 const app = express();
 const PORT = 2000;
 const { ObjectId } = require('mongodb');
+require('dotenv').config();
 const Razorpay = require('razorpay')
 
 app.use(cors());
@@ -16,9 +17,7 @@ app.get('/', (req, res) => {
   res.send('Hello World');
 });
 
-const uri = `mongodb+srv://kartikdhumal:guddupandit2023@cluster0.0enebyg.mongodb.net/aircraft?retryWrites=true&w=majority`;
-
-const client = new MongoClient(uri, {
+const client = new MongoClient(process.env.MONGODB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -56,8 +55,7 @@ app.post('/api/register', async (req, res) => {
     };
     const db = client.db();
     const result = await db.collection('user').insertOne(newUser);
-
-    const token = jwt.sign({ userId: newUser._id }, 'aircraftmodel', { expiresIn: '1h' });
+    const token = jwt.sign({ userId: newUser._id }, process.env.SECRET_KEY, { expiresIn: '1h' });
     res.status(201).json({ message: 'User registered successfully', token });
   } catch (error) {
     console.error("Registration error:", error);
@@ -939,24 +937,24 @@ app.put('/api/updateprofile/:id', async (req, res) => {
 
 const instance = new Razorpay({
   key_id: 'rzp_test_pVipjgKFxJV8AT',
-  key_secret:'nXKM2bsWDqkz2DcC48PaCcFc'
+  key_secret: 'nXKM2bsWDqkz2DcC48PaCcFc'
 });
 
 app.post('/api/addorder', async (req, res) => {
   try {
-    const { userId, totalAmount, delAddress, paymentType, status, items , response } = req.body;
-    const db = client.db(); 
+    const { userId, totalAmount, delAddress, paymentType, status, items, response } = req.body;
+    const db = client.db();
 
     if (!userId || !totalAmount || !delAddress || !paymentType || !status || !items || !Array.isArray(items)) {
       return res.status(400).json({ message: 'Invalid request data' });
     }
-    if(paymentType == 'online'){
+    if (paymentType == 'online') {
       const options = {
         amount: Number(totalAmount * 100),
         currency: "INR",
-        receipt:userId
+        receipt: userId
       };
-  
+
       const razorpayOrder = await new Promise((resolve, reject) => {
         instance.orders.create(options, (error, order) => {
           if (error) {
@@ -1162,7 +1160,7 @@ app.delete('/api/deleteorder/:id', async (req, res) => {
   try {
     const db = client.db();
     const id = req.params.id;
-    const orderDetails = await db.collection('orderDetails').find({ orderId:new ObjectId(id) }).toArray();
+    const orderDetails = await db.collection('orderDetails').find({ orderId: new ObjectId(id) }).toArray();
     if (orderDetails.length == 0) {
       return res.status(404).json({ message: `Order details not found for the given ID ${orderDetails}` });
     }
@@ -1170,13 +1168,13 @@ app.delete('/api/deleteorder/:id', async (req, res) => {
     for (const orderDetail of orderDetails) {
       const { modelId, quantity } = orderDetail;
       await db.collection('model').updateMany(
-          { _id: new ObjectId(modelId) },
-          { $inc: { quantity: quantity } },
-          {new  : true }
-        );
-        totalQuantity += quantity;
+        { _id: new ObjectId(modelId) },
+        { $inc: { quantity: quantity } },
+        { new: true }
+      );
+      totalQuantity += quantity;
     }
-    
+
     await db.collection('orders').findOneAndUpdate(
       { _id: new ObjectId(id) },
       { $set: { status: 'cancelled' } }
