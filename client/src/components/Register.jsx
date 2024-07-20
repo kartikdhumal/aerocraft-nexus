@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios'
-import { toast } from 'react-hot-toast';
+import { toast } from 'react-toastify';
 import '../input.css'
 
 function Register() {
@@ -32,38 +32,54 @@ function Register() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setNameError('');
+    setEmailError('');
+    setPasswordError('');
+
     try {
       if (!name || !email || !password) {
         throw new Error('Name, email, and password are required');
       }
-  
+
       if (/^\d+$/.test(name)) {
         throw new Error('Name cannot contain only digits');
       }
-  
+
       if (password.length < 6) {
         throw new Error('Password must be at least 6 characters long');
       }
 
-      setLoading(true);
-
-      await axios.post('https://aerocraftnexusserver.vercel.app/api/register', {
+      const response = await axios.post('https://aerocraftnexusserver.vercel.app/api/register', {
         name,
         email,
         password,
         role
       });
+
+      const { token, email: respEmail, name: respName, role: respRole, userid } = response.data;
+      console.log(response);
+      console.log(response.data);
       toast.success('Registered Successfully');
+      sessionStorage.setItem('token', token);
+      sessionStorage.setItem('email', respEmail);
+      sessionStorage.setItem('name', respName);
+      sessionStorage.setItem('userid', userid);
+      sessionStorage.setItem('role', respRole);
+
       setName('');
       setEmail('');
       setPassword('');
       navigate('/');
     } catch (error) {
-      if (error.response) {
+      console.log(error.response);
+      console.log(error.response.data);
+      if (error.response && error.response.data && error.response.data.message) {
         toast.error(error.response.data.message);
       } else {
         toast.error('Network error occurred. Please try again later.');
       }
+
       if (error.message.includes('Name')) {
         setNameError(error.message);
       } else if (error.message.includes('Email')) {
@@ -72,10 +88,10 @@ function Register() {
         setPasswordError(error.message);
       }
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
-  
+
   return (
     <div className='w-full h-screen bg-sky-100 flex justify-center items-center'>
       <form className='p-8 rounded-lg shadow-2xl lg:w-96 sm:w-96 vsm:w-[90%]' onSubmit={handleRegister}>

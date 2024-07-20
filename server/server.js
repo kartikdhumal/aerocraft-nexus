@@ -36,14 +36,24 @@ client.connect()
 app.post('/api/register', async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
+
     if (!name || !email || !password) {
       return res.status(400).json({ message: 'Name, email, and password are required' });
     }
+
     if (/^\d+$/.test(name)) {
       return res.status(400).json({ message: 'Name cannot contain only digits' });
     }
+
     if (password.length < 6) {
       return res.status(400).json({ message: 'Password must be at least 6 characters long' });
+    }
+
+    const db = client.db();
+    const existingUser = await db.collection('user').findOne({ email });
+
+    if (existingUser) {
+      return res.status(400).json({ message: 'User Already Exists' });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -53,15 +63,30 @@ app.post('/api/register', async (req, res) => {
       password: hashedPassword,
       role
     };
-    const db = client.db();
+
     const result = await db.collection('user').insertOne(newUser);
-    const token = jwt.sign({ userId: newUser._id }, process.env.SECRET_KEY, { expiresIn: '1h' });
-    res.status(201).json({ message: 'User registered successfully', token });
+
+    const token = jwt.sign({
+      userId: result.insertedId.toString(),
+      email: newUser.email,
+      name: newUser.name,
+      role: newUser.role,
+    }, process.env.SECRET_KEY, { expiresIn: '1h' });
+
+    res.status(201).json({
+      message: 'User registration successful',
+      token,
+      email: newUser.email,
+      name: newUser.name,
+      role: newUser.role,
+      userid: result.insertedId.toString()
+    });
   } catch (error) {
     console.error("Registration error:", error);
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
 
 app.post('/api/login', async (req, res) => {
   try {

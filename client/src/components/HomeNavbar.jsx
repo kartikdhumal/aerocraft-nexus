@@ -33,9 +33,9 @@ function HomeNavbar() {
     fetchModels();
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchCartItemCount();
-  },[])
+  }, [])
   const fetchModels = async () => {
     try {
       const response = await axios.get('https://aerocraftnexusserver.vercel.app/api/models');
@@ -101,7 +101,7 @@ function HomeNavbar() {
   useEffect(() => {
     const token = sessionStorage.getItem('token');
     const role = sessionStorage.getItem('role');
-
+    console.log(token + " " + role);
     if (token && role !== 'admin') {
       setUserLoggedIn(true);
     }
@@ -158,13 +158,13 @@ function HomeNavbar() {
           <NavLink to="/addtocart" className='flex flex-col'>
             {
               count > 0 && (
-            <span className='rounded-lg flex justify-center items-center text-sm bg-red-600 px-[5px] font-bold text-white'>
-              {count}
-            </span>
-           )}
+                <span className='rounded-lg flex justify-center items-center text-sm bg-red-600 px-[5px] font-bold text-white'>
+                  {count}
+                </span>
+              )}
             <ShoppingCartIcon className="h-8 w-8 cursor-pointer text-black" />
           </NavLink>
-          
+
           {userLoggedIn ? (
             <div
               className="relative lg:block sm:hidden cursor-pointer"
