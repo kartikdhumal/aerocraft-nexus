@@ -83,7 +83,7 @@ function AddUsers() {
     e.preventDefault();
     try {
       setLoading(true);
-      await axios.post('https://aerocraftnexusserver.vercel.app/api/AddUsers', {
+      await axios.post('https://aerocraftnexusserver.vercel.app/api/adduser', {
         name,
         email,
         password,
