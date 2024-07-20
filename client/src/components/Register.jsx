@@ -73,6 +73,8 @@ function Register() {
       if (error.response && error.response.data && error.response.data.message) {
         toast.error(error.response.data.message);
         setName('');
+        setEmail('');
+        setPassword('');
       } else {
         toast.error('Network error occurred. Please try again later.');
       }
