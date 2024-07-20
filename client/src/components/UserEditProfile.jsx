@@ -15,12 +15,12 @@ function UserEditProfile() {
   const navigate = useNavigate();
   let emailofuser = '';
 
-    const token = sessionStorage.getItem('token');
-    const myrole = sessionStorage.getItem('role');
+  const token = sessionStorage.getItem('token');
+  const myrole = sessionStorage.getItem('role');
 
-    if (token && myrole !== 'admin') {
-      emailofuser = sessionStorage.getItem('email');
-    }
+  if (token && myrole !== 'admin') {
+    emailofuser = sessionStorage.getItem('email');
+  }
 
   const [role, setRole] = useState('user');
 
@@ -61,11 +61,11 @@ function UserEditProfile() {
       if (!name || !email || !password) {
         throw new Error('Name, email, and password are required');
       }
-  
+
       if (/^\d+$/.test(name)) {
         throw new Error('Name cannot contain only digits');
       }
-  
+
       if (password.length < 6) {
         throw new Error('Password must be at least 6 characters long');
       }
@@ -102,7 +102,7 @@ function UserEditProfile() {
         setPasswordError(error.message);
       }
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
@@ -110,7 +110,7 @@ function UserEditProfile() {
     <div>
       <HomeNavbar />
       <div className='w-full h-screen flex justify-center items-start p-10 pt-20 bg-sky-100'>
-        <form className='rounded-lg w-96' onSubmit={handleUpdateProfile}>
+        <form className='rounded-lg w-96 mt-28' onSubmit={handleUpdateProfile}>
           <div className='mb-4'>
             <label htmlFor='name' className='block text-gray-700 font-semibold mb-2'>Name</label>
             <input type='text' id='name' value={name} required onChange={handleNameChange} className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none ${nameError ? 'border-red-500' : 'focus:border-blue-500'}`} />

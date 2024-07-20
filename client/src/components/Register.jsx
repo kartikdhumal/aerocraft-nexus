@@ -58,8 +58,6 @@ function Register() {
       });
 
       const { token, email: respEmail, name: respName, role: respRole, userid } = response.data;
-      console.log(response);
-      console.log(response.data);
       toast.success('Registered Successfully');
       sessionStorage.setItem('token', token);
       sessionStorage.setItem('email', respEmail);
@@ -72,10 +70,9 @@ function Register() {
       setPassword('');
       navigate('/');
     } catch (error) {
-      console.log(error.response);
-      console.log(error.response.data);
       if (error.response && error.response.data && error.response.data.message) {
         toast.error(error.response.data.message);
+        setName('');
       } else {
         toast.error('Network error occurred. Please try again later.');
       }

@@ -1,4 +1,4 @@
-import { useReducer, createContext, useContext } from 'react';	
+import { useReducer, createContext, useContext } from 'react';
 const initialState = {
 	count: 0,
 };
@@ -29,7 +29,7 @@ const CartContextProvider = ({ children }) => {
 	};
 
 	const setCount = (count) => {
-		console.log(count)
+		// console.log(count)
 		dispatch({ type: "SET_COUNT", count: count })
 	}
 

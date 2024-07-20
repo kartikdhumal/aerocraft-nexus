@@ -101,7 +101,6 @@ function HomeNavbar() {
   useEffect(() => {
     const token = sessionStorage.getItem('token');
     const role = sessionStorage.getItem('role');
-    console.log(token + " " + role);
     if (token && role !== 'admin') {
       setUserLoggedIn(true);
     }
