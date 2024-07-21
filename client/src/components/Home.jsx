@@ -6,7 +6,7 @@ import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import Footer from './Footer'
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import sky2 from '../images/blackplane.jpg'
-import whiteplane from '../images/whiteplane.png'
+import whiteplane from '../images/ai.png'
 import { Skeleton } from '@mui/material';
 import './home.css'
 
@@ -156,8 +156,8 @@ function Home() {
       <HomeNavbar />
       <div className="relative w-full pt-12">
         <div className="planediv w-full my-2 flex justify-center lg:flex-col sm:flex-col items-center text-[#355a7c] rounded-lg text-md px-4 py-2 font-bold text-center">
-          <img src={whiteplane} className='w-72 h-60 mt-5 lg:rotate-0 planeimg' alt="White Plane" />
-          <h1 className='lg:p-2 lg:text-[66px] sm:text-[40px] vsm:text-[30px] sm:p-2 font-bold planetext'>Welcome to, AeroCraft Nexus</h1>
+          <img src={whiteplane} className='w-96 h-60 mt-5 lg:rotate-0 planeimg' alt="White Plane" />
+          <h1 className='lg:p-2 lg:text-[66px] sm:text-[40px] vsm:text-[30px] sm:p-2 text-sky-700 font-bold planetext'>Welcome to, AeroCraft Nexus</h1>
         </div>
       </div>
 

@@ -12,6 +12,7 @@
 
   .planetext {
       animation: text 2s linear;
+      
   }
 
   @keyframes fly {
