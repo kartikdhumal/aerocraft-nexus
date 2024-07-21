@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import HomeNavbar from './HomeNavbar';
 import user from '../images/userlogo.png'
 import { useCountContext } from '../context/CartContext';
+import { Skeleton, Stack } from '@mui/material';
 import { toast } from 'react-toastify'
 
 function ModelCard() {
@@ -21,6 +22,7 @@ function ModelCard() {
     const [rating, setRating] = useState(0);
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [isLoaded, setisLoaded] = useState(true);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [userData, setUserData] = useState([]);
     const [orders, setOrders] = useState([]);
@@ -48,8 +50,10 @@ function ModelCard() {
         try {
             const response = await axios.get(`https://aerocraftnexusserver.vercel.app/api/getmodel/${id}`);
             setModelData(response.data.model);
+            setisLoaded(false);
         } catch (error) {
             console.error('Error fetching model data:', error);
+            setLoading(false)
         }
     };
 
@@ -291,14 +295,45 @@ function ModelCard() {
     return (
         <div className='bg-sky-100'>
             <HomeNavbar />
-            <div className="mx-auto px-2 overflow-hidden pt-32 scroll-m-0 ">
-                {modelData && (
-                    <div className=" rounded-lg overflow-hidden lg:flex-row sm:flex-col flex">
-                        <div className='lg:w-[50%] sm:w-[100%] px-5 '>
-                            <div className="image-slider flex justify-center items-center">
-                                <img src={modelData.images[currentImageIndex]} alt="Product" className="w-full h-96  " />
+            <div className="mx-auto px-2 overflow-hidden pt-32 scroll-m-0">
+                {!modelData ? (
+                    <div className="rounded-lg overflow-hidden lg:flex-row sm:flex-col flex">
+                        <div className='lg:w-[50%] sm:w-[100%] px-5'>
+                            <Skeleton variant="rectangular" height={384} width={'100%'} />
+                            <div className="thumbnail-slider flex flex-row items-center justify-center mt-4">
+                                {[...Array(2)].map((_, index) => (
+                                    <Skeleton key={index} variant="rectangular" height={48} width={48} className="m-2" />
+                                ))}
                             </div>
-                            <div className="thumbnail-slider flex flex-row items-center justify-center">
+                        </div>
+                        <div className="details lg:w-[60%] sm:w-[100%] px-10">
+                            <Skeleton height={40} width={'80%'} className="mb-4" />
+                            <Skeleton height={30} width={'40%'} className="mb-4" />
+                            <Skeleton height={20} width={'60%'} className="mb-4" />
+                            <Skeleton height={60} width={'90%'} className="mb-4" />
+                            <Skeleton height={40} width={'60%'} className="mt-4" />
+                            <Skeleton height={140} width={500} />
+                            <Skeleton height={75} width={100} />
+                        </div>
+                        <div className='shadow-lg lg:w-[60%] sm:w-[100%] p-12'>
+                            <div className='flex justify-center items-center flex-col'>
+                            <Skeleton height={40} width={'30%'} className="mb-4" />
+                                <div className='flex justify-around items-center'>
+                                    <Skeleton height={70} width={50} className='mr-3'/>
+                                    <Skeleton height={50} width={30} className='mr-3'/>
+                                    <Skeleton height={70} width={50} className='mr-3'/>
+                                </div>
+                                <Skeleton height={75} width={200} />
+                            </div>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="rounded-lg overflow-hidden lg:flex-row sm:flex-col flex">
+                        <div className='lg:w-[50%] sm:w-[100%] px-5'>
+                            <div className="image-slider flex justify-center items-center">
+                                <img src={modelData.images[currentImageIndex]} alt="Product" className="w-full h-96" />
+                            </div>
+                            <div className="thumbnail-slider flex flex-row items-center justify-center mt-4">
                                 {modelData.images.map((image, index) => (
                                     <img
                                         key={index}
@@ -319,28 +354,26 @@ function ModelCard() {
                                 {companies.find(company => company.id === modelData.companyId)?.name || '-'}{' '}
                                 {subcategoryToCategoryMap[modelData.subcategoryId] || '-'}{' '}
                                 {subcategoryData.find(subcategory => subcategory._id === modelData.subcategoryId)?.name || '-'}
-
                             </p>
                             <p className="text-gray-600 mb-2 pb-5">{modelData.description}</p>
                             <p>
-                                {modelData.quantity > 0 ? <>
-                                    <button className='bg-green-700 text-white px-4 py-2 font-bold rounded-lg'> In stock </button>
-                                </> : <>
-                                    <button className='bg-red-700 text-white px-4 py-2 font-bold rounded-lg'> Out of stock </button>
-                                </>}
+                                {modelData.quantity > 0 ? (
+                                    <button className='bg-green-700 text-white px-4 py-2 font-bold rounded-lg'>In stock</button>
+                                ) : (
+                                    <button className='bg-red-700 text-white px-4 py-2 font-bold rounded-lg'>Out of stock</button>
+                                )}
                             </p>
                         </div>
-                        {/* Third div  */}
-                        <div className='shadow:2xl lg:w-[40%] sm:w-[100%'>
-                            <div className="mt-4   sm:justify-center h-60 sm:items-center sm:flex sm:flex-col">
+                        <div className='shadow-lg lg:w-[40%] sm:w-[100%] p-4'>
+                            <div className="mt-4 sm:justify-center h-60 sm:items-center sm:flex sm:flex-col">
                                 <div className='flex justify-center items-center flex-col'>
-                                    <p className='text-xl font-bold text-blue-700'>Price : <CurrencyRupeeIcon fontSize="50px" /> {quantity * modelData.price} </p>
-                                    <p>(Inclusive of all taxes) </p>
+                                    <p className='text-xl font-bold text-blue-700'>Price: <CurrencyRupeeIcon fontSize="50px" /> {quantity * modelData.price}</p>
+                                    <p>(Inclusive of all taxes)</p>
                                 </div>
                                 {modelData && modelData.quantity > 0 ? (
                                     <>
                                         <div className='pt-5'>
-                                            <button onClick={handleDecrease} className="px-4 py-2 bg-blue-600 text-white hover:bg-blue-700  rounded-lg mr-2">-</button>
+                                            <button onClick={handleDecrease} className="px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 rounded-lg mr-2">-</button>
                                             <span className="px-4 py-2 font-semibold text-xl text-blue-700">{quantity}</span>
                                             <button onClick={handleIncrease} className="px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 rounded-lg ml-2">+</button>
                                         </div>
@@ -351,17 +384,17 @@ function ModelCard() {
                                 )}
                             </div>
                         </div>
-                        {/* end of third div  */}
                     </div>
                 )}
 
                 <div className='mt-14'>
-                    <div className='w-full className lg:justify-evenly p-5 border-green-600 flex lg:flex-row sm:flex-col'>
-                        <div className="lg:w-[35%] sm:w-full flex bg-gray shadow-md rounded-lg my-3 px-4 py-4 justify-center">
-                            <div className="tracking-wide px-4  py-4">
+                    <div className='w-full lg:justify-evenly p-5 border-green-600 flex lg:flex-row sm:flex-col'>
+                        <div className="lg:w-[35%] sm:w-full flex bg-gray-100 shadow-md rounded-lg my-3 px-4 py-4 justify-center">
+                            <div className="tracking-wide px-4 py-4">
                                 <h2 className="text-gray-800 text-lg text-center py-3 font-bold mt-1">
-                                    {reviews ? <>
-                                        {reviews.length == 1 ? `${reviews.length} Review` : 'Reviews'}</> : <></>}
+                                    {reviews ? (
+                                        reviews.length === 1 ? `${reviews.length} Review` : 'Reviews'
+                                    ) : null}
                                 </h2>
                                 <div className="mx-8 px-8 pb-3">
                                     {[...Array(5)].map((_, index) => {
@@ -380,14 +413,12 @@ function ModelCard() {
                                                 ))}
                                             </div>
                                         );
-
                                     })}
-
                                 </div>
                             </div>
                         </div>
-                        <div className="lg:w-[35%] sm:w-full" >
-                            <div className="review mt-4 rounded-xl bg-gray shadow-md max-w-md mx-auto">
+                        <div className="lg:w-[35%] sm:w-full">
+                            <div className="review mt-4 rounded-xl bg-gray-100 shadow-md max-w-md mx-auto">
                                 <h3 className="text-xl font-semibold mb-4 text-center">Customer Reviews</h3>
                                 <div className="rating mb-4 text-center">
                                     {[...Array(5)].map((_, index) => (
@@ -413,44 +444,6 @@ function ModelCard() {
                                 </button>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div className="reviews mt-4 rounded-xl p-6 w-full md:w-11/12 lg:w-9/12 xl:w-10/12 mx-auto">
-                    <h3 className="text-xl font-semibold mb-4 text-center">Customer Reviews</h3>
-                    <div className="review-list">
-                        {loading && <p>Loading...</p>}
-                        {!loading && reviews.length === 0 && <p className="text-center">No reviews</p>}
-                        {!loading && reviews.length > 0 && reviews.map(review => (
-                            <div className="relative grid grid-cols-1 gap-4 p-4 mb-8 rounded-lg bg-white">
-                                <div className="relative flex">
-                                    <img src={user} className="relative rounded-lg lg:-top-2 sm:-top-2 vsm:-top-2 lg:h-16 lg:w-20 sm:h-14 sm:w-auto vsm:h-10 vsm:w-14 vsm:mt-2" alt="" loading="lazy"></img>
-                                    <div className="flex flex-col w-full">
-                                        <div className="flex flex-row justify-start">
-                                            <p className="relative lg:text-xl sm:text-xl vsm:text-sm whitespace-nowrap truncate overflow-hidden">{getUserName(review.userId)}</p>
-                                            <a className="text-gray-500 text-xl" href="#"><i className="fa-solid fa-trash"></i></a>
-                                        </div>
-                                        <p className="text-gray-400 text-sm">{getTimeAgo(review.date)}</p>
-                                        {
-                                            review.userId === sessionStorage.userid ? <>
-                                                <div className="flex justify-end">
-                                                    <DeleteIcon className="cursor-pointer text-red-500" onClick={() => handleDeleteReview(review._id)} />
-                                                </div>
-                                            </> : <></>
-                                        }
-                                    </div>
-                                </div>
-                                <div className="flex items-center">
-                                    {[...Array(5)].map((_, index) => (
-                                        <StarIcon
-                                            key={index}
-                                            className={`text-yellow-400 ${index < review.rate ? 'text-yellow-400' : 'text-gray-300'}`}
-                                            style={{ fontSize: '20px' }}
-                                        />
-                                    ))}
-                                </div>
-                                <p className="-mt-4 text-gray-500">{review.feedback}</p>
-                            </div>
-                        ))}
                     </div>
                 </div>
             </div>

@@ -7,6 +7,7 @@ import Footer from './Footer'
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import sky2 from '../images/blackplane.jpg'
 import whiteplane from '../images/whiteplane.png'
+import { Skeleton } from '@mui/material';
 import './home.css'
 
 function Home() {
@@ -153,102 +154,107 @@ function Home() {
   return (
     <div className='bg-sky-100'>
       <HomeNavbar />
-      <div class="relative w-full pt-12 ">
-        <div class="planediv w-full my-2 flex justify-center lg:flex-col sm:flex-col items-center text-[#355a7c]  rounded-lg text-md px-4 py-2 font-bold text-center">
-          <img src={whiteplane} className='w-72 h-60 mt-5 lg:rotate-0 planeimg'></img>
-          <h1 className='lg:p-2 lg:text-[66px] sm:text-[40px] vsm:text-[30px] sm:p-2 font-bold planetext'>Welcome to, AeroCraft Nexus </h1>
+      <div className="relative w-full pt-12">
+        <div className="planediv w-full my-2 flex justify-center lg:flex-col sm:flex-col items-center text-[#355a7c] rounded-lg text-md px-4 py-2 font-bold text-center">
+          <img src={whiteplane} className='w-72 h-60 mt-5 lg:rotate-0 planeimg' alt="White Plane" />
+          <h1 className='lg:p-2 lg:text-[66px] sm:text-[40px] vsm:text-[30px] sm:p-2 font-bold planetext'>Welcome to, AeroCraft Nexus</h1>
         </div>
       </div>
-      {loading ? (
-        <div className='h-48 flex justify-center items-center font-bold text-lg'>Loading...</div>
-      ) : (<div>
 
-        <div className='lg:p-5 sm:p-5 vsm:p-0'>
-          <div className='text-2xl p-12 w-full text-center'>Models By Category</div>
-          <div className="flex flex-wrap p-5 justify-center items-center">
-            {
-              filteredCategories
-                .filter(category =>
-                  subcategoryData.some(subcategory => subcategory.categoryId === category.id) &&
-                  modelData.some(model =>
-                    subcategoryData.some(subcategory => subcategory._id.toString() === model.subcategoryId.toString())
-                  )
-                )
-                .map((category) => (
-                  <div key={category.id} className='w-full sm:w-1/2 lg:w-[18%] px-2 my-2'>
-                    <Link to={`/modelbycategory/${category.id}`} className="block">
-                      <div className="w-full bg-gray-100 rounded-xl overflow-hidden shadow-lg">
-                        <img src={fetchRandomImage(category.name)} className='w-full h-40 object-fill' />
-                        <div className="p-3">
-                          <p className="text-md font-semibold text-center">{category.name}</p>
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                ))
-            }
-          </div>
-
-        </div>
-
-
-        <div className='lg:p-5 sm:p-5 vsm:p-0'>
-          <div className='text-2xl p-12 w-full text-center'>Models By Company</div>
-          <div className="flex flex-wrap p-5 justify-center items-center">
-            {
-              shuffledCompanyData
-                .filter(company => modelData.some(model => model.companyId === company.id))
-                .slice(0, 10)
-                .map(company => (
-                  <div key={company.id} className='w-full sm:w-1/2 lg:w-[18%] px-2 my-2'>
-                    <Link to={`/modelbycompany/${company.id}`} className="block">
-                      <div className="w-full bg-gray-100 rounded-xl overflow-hidden shadow-lg">
-                        <img src={fetchByCompany(company.name)} className='w-full h-40 object-fill' />
-                        <div className="p-3">
-                          <p className="text-md font-semibold text-center">
-                            {company.name}
-                          </p>
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                ))
-            }
-          </div>
-
-          <div className="flex justify-center items-center">
-            <NavLink to="/allmodels" className="text-md font-bold cursor-pointer border border-sky-400 bg-gray-100 text-black rounded-xl px-4 py-1 mb-5">View All</NavLink>
-          </div>
-        </div>
-
-
-
-        <div className='lg:p-5 sm:p-5 vsm:p-0'>
-          <div className='text-2xl p-12 w-full text-center'> Featured Models </div>
-          <div className="flex flex-wrap p-5 justify-center items-center">
-            {
-              shuffledModelData.slice(0, 10).map((model) => (
-                <div key={model._id} className='w-full sm:w-1/2 lg:w-[18%] px-2 my-2'>
-                  <NavLink to={`/modelcard/${model._id}`} className="block">
-                    <img src={model.images[0]} className='w-full h-40 rounded-t-xl object-fill' alt="Product" />
-                    <div className="p-4 bg-gray-100 rounded-b-xl">
-                      <p className="text-md font-semibold">
-                        {model.name.length > 20 ? `${model.name.substring(0, 20)}...` : model.name}
-                      </p>
-                      <p className="text-gray-600 mt-2 text-md flex items-center"><CurrencyRupeeIcon />{model.price}</p>
+      {/* Models By Category */}
+      <div className='lg:p-5 sm:p-5 vsm:p-0'>
+        <div className='text-2xl p-12 w-full text-center'>Models By Category</div>
+        <div className="flex flex-wrap p-5 justify-center items-center">
+          {loading ? (
+            [...Array(5)].map((_, index) => (
+              <div key={index} className='w-full sm:w-1/2 lg:w-[18%] px-2 my-2'>
+                <Skeleton variant="rectangular" width="100%" height={160} sx={{ borderRadius: "10px 10px 0 0" }} />
+                <Skeleton variant="text" width="100%" height={50} sx={{ borderRadius: "0 0 10px 10px" }} />
+              </div>
+            ))
+          ) : (
+            filteredCategories.map((category) => (
+              <div key={category.id} className='w-full sm:w-1/2 lg:w-[18%] px-2 my-2'>
+                <Link to={`/modelbycategory/${category.id}`} className="block">
+                  <div className="w-full bg-gray-100 rounded-xl overflow-hidden shadow-lg">
+                    <img src={fetchRandomImage(category.name)} className='w-full h-40 object-fill' alt={category.name} />
+                    <div className="p-3">
+                      <p className="text-md font-semibold text-center">{category.name}</p>
                     </div>
-                  </NavLink>
+                  </div>
+                </Link>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+
+      {/* Models By Company */}
+      <div className='lg:p-5 sm:p-5 vsm:p-0'>
+        <div className='text-2xl p-12 w-full text-center'>Models By Company</div>
+        <div className="flex flex-wrap p-5 justify-center items-center">
+          {loading ? (
+            [...Array(5)].map((_, index) => (
+              <div key={index} className='w-full sm:w-1/2 lg:w-[18%] px-2 my-2'>
+                <Skeleton variant="rectangular" width="100%" height={160} sx={{ borderRadius: "10px 10px 0 0" }} />
+                <Skeleton variant="text" width="100%" height={50} sx={{ borderRadius: "0 0 10px 10px" }} />
+              </div>
+            ))
+          ) : (
+            shuffledCompanyData
+              .filter(company => modelData.some(model => model.companyId === company.id))
+              .slice(0, 10)
+              .map(company => (
+                <div key={company.id} className='w-full sm:w-1/2 lg:w-[18%] px-2 my-2'>
+                  <Link to={`/modelbycompany/${company.id}`} className="block">
+                    <div className="w-full bg-gray-100 rounded-xl overflow-hidden shadow-lg">
+                      <img src={fetchByCompany(company.name)} className='w-full h-40 object-fill' alt={company.name} />
+                      <div className="p-3">
+                        <p className="text-md font-semibold text-center">{company.name}</p>
+                      </div>
+                    </div>
+                  </Link>
                 </div>
               ))
-            }
-          </div>
-
-          <div className="flex justify-center items-center">
-            <NavLink to="/allmodels" className="text-md font-bold cursor-pointer border border-sky-400 bg-gray-100 rounded-xl px-4 py-1 mb-5">View All</NavLink>
-          </div>
+          )}
         </div>
+        <div className="flex justify-center items-center">
+          <NavLink to="/allmodels" className="text-md font-bold cursor-pointer border underline text-black rounded-xl px-4 py-1 mb-5">View All</NavLink>
+        </div>
+      </div>
 
-      </div>)}
+      {/* Featured Models */}
+      <div className='lg:p-5 sm:p-5 vsm:p-0'>
+        <div className='text-2xl p-12 w-full text-center'>Featured Models</div>
+        <div className="flex flex-wrap p-5 justify-center items-center">
+          {loading ? (
+            [...Array(5)].map((_, index) => (
+              <div key={index} className='w-full sm:w-1/2 lg:w-[18%] px-2 my-2'>
+                <Skeleton variant="rectangular" width="100%" height={160} sx={{ borderRadius: "10px 10px 0 0" }} />
+                <Skeleton variant="text" width="100%" height={50} sx={{ borderRadius: "0 0 10px 10px" }} />
+              </div>
+            ))
+          ) : (
+            shuffledModelData.slice(0, 10).map((model) => (
+              <div key={model._id} className='w-full sm:w-1/2 lg:w-[18%] px-2 my-2'>
+                <NavLink to={`/modelcard/${model._id}`} className="block">
+                  <img src={model.images[0]} className='w-full h-40 rounded-t-xl object-fill' alt={model.name} />
+                  <div className="p-4 bg-gray-100 rounded-b-xl">
+                    <p className="text-md font-semibold">
+                      {model.name.length > 20 ? `${model.name.substring(0, 20)}...` : model.name}
+                    </p>
+                    <p className="text-gray-600 mt-2 text-md flex items-center"><CurrencyRupeeIcon />{model.price}</p>
+                  </div>
+                </NavLink>
+              </div>
+            ))
+          )}
+        </div>
+        <div className="flex justify-center items-center">
+          <NavLink to="/allmodels" className="text-md font-bold cursor-pointer border underline text-black rounded-xl px-4 py-1 mb-5">View All</NavLink>
+        </div>
+      </div>
+
       <Footer />
     </div>
   );
