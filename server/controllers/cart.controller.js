@@ -1,4 +1,5 @@
 import { ObjectId } from 'mongodb';
+import client from '../db/connect.js';
 
 export const addtoCart = async (req, res) => {
     try {
