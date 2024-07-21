@@ -113,18 +113,18 @@ function ModelCard() {
         }
     };
 
-    const handleDecrease = () => {
-        setQuantity(quantity - 1);
-        if (quantity < 2) {
-            setQuantity(1);
-        }
-    };
-
     const handleIncrease = () => {
         setQuantity(quantity + 1);
         if (quantity > 9) {
             toast.warning("You can buy up to a maximum of 10 items");
             setQuantity(10);
+        }
+    };
+
+    const handleDecrease = () => {
+        setQuantity(quantity - 1);
+        if (quantity < 2) {
+            setQuantity(1);
         }
     };
 
@@ -317,11 +317,11 @@ function ModelCard() {
                         </div>
                         <div className='shadow-lg lg:w-[60%] sm:w-[100%] p-12'>
                             <div className='flex justify-center items-center flex-col'>
-                            <Skeleton height={40} width={'30%'} className="mb-4" />
+                                <Skeleton height={40} width={'30%'} className="mb-4" />
                                 <div className='flex justify-around items-center'>
-                                    <Skeleton height={70} width={50} className='mr-3'/>
-                                    <Skeleton height={50} width={30} className='mr-3'/>
-                                    <Skeleton height={70} width={50} className='mr-3'/>
+                                    <Skeleton height={70} width={50} className='mr-3' />
+                                    <Skeleton height={50} width={30} className='mr-3' />
+                                    <Skeleton height={70} width={50} className='mr-3' />
                                 </div>
                                 <Skeleton height={75} width={200} />
                             </div>

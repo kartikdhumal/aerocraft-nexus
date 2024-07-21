@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken'
-import client from '../db/connect.js';
+import client from '../db/connect.js'
 
 export const RegisterUser = async (req, res) => {
     try {
